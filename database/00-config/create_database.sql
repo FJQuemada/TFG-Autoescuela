@@ -1,4 +1,4 @@
-CREATE DATABASE drive_hub;
+CREATE DATABASE drive_hub_db;
 
 CREATE USER root WITH superuser
 PASSWORD 'root';
@@ -7,7 +7,7 @@ CREATE USER db_user
 PASSWORD 'db_user';
 
 --permisos a db_user para conectarse a la db
-GRANT CONNECT ON DATABASE drive_hub TO db_user;
+GRANT CONNECT ON DATABASE drive_hub_db TO db_user;
 --permisos en todas las tablas
 
 -- ** PERMISOS PARA DB_USER CADA VEZ QUE HAGAMOS UNA TABLA NUEVA: MODIFICAR NOMBRE TALA **
