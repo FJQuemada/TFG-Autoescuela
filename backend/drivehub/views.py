@@ -1,9 +1,8 @@
+from django.shortcuts import render
 from django.http import JsonResponse
-from drivehub.models import DrhtDificultadDiff
+from .models import DrhtDificultadDiff
+# Create your views here.
 
-def lista_dificultades(request):
-    dificultades = DrhtDificultadDiff.objects.all().values("pk_diff_id", "diff_nombre")  # Convertir a diccionario
-    return JsonResponse(list(dificultades), safe=False)  # Devolver JSON
-
-def sumar_dificultad(request):
-    DrhtDificultadDiff
+def get_dificultades(request):
+    dificultades = DrhtDificultadDiff.objects.all().values('pk_diff_id', 'diff_nombre')
+    return JsonResponse(list(dificultades), safe=False)

@@ -42,13 +42,6 @@ tsts_fecha_creacion TIMESTAMP,
 tsts_activo BOOLEAN
 );
 
-CREATE TABLE IF NOT EXISTS drht_respuestas_resp(
-pk_resp_id serial primary key,
-fk_preg_resp_pregunta_id INTEGER references drht_preguntas_preg(pk_preg_id),
-resp_contenido TEXT,
-resp_correcta BOOLEAN
-);
-
 CREATE TABLE IF NOT EXISTS drht_tests_usuario_teus(
 pk_teus_id serial primary key,
 fk_tsts_teus_test_id INTEGER references drht_tests_tsts(pk_tsts_id),
@@ -74,6 +67,13 @@ fk_tsts_pgte_test_id INTEGER references drht_tests_tsts(pk_tsts_id),
 fk_preg_pgte_pregunta_id INTEGER references drht_preguntas_preg(pk_preg_id)
 );
 
+CREATE TABLE IF NOT EXISTS drht_respuestas_resp(
+pk_resp_id serial primary key,
+fk_preg_resp_pregunta_id INTEGER references drht_preguntas_preg(pk_preg_id),
+resp_contenido TEXT,
+resp_correcta BOOLEAN
+);
+
 --FORO
 
 CREATE TABLE IF NOT EXISTS drht_post_foro_pofr(
@@ -96,3 +96,10 @@ refe_dislikes INTEGER
 );
 
 CREATE ROLE root WITH SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';
+
+
+INSERT INTO drht_dificultad_diff (diff_nombre) VALUES
+('Fácil'),
+('Intermedio'),
+('Difícil'),
+('Experto');

@@ -1,5 +1,5 @@
 """
-WSGI config for drivehub project.
+WSGI config for TFGAutoescuela project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'drivehub.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'TFGAutoescuela.settings')
 
 application = get_wsgi_application()

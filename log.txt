@@ -1,5 +1,9 @@
-log 04/03/2025
+log 04/03/25
 -empiezo con el proyecto del backend con django
 -creo el proyecto con su comando
--cambio el archivo settings.py en la parte de databases para que se conecte a la base de datos
--uso el comando python manage.py inspectdb > tu_app/models.py para hacer el modelo de las tablas
+-creo la app drivehub
+-cambio el archivo settings.py del proyecto en la parte de databases para que se conecte a la base de datos
+-uso el comando python manage.py inspectdb > drivehub/models.py para hacer el modelo de las tablas
+
+log 06/03/25
+-si quiero que al hacer el migrate se creen las tablas tengo que cambiar el valor de managed = False a TRue

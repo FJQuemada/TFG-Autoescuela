@@ -1,5 +1,5 @@
 """
-URL configuration for drivehub project.
+URL configuration for TFGAutoescuela project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import lista_dificultades
-
+from drivehub.views import get_dificultades
 
 urlpatterns = [
-    path('/', admin.site.urls),
-        path('dificultades/', lista_dificultades, name='dificultades'),
+    path('admin/', admin.site.urls),
+    path('dificultades/', get_dificultades),
 ]
