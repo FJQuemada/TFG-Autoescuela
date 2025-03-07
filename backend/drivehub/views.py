@@ -1,19 +1,69 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import DrhtDificultadDiff
+from .models import DrhtDificultadDiff, DrhtUsuariosUsus, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, DrhtTestsTsts, DrhtTestsUsuarioTeus, DrhtPreguntasPreg, DrhtPreguntasTestPgte, DrhtRespuestasResp, DrhtPostForoPofr, DrhtRespuestasForoRefe
 
 from rest_framework import permissions, viewsets,generics
-from .serializers import DificultadSerializer
+from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
 # Create your views here.
 
+# este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
 def get_dificultades(request):
     dificultades = DrhtDificultadDiff.objects.all().values('pk_diff_id', 'diff_nombre')
     return JsonResponse(list(dificultades), safe=False)
 
+#Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):
     queryset = DrhtDificultadDiff.objects.all()
     serializer_class = DificultadSerializer
 
+#Usuarios
+class UsuariosViewSet(viewsets.ModelViewSet):
+    queryset = DrhtUsuariosUsus.objects.all()
+    serializer_class = UsuariosSerializer
+
+#Logros
+class LogrosViewSet(viewsets.ModelViewSet):
+    queryset = DrhtLogrosLogr.objects.all()
+    serializer_class = LogrosSerializer
+
+class LogrosUsuarioViewSet(viewsets.ModelViewSet):
+    queryset = DrhtLogrosUsuarioLgus.objects.all()
+    serializer_class = LogrosUsuarioSerializer
+
+#Tests
+class TestViewSet(viewsets.ModelViewSet):
+    queryset = DrhtTestsTsts.objects.all()
+    serializer_class = TestSerializer
+
+class TestUsuarioViewSet(viewsets.ModelViewSet):
+    queryset = DrhtTestsUsuarioTeus.objects.all()
+    serializer_class = TestUsuarioSerializer
+
+#Preguntas
+class PreguntasViewSet(viewsets.ModelViewSet):
+    queryset = DrhtPreguntasPreg.objects.all()
+    serializer_class = PreguntasSerializer
+
+class PreguntasTestViewSet(viewsets.ModelViewSet):
+    queryset = DrhtPreguntasTestPgte.objects.all()
+    serializer_class = PreguntasTestSerializer
+
+#Respuestas
+class RespuestasViewSet(viewsets.ModelViewSet):
+    queryset = DrhtRespuestasResp.objects.all()
+    serializer_class = RespuestasSerializer
+
+#Foro
+class PostForoViewSet(viewsets.ModelViewSet):
+    queryset = DrhtPostForoPofr.objects.all()
+    serializer_class = PostForoSerializer
+
+class RespuestasForoViewSet(viewsets.ModelViewSet):
+    queryset = DrhtRespuestasForoRefe.objects.all()
+    serializer_class = RespuestasForoSerializer
+
+#Esto un ejemplo de que no todos los modelos necesitan ser un ModelViewSet, en este caso solo necesitamos un ListCreateAPIView
 class DificultadList(generics.ListCreateAPIView):
     queryset = DrhtDificultadDiff.objects.all()
     serializer_class = DificultadSerializer
+

@@ -26,6 +26,17 @@ from drivehub import views
 
 router = routers.DefaultRouter()
 router.register(r'dificultad', views.DificultadViewSet)
+router.register(r'usuarios', views.UsuariosViewSet)
+router.register(r'logros', views.LogrosViewSet)
+router.register(r'logros_usuario', views.LogrosUsuarioViewSet)
+router.register(r'test', views.TestViewSet)
+router.register(r'test_usuario', views.TestUsuarioViewSet)
+router.register(r'preguntas', views.PreguntasViewSet)
+router.register(r'preguntas_test', views.PreguntasTestViewSet)
+router.register(r'respuestas', views.RespuestasViewSet)
+router.register(r'post_foro', views.PostForoViewSet)
+router.register(r'respuestas_foro', views.RespuestasForoViewSet)
+
 
 schema_view = get_schema_view(
     openapi.Info(
