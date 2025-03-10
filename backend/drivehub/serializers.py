@@ -24,6 +24,7 @@ class UsuariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtUsuariosUsus
         fields = '__all__'
+        read_only_fields = ('pk_usus_id','usus_fecha_alta','usus_nivel')
 
 class LogrosSerializer(serializers.ModelSerializer):
     class Meta:

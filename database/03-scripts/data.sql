@@ -12,10 +12,9 @@ pk_usus_id serial primary key,
 usus_nombre TEXT,
 usus_email TEXT unique,
 usus_password TEXT,
-usus_fecha_alta TIMESTAMP,
+usus_fecha_alta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 usus_nivel INTEGER default 1
 );
-
 --LOGROS
 
 CREATE TABLE IF NOT EXISTS drht_logros_logr(
@@ -29,7 +28,7 @@ CREATE TABLE IF NOT EXISTS drht_logros_usuario_lgus(
 pk_lgus_id serial primary key,
 fk_usus_lgus_usuario_id INTEGER references drht_usuarios_usus(pk_usus_id),
 fk_logr_lgus_logro_id INTEGER references drht_logros_logr(pk_logr_id),
-lgus_fecha_obtencion TIMESTAMP
+lgus_fecha_obtencion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 --TESTS
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS drht_tests_tsts(
 pk_tsts_id serial primary key,
 tsts_nombre TEXT,
 fk_diff_tsts_dificultad_id INTEGER references drht_dificultad_diff(pk_diff_id),
-tsts_fecha_creacion TIMESTAMP,
+tsts_fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 tsts_activo BOOLEAN
 );
 
@@ -46,7 +45,7 @@ CREATE TABLE IF NOT EXISTS drht_tests_usuario_teus(
 pk_teus_id serial primary key,
 fk_tsts_teus_test_id INTEGER references drht_tests_tsts(pk_tsts_id),
 fk_usus_teus_usuario_id INTEGER references drht_usuarios_usus(pk_usus_id),
-teus_fecha TIMESTAMP,
+teus_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 teus_aciertos INTEGER,
 teus_fallos INTEGER,
 teus_tiempo INTEGER
@@ -81,7 +80,7 @@ pk_pofr_id serial primary key,
 fk_usus_pofr_usuario_id INTEGER references drht_usuarios_usus(pk_usus_id),
 pofr_titulo TEXT,
 pofr_contenido TEXT,
-pofr_fecha TIMESTAMP,
+pofr_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 pofr_likes INTEGER,
 pofr_dislikes INTEGER
 );
@@ -90,12 +89,12 @@ CREATE TABLE IF NOT EXISTS drht_respuestas_foro_refe(
 pk_refe_id serial primary key,
 fk_pofr_refe_post_id INTEGER references drht_post_foro_pofr(pk_pofr_id),
 refe_contenido TEXT,
-refe_fecha TIMESTAMP,
+refe_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 refe_likes INTEGER,
 refe_dislikes INTEGER
 );
 
-CREATE ROLE root WITH SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';
+-- CREATE ROLE root WITH SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';
 
 
 INSERT INTO drht_dificultad_diff (diff_nombre) VALUES

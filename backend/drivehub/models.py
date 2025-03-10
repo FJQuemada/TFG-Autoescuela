@@ -135,7 +135,7 @@ class DrhtLogrosLogr(models.Model):
     pk_logr_id = models.AutoField(primary_key=True)
     logr_nombre = models.TextField(blank=True, null=True)
     logr_descripcion = models.TextField(blank=True, null=True)
-    logr_image = models.TextField(blank=True, null=True)
+    logr_image = models.TextField(default='', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -146,7 +146,7 @@ class DrhtLogrosUsuarioLgus(models.Model):
     pk_lgus_id = models.AutoField(primary_key=True)
     fk_usus_lgus_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)
     fk_logr_lgus_logro = models.ForeignKey(DrhtLogrosLogr, models.DO_NOTHING, blank=True, null=True)
-    lgus_fecha_obtencion = models.DateTimeField(blank=True, null=True)
+    lgus_fecha_obtencion = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -158,7 +158,7 @@ class DrhtPostForoPofr(models.Model):
     fk_usus_pofr_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)
     pofr_titulo = models.TextField(blank=True, null=True)
     pofr_contenido = models.TextField(blank=True, null=True)
-    pofr_fecha = models.DateTimeField(blank=True, null=True)
+    pofr_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     pofr_likes = models.IntegerField(blank=True, null=True)
     pofr_dislikes = models.IntegerField(blank=True, null=True)
 
@@ -192,7 +192,7 @@ class DrhtRespuestasForoRefe(models.Model):
     pk_refe_id = models.AutoField(primary_key=True)
     fk_pofr_refe_post = models.ForeignKey(DrhtPostForoPofr, models.DO_NOTHING, blank=True, null=True)
     refe_contenido = models.TextField(blank=True, null=True)
-    refe_fecha = models.DateTimeField(blank=True, null=True)
+    refe_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     refe_likes = models.IntegerField(blank=True, null=True)
     refe_dislikes = models.IntegerField(blank=True, null=True)
 
@@ -216,7 +216,7 @@ class DrhtTestsTsts(models.Model):
     pk_tsts_id = models.AutoField(primary_key=True)
     tsts_nombre = models.TextField(blank=True, null=True)
     fk_diff_tsts_dificultad = models.ForeignKey(DrhtDificultadDiff, models.DO_NOTHING, blank=True, null=True)
-    tsts_fecha_creacion = models.DateTimeField(blank=True, null=True)
+    tsts_fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     tsts_activo = models.BooleanField(blank=True, null=True)
 
     class Meta:
@@ -228,7 +228,7 @@ class DrhtTestsUsuarioTeus(models.Model):
     pk_teus_id = models.AutoField(primary_key=True)
     fk_tsts_teus_test = models.ForeignKey(DrhtTestsTsts, models.DO_NOTHING, blank=True, null=True)
     fk_usus_teus_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)
-    teus_fecha = models.DateTimeField(blank=True, null=True)
+    teus_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     teus_aciertos = models.IntegerField(blank=True, null=True)
     teus_fallos = models.IntegerField(blank=True, null=True)
     teus_tiempo = models.IntegerField(blank=True, null=True)
@@ -243,8 +243,8 @@ class DrhtUsuariosUsus(models.Model):
     usus_nombre = models.TextField(blank=True, null=True)
     usus_email = models.TextField(unique=True, blank=True, null=True)
     usus_password = models.TextField(blank=True, null=True)
-    usus_fecha_alta = models.DateTimeField(blank=True, null=True)
-    usus_nivel = models.IntegerField(blank=True, null=True)
+    usus_fecha_alta = models.DateTimeField(auto_now_add=True ,blank=True, null=True)
+    usus_nivel = models.IntegerField(default=1,blank=True, null=True)
 
     class Meta:
         managed = False
