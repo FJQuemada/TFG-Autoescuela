@@ -30,21 +30,25 @@ class LogrosSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtLogrosLogr
         fields = '__all__'
+        read_only_fields = ('pk_logr_id','logr_image')
 
 class LogrosUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtLogrosUsuarioLgus
         fields = '__all__'
+        read_only_fields = ('pk_lgus_id','lgus_fecha_obtencion')
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtTestsTsts
         fields = '__all__'
+        read_only_fields = ('pk_tsts_id','tsts_fecha_creacion')
 
 class TestUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtTestsUsuarioTeus
         fields = '__all__'
+        read_only_fields = ('pk_teus_id','teus_fecha')
 
 class PreguntasSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,10 +69,12 @@ class PostForoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtPostForoPofr
         fields = '__all__'
+        read_only_fields = ('pk_pofr_id','pofr_fecha','pofr_likes','pofr_dislikes')
 
 class RespuestasForoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtRespuestasForoRefe
         fields = '__all__'
+        read_only_fields = ('pk_refe_id','refe_fecha','refe_likes','refe_dislikes')
 
 

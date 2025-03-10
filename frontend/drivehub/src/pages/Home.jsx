@@ -1,7 +1,13 @@
-export default function Home() {
+import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
+
+const Home = () => {
+    const navigate = useNavigate();
     return (
-        <div>
-        <h1 className="bg-blue-500">Home</h1>
+        <div className="flex flex-col items-center w-full h-full">
+        <h1 className="bg-blue-500 align-middle mt-10 w-fit">Home</h1>
+        <button onClick={() => navigate("/login")}>Go to Login</button>
         </div>
     );
     }
+export default Home;

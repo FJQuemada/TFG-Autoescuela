@@ -159,8 +159,8 @@ class DrhtPostForoPofr(models.Model):
     pofr_titulo = models.TextField(blank=True, null=True)
     pofr_contenido = models.TextField(blank=True, null=True)
     pofr_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    pofr_likes = models.IntegerField(blank=True, null=True)
-    pofr_dislikes = models.IntegerField(blank=True, null=True)
+    pofr_likes = models.IntegerField(default=0, blank=True, null=True)
+    pofr_dislikes = models.IntegerField(default=0, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -193,8 +193,8 @@ class DrhtRespuestasForoRefe(models.Model):
     fk_pofr_refe_post = models.ForeignKey(DrhtPostForoPofr, models.DO_NOTHING, blank=True, null=True)
     refe_contenido = models.TextField(blank=True, null=True)
     refe_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    refe_likes = models.IntegerField(blank=True, null=True)
-    refe_dislikes = models.IntegerField(blank=True, null=True)
+    refe_likes = models.IntegerField(default=0, blank=True, null=True)
+    refe_dislikes = models.IntegerField(default=0, blank=True, null=True)
 
     class Meta:
         managed = False

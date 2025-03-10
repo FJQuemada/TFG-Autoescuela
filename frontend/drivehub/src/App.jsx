@@ -1,19 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
-import axios from 'axios'
-
-const API_URL = 'http://localhost:8000/api'
-
-const verDificultades = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/dificultad`)
-    console.log(response)
-  } catch (error) {
-    console.error(error)
-  }
-}
+//no importo el app.css porque no lo necesito y afectaria a todas las paginas
+import { verDificultades } from './services/api'
 
 function App() {
   const [count, setCount] = useState(0)

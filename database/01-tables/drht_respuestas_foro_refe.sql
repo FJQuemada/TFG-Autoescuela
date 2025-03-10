@@ -3,6 +3,6 @@ pk_refe_id serial primary key,
 fk_pofr_refe_post_id INTEGER references drht_post_foro_pofr(pk_pofr_id),
 refe_contenido TEXT,
 refe_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-refe_likes INTEGER,
-refe_dislikes INTEGER
+refe_likes INTEGER DEFAULT 0,
+refe_dislikes INTEGER DEFAULT 0
 );

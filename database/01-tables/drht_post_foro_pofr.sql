@@ -4,6 +4,6 @@ fk_usus_pofr_usuario_id INTEGER references drht_usuarios_usus(pk_usus_id),
 pofr_titulo TEXT,
 pofr_contenido TEXT,
 pofr_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-pofr_likes INTEGER,
-pofr_dislikes INTEGER
+pofr_likes INTEGER DEFAULT 0,
+pofr_dislikes INTEGER DEFAULT 0
 );
