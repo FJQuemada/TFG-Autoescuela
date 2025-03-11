@@ -10,3 +10,12 @@ export const verDificultades = async () => {
     console.error(error)
   }
 }
+
+export const registroUsuario = async (usuario) => {
+  try {
+    const response = await axios.post(`${API_URL}/usuarios/`, usuario)
+    console.log(`Usuario recien añadido`,response)
+  } catch (error) {
+    console.error(error)
+  }
+}
