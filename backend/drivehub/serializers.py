@@ -15,6 +15,8 @@ from .models import DrhtDificultadDiff, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, D
 # En este caso, el serializador DificultadSerializer se define como una subclase de
 # serializers.ModelSerializer. Esto significa que hereda todas las funcionalidades de
 # serializers.ModelSerializer y se puede personalizar según sea necesario.
+# No es necesario definir el __init__ o el save() en el serializador, ya que estos
+# métodos ya están definidos en serializers.ModelSerializer.
 class DificultadSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtDificultadDiff
@@ -25,6 +27,18 @@ class UsuariosSerializer(serializers.ModelSerializer):
         model = DrhtUsuariosUsus
         fields = '__all__'
         read_only_fields = ('pk_usus_id','usus_fecha_alta','usus_nivel')
+
+    # Se define un método validate_usus_email() para validar el campo usus_email.
+    # Este método se llama automáticamente cuando se valida el campo usus_email gracias a la convención de nombres
+    # que empiezan por validate_ seguido del nombre del campo.(Es cosa de Django REST Framework)
+    # Si el campo es válido, el método debe devolver el valor del campo.
+    # Si el campo no es válido, el método debe lanzar una excepción serializers.ValidationError.
+
+    def validate_usus_email(self, value):
+        # Se comprueba si el email ya existe en la base de datos.
+        if DrhtUsuariosUsus.objects.filter(usus_email=value).exists():
+            raise serializers.ValidationError('El email ya está en uso.')
+        return value
 
 class LogrosSerializer(serializers.ModelSerializer):
     class Meta:

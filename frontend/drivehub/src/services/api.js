@@ -16,6 +16,6 @@ export const registroUsuario = async (usuario) => {
     const response = await axios.post(`${API_URL}/usuarios/`, usuario)
     console.log(`Usuario recien añadido`,response)
   } catch (error) {
-    console.error(error)
+    console.error('ESTE ES EL ERROR',error)
   }
 }

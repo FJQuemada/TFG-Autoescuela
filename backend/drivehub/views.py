@@ -20,6 +20,7 @@ class DificultadViewSet(viewsets.ModelViewSet):
 class UsuariosViewSet(viewsets.ModelViewSet):
     queryset = DrhtUsuariosUsus.objects.all()
     serializer_class = UsuariosSerializer
+    
 
 #Logros
 class LogrosViewSet(viewsets.ModelViewSet):
