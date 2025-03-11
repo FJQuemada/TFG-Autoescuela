@@ -15,6 +15,7 @@ usus_password TEXT,
 usus_fecha_alta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 usus_nivel INTEGER default 1
 );
+
 --LOGROS
 
 CREATE TABLE IF NOT EXISTS drht_logros_logr(
@@ -60,6 +61,7 @@ fk_diff_preg_dificultad_id INTEGER references drht_dificultad_diff(pk_diff_id),
 preg_image TEXT
 );
 
+
 CREATE TABLE IF NOT EXISTS drht_preguntas_test_pgte(
 pk_pgte_id serial primary key,
 fk_tsts_pgte_test_id INTEGER references drht_tests_tsts(pk_tsts_id),
@@ -81,8 +83,8 @@ fk_usus_pofr_usuario_id INTEGER references drht_usuarios_usus(pk_usus_id),
 pofr_titulo TEXT,
 pofr_contenido TEXT,
 pofr_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-pofr_likes INTEGER,
-pofr_dislikes INTEGER
+pofr_likes INTEGER DEFAULT 0,
+pofr_dislikes INTEGER DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS drht_respuestas_foro_refe(
@@ -90,8 +92,8 @@ pk_refe_id serial primary key,
 fk_pofr_refe_post_id INTEGER references drht_post_foro_pofr(pk_pofr_id),
 refe_contenido TEXT,
 refe_fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-refe_likes INTEGER,
-refe_dislikes INTEGER
+refe_likes INTEGER DEFAULT 0,
+refe_dislikes INTEGER DEFAULT 0
 );
 
 -- CREATE ROLE root WITH SUPERUSER CREATEDB CREATEROLE LOGIN PASSWORD 'root';

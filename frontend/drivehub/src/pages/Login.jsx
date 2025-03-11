@@ -32,12 +32,19 @@ const Login = () => {
 
     return (
         <div className="flex flex-col items-center ">
-            <h1 className="bg-green-400 mt-10">Login</h1>
-            <form action="" className="flex flex-col items-center mt-10" onSubmit={(e) => handleSumbit(e)}>
-                <input type="text" placeholder="Nombre usuario" value={usuario} onChange={(e) => setUsuario(e.target.value)} className="border border-gray-300 rounded px-3 py-2" />
-                <input type="text" placeholder="Correo electrónico" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-gray-300 rounded px-3 py-2" />
-                <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-300 rounded px-3 py-2" />
-                <button type="submit">Login</button>
+            <h1 className="text-4xl mt-10">Login</h1>
+            <form action="" className="flex flex-col items-center mt-10 group" onSubmit={(e) => handleSumbit(e)}>
+                <input type="text" placeholder="Nombre usuario" required value={usuario} onChange={(e) => setUsuario(e.target.value)} className="border border-gray-300 rounded px-3 py-2" />
+                <input
+                    type="email" 
+                    placeholder="Correo electrónico" 
+                    required value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    className="border border-gray-300 rounded px-3 py-2" 
+                    pattern="^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+{2}$"
+                    title="Por favor escribe un correo electrónico válido" />
+                <input type="password" placeholder="Contraseña" required value={password} onChange={(e) => setPassword(e.target.value)} className="border border-gray-300 rounded px-3 py-2" />
+                <button type="submit" className='group-invalid:pointer-events-none group-invalid:opacity-50'>Login</button>
             </form>
         </div>
     );
