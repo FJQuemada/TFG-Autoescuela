@@ -17,5 +17,6 @@ export const registroUsuario = async (usuario) => {
     console.log(`Usuario recien añadido`,response)
   } catch (error) {
     console.error('ESTE ES EL ERROR',error)
+    return error.response.data
   }
 }
