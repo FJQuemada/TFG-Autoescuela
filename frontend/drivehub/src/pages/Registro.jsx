@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registroUsuario } from '../services/api';
+import { registroUsuario,verUsuarioPrimi } from '../services/api';
 import { useNavigate,Link } from 'react-router-dom';
 
 
@@ -185,6 +185,8 @@ const Registro = () => {
                         Inicia sesión aquí
                     </Link>
                 </p>
+
+                <button onClick={verUsuarioPrimi}></button>
             </form>
         </div>
     );

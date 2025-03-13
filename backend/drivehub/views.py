@@ -3,6 +3,10 @@ from django.http import JsonResponse
 from .models import DrhtDificultadDiff, DrhtUsuariosUsus, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, DrhtTestsTsts, DrhtTestsUsuarioTeus, DrhtPreguntasPreg, DrhtPreguntasTestPgte, DrhtRespuestasResp, DrhtPostForoPofr, DrhtRespuestasForoRefe
 
 from rest_framework import permissions, viewsets,generics
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
 
 from .utils import obtener_usuario
@@ -13,9 +17,19 @@ def get_dificultades(request):
     dificultades = DrhtDificultadDiff.objects.all().values('pk_diff_id', 'diff_nombre')
     return JsonResponse(list(dificultades), safe=False)
 
+@api_view(['GET'])
 def get_usuario_primi(request):
-    usuarioPrimi = obtener_usuario(DrhtUsuariosUsus)
-    return usuarioPrimi
+    try:
+        # Obtener el usuario con pk_usuario_id = 1
+        usuarioPrimi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
+        
+        # Serializar el objeto usando el serializador
+        serializer = UsuariosSerializer(usuarioPrimi)
+        return Response(serializer.data)  # La respuesta con los datos serializados
+        
+    except DrhtUsuariosUsus.DoesNotExist:
+        return Response({'error': 'Usuario no encontrado'}, status=404)
+
 
 #Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):

@@ -55,7 +55,7 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),  # Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)
     path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
-    path('api/usuarioprimi', views.obtener_usuario),
+    path('api/usuarioprimi', views.get_usuario_primi),
 ]
 
 

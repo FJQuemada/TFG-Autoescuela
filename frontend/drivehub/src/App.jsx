@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 //no importo el app.css porque no lo necesito y afectaria a todas las paginas
-import { verDificultades } from './services/api'
+
 
 function App() {
   const [count, setCount] = useState(0)
