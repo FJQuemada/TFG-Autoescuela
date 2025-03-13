@@ -185,8 +185,6 @@ const Registro = () => {
                         Inicia sesión aquí
                     </Link>
                 </p>
-
-                <button onClick={verUsuarioPrimi}></button>
             </form>
         </div>
     );

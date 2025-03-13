@@ -29,6 +29,8 @@ class UsuariosSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('pk_usus_id','usus_fecha_alta','usus_nivel')
 
+    # Las validaciones de los campos solo se realizan cuando el metodo es llamado por POST o PUT
+
     def validate_usus_nombre(self, value):
         if value and len(value) < 3:
             raise serializers.ValidationError('El nombre debe tener al menos 3 caracteres.')
@@ -36,8 +38,6 @@ class UsuariosSerializer(serializers.ModelSerializer):
         if not value:
             raise serializers.ValidationError('El nombre es requerido.')
         return value
-    
-        
 
     # Se define un método validate_usus_email() para validar el campo usus_email.
     # Este método se llama automáticamente cuando se valida el campo usus_email gracias a la convención de nombres

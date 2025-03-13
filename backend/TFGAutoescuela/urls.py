@@ -56,6 +56,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)
     path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
     path('api/usuarioprimi', views.get_usuario_primi),
+    path('api/verificar_login', views.verificar_login),
 ]
 
 
