@@ -4,12 +4,18 @@ from .models import DrhtDificultadDiff, DrhtUsuariosUsus, DrhtLogrosLogr, DrhtLo
 
 from rest_framework import permissions, viewsets,generics
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
+
+from .utils import obtener_usuario
 # Create your views here.
 
 # este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
 def get_dificultades(request):
     dificultades = DrhtDificultadDiff.objects.all().values('pk_diff_id', 'diff_nombre')
     return JsonResponse(list(dificultades), safe=False)
+
+def get_usuario_primi(request):
+    usuarioPrimi = obtener_usuario(DrhtUsuariosUsus)
+    return usuarioPrimi
 
 #Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):

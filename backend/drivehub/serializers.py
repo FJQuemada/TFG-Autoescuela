@@ -11,6 +11,7 @@
 
 from rest_framework import serializers
 from .models import DrhtDificultadDiff, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, DrhtUsuariosUsus, DrhtTestsTsts, DrhtTestsUsuarioTeus, DrhtPreguntasPreg, DrhtPreguntasTestPgte, DrhtRespuestasResp, DrhtPostForoPofr, DrhtRespuestasForoRefe
+import re       # Se importa el módulo re para trabajar con expresiones regulares.
 
 # En este caso, el serializador DificultadSerializer se define como una subclase de
 # serializers.ModelSerializer. Esto significa que hereda todas las funcionalidades de
@@ -49,6 +50,9 @@ class UsuariosSerializer(serializers.ModelSerializer):
         if not value:
             raise serializers.ValidationError('El email es requerido.')
         
+        email_regex = r'^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$'
+        if not re.match(email_regex, value):
+            raise serializers.ValidationError('El email no tiene un formato válido.')
         # Se comprueba si el email ya existe en la base de datos.
         if DrhtUsuariosUsus.objects.filter(usus_email=value).exists():
             raise serializers.ValidationError('El email ya está en uso.')

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const navigate = useNavigate();
