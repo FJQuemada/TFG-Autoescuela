@@ -68,7 +68,7 @@ const Registro = () => {
             setEmail("");
 
             await delay(300);
-            navigate("/login");
+            navigate("/");
            
         } 
     
@@ -181,7 +181,7 @@ const Registro = () => {
                 </button>
                 <p className="text-sm text-white mt-2">
                     ¿Ya tienes cuenta?{' '}
-                    <Link to="/login" className="text-blue-600 hover:underline">
+                    <Link to="/" className="text-blue-600 hover:underline">
                         Inicia sesión aquí
                     </Link>
                 </p>

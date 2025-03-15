@@ -20,3 +20,14 @@ export const registroUsuario = async (usuario) => {
     return error.response.data
   }
 }
+
+export const inicioSesion = async (usuario) => {
+  try{
+    const response = await axios.post(`${API_URL}/verificar_login`, usuario)
+    console.log(`Login correcto`,response)
+    return response.data
+  } catch (error){
+    console.error('No se ha podido iniciar sesion', error)
+    return error.response.data
+  }
+}

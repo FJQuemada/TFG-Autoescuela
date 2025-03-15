@@ -12,6 +12,7 @@
 from rest_framework import serializers
 from .models import DrhtDificultadDiff, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, DrhtUsuariosUsus, DrhtTestsTsts, DrhtTestsUsuarioTeus, DrhtPreguntasPreg, DrhtPreguntasTestPgte, DrhtRespuestasResp, DrhtPostForoPofr, DrhtRespuestasForoRefe
 import re       # Se importa el módulo re para trabajar con expresiones regulares.
+from django.contrib.auth.hashers import make_password
 
 # En este caso, el serializador DificultadSerializer se define como una subclase de
 # serializers.ModelSerializer. Esto significa que hereda todas las funcionalidades de
@@ -65,6 +66,20 @@ class UsuariosSerializer(serializers.ModelSerializer):
         if len(value) < 8:
             raise serializers.ValidationError('La contraseña debe tener al menos 8 caracteres.')
         return value
+    
+    # Hashear la contraseña antes de guardar el usuario en la base de datos.
+    # Se sobrescribe el método create() para hashear la contraseña antes de guardar el usuario en la base de datos.
+    # El método create() se llama cuando se crea un nuevo objeto de usuario a partir de los datos enviados por el frontend.
+    def create(self, validated_data):
+        validated_data['usus_password'] = make_password(validated_data['usus_password'])
+        return super().create(validated_data)
+    
+    # Se sobrescribe el método update() para hashear la contraseña antes de actualizar el usuario en la base de datos.
+    # El método update() se llama cuando se actualiza un objeto de usuario a partir de los datos enviados por el frontend.
+    def update(self, instance, validated_data):
+        if 'usus_password' in validated_data:
+            validated_data['usus_password'] = make_password(validated_data['usus_password'])
+        return super().update(instance, validated_data)
 
 class LogrosSerializer(serializers.ModelSerializer):
     class Meta:

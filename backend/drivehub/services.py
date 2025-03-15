@@ -1,3 +1,6 @@
+
+from django.contrib.auth.hashers import check_password
+
 def obtener_usuario(tabla):
     try:
         usuarioPrimi = tabla.objects.get(pk_usuario_id = 1)
@@ -12,9 +15,11 @@ def login_usuario(Model, input_email, input_password):
         email_usuario = Model.objects.get(usus_email=input_email)
         
         # Comparar la contraseña recibida con la almacenada
-        if input_password == email_usuario.usus_password:
+        if check_password(input_password, email_usuario.usus_password):
+            # Si la contraseña es correcta, devolvemos True
             return True
         else:
+            # Si la contraseña no es correcta, devolvemos False
             return False
 
     except Model.DoesNotExist:
