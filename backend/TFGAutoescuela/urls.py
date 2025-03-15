@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
+from rest_framework_simplejwt import views as jwt_views     # Importar las vistas de JWT
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -51,6 +51,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('admin/', admin.site.urls),  # Esta línea debe estar presente para acceder al panel de administración de Django
     path('api/', include(router.urls)),  # Rutas para las vistas de API
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),  # Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)

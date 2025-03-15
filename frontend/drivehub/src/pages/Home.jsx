@@ -5,8 +5,11 @@ const Home = () => {
     const navigate = useNavigate();
     return (
         <div className="flex flex-col items-center w-full h-full">
-        <h1 className="bg-blue-500 align-middle mt-10 w-fit">Home</h1>
-        <button onClick={() => navigate("/register")}>Go to Registro</button>
+            <h1 className="text-4xl mt-10">Home</h1>
+            <NavLink to="/login">Ir a Login</NavLink>
+            <NavLink to="/register">Ir a Registro</NavLink>
+            <button onClick={() => navigate("/login")}>Go to Login</button>
+            <button onClick={() => navigate("/register")}>Go to Registro</button>
         </div>
     );
     }

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,10 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'drivehub',
-    'rest_framework',
-    'drf_yasg',
-    'corsheaders',
+    'drivehub',                         #App de la autoescuela
+    'rest_framework',                   #Para REST
+    'drf_yasg',                         #Para Swagger
+    'corsheaders',                      #Para CORS  
+    'rest_framework_simplejwt',         #Para JWT(inutilizado)
 ]
 
 MIDDLEWARE = [

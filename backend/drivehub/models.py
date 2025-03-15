@@ -37,6 +37,8 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
         unique_together = (('content_type', 'codename'),)
 
+#root
+#admin12345
 
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
