@@ -42,7 +42,6 @@ const Registro = () => {
         
         if (passwordError){
             setErrorPassword(passwordError);
-            return;
         } 
 
         const data = await registroUsuario(nuevoUsuario);
@@ -78,7 +77,7 @@ const Registro = () => {
     };
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center text-base">
 
             <h1 className="text-4xl mt-10">Registro</h1>
 
@@ -98,7 +97,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_nombre ? 'border-red-500' : null} border ${usuario ? 'border-green-500' : 'border-gray-300'} border-gray-300 rounded px-3 py-2`}
+                        className={`${errors.usus_nombre ? 'border-red-500' : null} border-b-2 ${usuario ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
                         title="Rellene este campo"
                     />
                     {errors.usus_nombre && (
@@ -120,7 +119,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_email ? 'border-red-500' : null} border ${email ? 'border-green-500' : 'border-gray-300'} border-gray-300 rounded px-3 py-2`}
+                        className={`${errors.usus_email ? 'border-red-500' : null} border-b-2 ${email ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
                         title="Rellene este campo"
                     />
                     
@@ -146,8 +145,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_password ? 'border-red-500' : null} border ${password ? 'border-green-500' : 'border-gray-300'} border-gray-300 rounded px-3 py-2 focus:border-gray-400 focus:ring focus:ring-gray-100
-                        focus:ring-opacity-50`}
+                        className={`${errors.usus_password ? 'border-red-500' : null} border-b-2 ${password ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
                         title="Rellene este campo"
                     />
                     {errors.usus_password && (
@@ -167,8 +165,7 @@ const Registro = () => {
                             setErrorPassword(null);
                         } 
                         } 
-                        className={`${errorPassword ? 'border-red-500' : null} border ${passwordRepeat ? 'border-green-500' : 'border-gray-300'} border-gray-300 rounded px-3 py-2 focus:border-gray-400 focus:ring focus:ring-gray-100
-                        focus:ring-opacity-50`}
+                        className={`${errorPassword ? 'border-red-500' : null} border-b-2 ${passwordRepeat ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
                         title="Rellene este campo"
                     />
                     {errorPassword && (

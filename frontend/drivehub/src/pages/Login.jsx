@@ -42,7 +42,7 @@ const Login = () => {
                     value={email}
                     required
                     title='Completa este campo'
-                    className="border border-gray-300 rounded px-3 py-2"
+                    className="no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500"
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
@@ -54,7 +54,7 @@ const Login = () => {
                     value={password}
                     required
                     title='Completa este campo'
-                    className="border border-gray-300 rounded px-3 py-2"
+                    className="no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none focus:border-blue-500"
                     onChange={(e) => setPassword(e.target.value)}
                 />
             </div>
