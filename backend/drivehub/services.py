@@ -24,4 +24,4 @@ def login_usuario(Model, input_email, input_password):
 
     except Model.DoesNotExist:
         # Si no existe el usuario, devolvemos False (o podrías usar None si quieres distinguir el caso)
-        return False
+        return None

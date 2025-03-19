@@ -32,9 +32,11 @@ def verificar_login(request):
             return Response({'login': True}, status=status.HTTP_200_OK)
         elif resultado_login is False:
             return Response({'login': False, 'detail': 'Contraseña incorrecta'}, status=status.HTTP_401_UNAUTHORIZED)
-        else:
+        elif resultado_login is None:
             return Response({'login': False, 'detail': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-
+        else:
+            return Response({'login': False, 'detail': 'Error desconocido'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

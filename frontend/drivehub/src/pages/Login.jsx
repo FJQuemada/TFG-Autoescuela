@@ -8,7 +8,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [errors, setErrors] = useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault(); 
@@ -31,7 +31,7 @@ const Login = () => {
     }
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center max-w-screen">
         <h1 className="text-4xl mt-10">Login</h1>
 
         <form action="" className='flex flex-col items-center mt-10' noValidate onSubmit={(e) => {handleLogin(e)}}>
