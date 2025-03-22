@@ -39,7 +39,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="flex w-4/12 h-[65vh] mt-15 bg-[#ffffff21] ">
+                <div className="flex w-5/12 h-[65vh] mt-15 bg-[#ffffff21] ">
                     <div className="flex flex-col w-4/6 h-full">
                         <div className="h-[58%] bg-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl border-4 border-green-600 hover:border-green-800">
                             Ultimo test/continua test

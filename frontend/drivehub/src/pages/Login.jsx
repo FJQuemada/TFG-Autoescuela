@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { inicioSesion } from '../services/api'
+import { inicioSesion, verRespuestas, verPreguntas } from '../services/api'
 
 const Login = () => {
 
@@ -64,6 +64,7 @@ const Login = () => {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Iniciar sesión
             </button>
+            
         </form>
 
         <p className="text-sm text-white mt-2">
@@ -72,7 +73,22 @@ const Login = () => {
                 Registrate aquí
             </Link>
         </p>
+
+        <button
+            onClick={() => verRespuestas()}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                respuestas
+        </button>
+
+        <button
+        onClick={() => verPreguntas(1)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            preguntas
+        </button>
+
         </div>
+        
+
         
         
     );

@@ -54,6 +54,51 @@ def get_usuario_primi(request):
     except DrhtUsuariosUsus.DoesNotExist:
         return Response({'error': 'Usuario no encontrado'}, status=404)
 
+#bulk de respuestas
+@api_view(['POST'])
+def respuestas_a_tope(request):
+    try:
+        # Obtener los datos enviados en la solicitud
+        respuestas = request.data
+
+        # Serializar los datos, convierte de objeto python a Json, se tiene que poner data= pq no esta directamente sacado de
+        #   un objeto de modelo, como en el usuario primi de antes.
+        serializer = RespuestasSerializer(data=respuestas, many=True)
+
+        # Verificar si los datos son válidos
+        if serializer.is_valid():
+            # Guardar los objetos si son válidos
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)  # Cambié a 201, ya que estamos creando nuevos recursos.
+        
+        # Si los datos no son válidos, devolver los errores de validación
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        # Manejo de excepciones generales (errores internos)
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+#para obtener las preguntas del test
+@api_view(['GET'])
+def get_preguntas_test(request,test_id):
+    try:
+        preguntas_en_test = DrhtPreguntasTestPgte.objects.select_related('DrhtTestsTsts').filter(fk_tsts_pgte_test_id=test_id)
+        #como esta en objeto django hay que pasarlo a json, y como no hay un serializer para esto, se hace manual
+        #puedo acceder a los campos de la tabla drht_preguntas_preg aunque no los haya seleccionado en el select_related
+        #   porque es una clave foranea y django ya sabe que tiene que traer esos datos
+        preguntas_en_test_data = preguntas_en_test.values(
+            'fk_tsts_pgte_test',
+            'fk_preg_pgte_pregunta__preg_enunciado',
+            'fk_preg_pgte_pregunta__preg_image',
+            'fk_preg_pgte_pregunta__pk_preg_id'
+        )
+        
+        
+        return Response(preguntas_en_test_data, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 
 #Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):
