@@ -119,7 +119,8 @@ class PreguntasTestSerializer(serializers.ModelSerializer):
 class RespuestasSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtRespuestasResp
-        fields = '__all__'
+        fields = 'pk_resp_id','resp_contenido'
+
 
 class PostForoSerializer(serializers.ModelSerializer):
     class Meta:

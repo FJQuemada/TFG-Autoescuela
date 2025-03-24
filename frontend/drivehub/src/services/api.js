@@ -61,11 +61,11 @@ export const inicioSesion = async (usuario) => {
 
 
 
-export const verRespuestas = async() =>{
+export const verRespuestas = async(preguntaId) =>{
   try{
-    const response = await axios.get(`${API_URL}/respuestas`);
+    const response = await axios.get(`${API_URL}/preguntas/${preguntaId}/respuestas`);
     console.log(response);
-    return response;
+    return response.data;
   }catch(error){
     console('No se ha podido',error);
     return error.response.data
@@ -76,8 +76,7 @@ export const verRespuestas = async() =>{
 export const verPreguntas = async(testId) =>{
   try{
     const response = await axios.get(`${API_URL}/preguntas_en_test/${testId}`);
-    console.log(response);
-    return response;
+    return response.data;
   }catch(error){
     console('No se ha podido',error);
     return error.response.data

@@ -63,6 +63,7 @@ def respuestas_a_tope(request):
 
         # Serializar los datos, convierte de objeto python a Json, se tiene que poner data= pq no esta directamente sacado de
         #   un objeto de modelo, como en el usuario primi de antes.
+        # El many = true es para indicar que se van a serializar varios objetos y no uno solo, es decir, que respuestas es una lista de objetos a serializar
         serializer = RespuestasSerializer(data=respuestas, many=True)
 
         # Verificar si los datos son válidos
@@ -83,7 +84,7 @@ def respuestas_a_tope(request):
 def get_preguntas_test(request,test_id):
     try:
         preguntas_en_test = DrhtPreguntasTestPgte.objects.select_related('DrhtTestsTsts').filter(fk_tsts_pgte_test_id=test_id)
-        #como esta en objeto django hay que pasarlo a json, y como no hay un serializer para esto, se hace manual
+        #como esta en objeto python hay que pasarlo a json, y como no hay un serializer para esto, se hace manual
         #puedo acceder a los campos de la tabla drht_preguntas_preg aunque no los haya seleccionado en el select_related
         #   porque es una clave foranea y django ya sabe que tiene que traer esos datos
         preguntas_en_test_data = preguntas_en_test.values(
@@ -99,6 +100,18 @@ def get_preguntas_test(request,test_id):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
+@api_view(['GET'])
+def obtener_respuestas(request,pregunta_id):
+    try:  
+        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta = pregunta_id)
+        
+        if not respuestas:
+            return Response({'detail:No se ha encontrado la pregunta '}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = RespuestasSerializer(respuestas,many = True)
+        return Response(serializer.data,status= status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
 
 #Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):
