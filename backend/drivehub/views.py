@@ -94,7 +94,6 @@ def get_preguntas_test(request,test_id):
             'fk_preg_pgte_pregunta__pk_preg_id'
         )
         
-        
         return Response(preguntas_en_test_data, status=status.HTTP_200_OK)
     
     except Exception as e:
