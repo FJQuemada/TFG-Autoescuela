@@ -120,7 +120,7 @@ class RespuestasSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtRespuestasResp
         fields = ('pk_resp_id', 'resp_contenido', 'fk_preg_resp_pregunta')  # Incluye la FK
-        extra_kwargs = {'fk_preg_resp_pregunta': {'write_only': True}}  # Oculta en la respuesta
+        extra_kwargs = {'fk_preg_resp_pregunta': {'write_only': True}}  # Oculta en la respuesta para que no se envie al frontend
 
 
 class PostForoSerializer(serializers.ModelSerializer):

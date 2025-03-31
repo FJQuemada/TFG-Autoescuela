@@ -1,13 +1,13 @@
 import { NavLink } from "react-router";
 import { useNavigate,Link } from "react-router-dom";
-import Layout from "../layouts/MainLayout";
+import MainLayout from "../layouts/MainLayout";
 import Header from "../components/Header";
 
 const Home = () => {
     const navigate = useNavigate();
     return (
         <div className="">
-            <Layout>
+            <MainLayout>
                 <div className="w-full h-full flex justify-center">
                     <div id="noticias" className="flex flex-col w-3/12 items-center mt-5">
                         <h2 className="text-3xl mt-10">Noticias</h2>
@@ -45,7 +45,7 @@ const Home = () => {
                         </div>   
                     </div>
                 </div>
-            </Layout>
+            </MainLayout>
             
         </div>
     );

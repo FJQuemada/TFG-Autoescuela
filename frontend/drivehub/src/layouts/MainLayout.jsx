@@ -1,13 +1,13 @@
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const Layout = ({ children }) => {
+const MainLayout = ({ children }) => {
     return (
         <div className="h-full w-full">
             <Header />
             {children}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }
-export default Layout
+export default MainLayout
