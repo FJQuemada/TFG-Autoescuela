@@ -8,7 +8,10 @@ def obtener_usuario(tabla):
     except tabla.DoesNotExist:
         return None
     
-
+# Definimos la función para verificar el login del usuario
+# Esta función recibe el modelo, el email y la contraseña del usuario
+# y devuelve True si el login es correcto, False si la contraseña no es correcta
+# y None si el usuario no existe
 def login_usuario(Model, input_email, input_password):
     try:
         # Obtener el usuario por nombre

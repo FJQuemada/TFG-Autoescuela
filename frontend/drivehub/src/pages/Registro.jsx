@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registroUsuario,verUsuarioPrimi } from '../services/api';
+import { registroUsuario } from '../services/api';
 import { useNavigate,Link } from 'react-router-dom';
 
 

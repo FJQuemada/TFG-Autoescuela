@@ -50,11 +50,17 @@ const Tests = () => {
             
             {preguntas ? (
                 <ul>
-                    {preguntas.map((pregunta,index) => (
-                        <li key={pregunta.fk_preg_pgte_pregunta__pk_preg_id} className='text-black flex p-10'>
-                            <h1>Pregunta{index}</h1>
-                            
-                            {pregunta.fk_preg_pgte_pregunta__preg_enunciado}
+                    {preguntas.map((pregunta) => (
+                        <li key={pregunta.pregunta.fk_preg_pgte_pregunta__pk_preg_id} className="text-black flex p-10">
+                            <h1>Pregunta {pregunta.pregunta.fk_preg_pgte_pregunta__pk_preg_id}</h1>
+                            {pregunta.pregunta.fk_preg_pgte_pregunta__preg_enunciado}
+                            <ul>
+                                {pregunta.respuestas.map((respuesta) => (
+                                    <li key={respuesta.pk_resp_id}>
+                                        {respuesta.resp_contenido}
+                                    </li>
+                                ))}
+                            </ul>
                         </li>
                     ))}
                 </ul>

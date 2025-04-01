@@ -2,14 +2,14 @@ import axios from 'axios'
 
 const API_URL = 'http://localhost:8000/api'
 
-export const verUsuarioPrimi = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/usuarioprimi`);
-    console.log(response);
-  } catch (error) {
-    console.error(error)
-  }
-}
+// export const verUsuarioPrimi = async () => {
+//   try {
+//     const response = await axios.get(`${API_URL}/usuarioprimi`);
+//     console.log(response);
+//   } catch (error) {
+//     console.error(error)
+//   }
+// }
 
 export const registroUsuario = async (usuario) => {
   try {
@@ -32,35 +32,6 @@ export const inicioSesion = async (usuario) => {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const verRespuestas = async(preguntaId) =>{
   try{
     const response = await axios.get(`${API_URL}/preguntas/${preguntaId}/respuestas`);
@@ -76,6 +47,7 @@ export const verRespuestas = async(preguntaId) =>{
 export const verPreguntas = async(testId) =>{
   try{
     const response = await axios.get(`${API_URL}/preguntas_en_test/${testId}`);
+    console.log(response.data)
     return response.data;
   }catch(error){
     console('No se ha podido',error);

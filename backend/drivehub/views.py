@@ -83,19 +83,55 @@ def respuestas_a_tope(request):
 @api_view(['GET'])
 def get_preguntas_test(request,test_id):
     try:
-        preguntas_en_test = DrhtPreguntasTestPgte.objects.select_related('DrhtTestsTsts').filter(fk_tsts_pgte_test_id=test_id)
+        preguntas_en_test = DrhtPreguntasTestPgte.objects.select_related('DrhtPreguntasPreg').filter(fk_tsts_pgte_test_id=test_id)  
+        #el id del final es un añadido que hace django para que no haya confusiones con el nombre de la tabla, unicamente coge el id de la tabla
+        
         #como esta en objeto python hay que pasarlo a json, y como no hay un serializer para esto, se hace manual
         #puedo acceder a los campos de la tabla drht_preguntas_preg aunque no los haya seleccionado en el select_related
         #   porque es una clave foranea y django ya sabe que tiene que traer esos datos
         preguntas_en_test_data = preguntas_en_test.values(
+            'fk_preg_pgte_pregunta__pk_preg_id',
             'fk_tsts_pgte_test',
             'fk_preg_pgte_pregunta__preg_enunciado',
-            'fk_preg_pgte_pregunta__preg_image',
-            'fk_preg_pgte_pregunta__pk_preg_id'
-        )
+            'fk_preg_pgte_pregunta__preg_image'
+        ) 
         
-        return Response(preguntas_en_test_data, status=status.HTTP_200_OK)
-    
+        #el __in es para filtrar por el id de la pregunta, y el values_list es para que me devuelva una lista de ids, no un objeto
+        #esto es para obtener las respuestas de las preguntas que estan en el test, ya que no se pueden obtener directamente
+        #el values_list es para que me devuelva una lista de ids, no un objeto
+        #el flat=True es para que me devuelva una lista de ids, no un objeto
+        
+        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta__in=preguntas_en_test.values_list('fk_preg_pgte_pregunta', flat=True))
+        
+        serializer_respuesta = RespuestasSerializer(respuestas, many=True).data
+        # respuesta_diccionario es un nuevo JSON que empieza por el numero de la fk_preg_resp_pregunta , y dentro
+        # selecciona la respuesta de cada respuesta en RespuestaSerializer
+        #Esto crea un diccionario donde cada clave es el fk_preg_resp_pregunta y cada valor es la respuesta completa.
+
+        respuesta_diccionario = {}
+        for respuesta in serializer_respuesta:
+            pregunta_id = respuesta["fk_preg_resp_pregunta"]
+            if pregunta_id not in respuesta_diccionario:    #Cuando se pregunta si existe el id de la pregunta en el diccionario quiero decir que si existe el numero pregunta_id
+                #como clave del diccionario, si no existe, lo inicializa como una lista vacia
+                respuesta_diccionario[pregunta_id] = []  # Si no existe, inicializa la lista
+            respuesta_diccionario[pregunta_id].append(respuesta)  # Añade la respuesta a la lista
+            
+        # Lista para combinar las preguntas con las respuestas
+        preguntas_con_respuestas = []
+        
+        # Recorrer las preguntas y buscar las respuestas correspondiente
+        for pregunta in preguntas_en_test_data:
+            pregunta_id = pregunta["fk_preg_pgte_pregunta__pk_preg_id"]
+            if pregunta_id in respuesta_diccionario:    #cuando pregunto si existe el id de la pregunta en el diccionario quiero decir que si existe el numero pregunta_id
+                # Si existe, añade la pregunta y sus respuestas a la lista
+                pregunta_con_respuesta = {
+                    'pregunta': pregunta,
+                    'respuestas': respuesta_diccionario[pregunta_id]  # Todas las respuestas para esa pregunta
+                }
+                preguntas_con_respuestas.append(pregunta_con_respuesta)
+                
+        return Response(preguntas_con_respuestas, status=status.HTTP_200_OK)
+        
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
