@@ -1,7 +1,6 @@
 import { NavLink } from "react-router";
 import { useNavigate,Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Header from "../components/Header";
 
 const Home = () => {
     const navigate = useNavigate();

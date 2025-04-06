@@ -2,6 +2,7 @@ import { verPreguntas, verRespuestas} from '../services/api'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import MainLayout from '../layouts/MainLayout';
 
 const Tests = () => {
 
@@ -41,7 +42,7 @@ const Tests = () => {
     }
 
     return (
-        <div>
+        <MainLayout>
             <h1>Preguntas del Test</h1>
             <div>
                 <Link to="/tests">Volver a la lista de tests</Link>
@@ -67,7 +68,7 @@ const Tests = () => {
             ) : (
                 <p>No se encontraron preguntas.</p>
             )}
-        </div>
+        </MainLayout>
     );
 };
 

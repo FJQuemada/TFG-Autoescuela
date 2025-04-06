@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { inicioSesion, verRespuestas, verPreguntas } from '../services/api'
+import { useUser } from '../contexts/UserContext';
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const { loginUser } = useUser(); // Accede a la función loginUser desde el contexto
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,6 +25,14 @@ const Login = () => {
         const verificacion = await inicioSesion(creedencialesLogin);
 
         if (verificacion.login === true){
+
+            const userData = {
+                "id": verificacion.id,
+                "nombre": verificacion.nombre,
+            }
+
+            loginUser(userData); // Llama a la función login del contexto
+
             navigate("/home")
         }
 

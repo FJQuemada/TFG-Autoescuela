@@ -23,7 +23,7 @@ export const registroUsuario = async (usuario) => {
 
 export const inicioSesion = async (usuario) => {
   try{
-    const response = await axios.post(`${API_URL}/verificar_login`, usuario);
+    const response = await axios.post(`${API_URL}/inicio_sesion`, usuario);
     console.log(`Login correcto`,response);
     return response.data;
   } catch (error){
@@ -39,7 +39,7 @@ export const verRespuestas = async(preguntaId) =>{
     return response.data;
   }catch(error){
     console('No se ha podido',error);
-    return error.response.data
+    return error.response.data;
   }
     
 } 
@@ -51,7 +51,18 @@ export const verPreguntas = async(testId) =>{
     return response.data;
   }catch(error){
     console('No se ha podido',error);
-    return error.response.data
+    return error.response.data;
   }
     
 } 
+
+export const verTests = async() =>{
+  try{
+    const response = await axios.get(`${API_URL}/tests_page`);
+    return (response.data);
+  }catch(error){
+    console.log("No se han podido obtener los tests",error);
+     return error.response;
+  }
+ 
+}

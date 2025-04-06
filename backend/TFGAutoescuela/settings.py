@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,9 +40,14 @@ INSTALLED_APPS = [
     'rest_framework',                   #Para REST
     'drf_yasg',                         #Para Swagger
     'corsheaders',                      #Para CORS  
-    'rest_framework_simplejwt',         #Para JWT(inutilizado)
+    'rest_framework_simplejwt',         #Para JWT
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',

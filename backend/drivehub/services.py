@@ -1,5 +1,6 @@
 
 from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.tokens import RefreshToken
 
 def obtener_usuario(tabla):
     try:
@@ -15,16 +16,24 @@ def obtener_usuario(tabla):
 def login_usuario(Model, input_email, input_password):
     try:
         # Obtener el usuario por nombre
-        email_usuario = Model.objects.get(usus_email=input_email)
+        usuario = Model.objects.get(usus_email=input_email)
         
         # Comparar la contraseña recibida con la almacenada
-        if check_password(input_password, email_usuario.usus_password):
-            # Si la contraseña es correcta, devolvemos True
-            return True
+        if check_password(input_password, usuario.usus_password):
+            # Devolvemos True y el propio usuario para poder usarlo en el token
+            return True,usuario
         else:
             # Si la contraseña no es correcta, devolvemos False
-            return False
+            return False, None
 
     except Model.DoesNotExist:
         # Si no existe el usuario, devolvemos False (o podrías usar None si quieres distinguir el caso)
-        return None
+        return None, None
+    
+# Definimos la función para conceder el token al usuario que inicie la sesion
+def obtener_token(usuario):
+    refresh = RefreshToken.for_user(usuario)
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }

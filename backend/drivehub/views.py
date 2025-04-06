@@ -9,7 +9,9 @@ from rest_framework.response import Response
 
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
 
-from .services import login_usuario
+from .services import login_usuario, obtener_token
+
+from rest_framework_simplejwt.tokens import RefreshToken
 # Create your views here.
 
 # este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
@@ -18,7 +20,7 @@ def get_dificultades(request):
     return JsonResponse(list(dificultades), safe=False)
 
 @api_view(['POST'])
-def verificar_login(request):
+def inicio_sesion(request):
     try:
         email = request.data.get('email')
         password = request.data.get('password')
@@ -26,10 +28,20 @@ def verificar_login(request):
         if not email or not password:
             return Response({'detail': 'Email y contraseña son obligatorios.'}, status=status.HTTP_400_BAD_REQUEST)
         
-        resultado_login = login_usuario(DrhtUsuariosUsus,email,password)
+        # Llamar a la función de login_usuario para verificar el login
+        # Se le pasa el modelo de usuario, el email y la contraseña
+        # Devuelve un booleano y el usuario en si
+        resultado_login, usuario = login_usuario(DrhtUsuariosUsus,email,password)
 
+        print(UsuariosSerializer(usuario).data)  # Imprimir los datos del usuario para depuración
+        #resultado_login es un booleano, si es True, devuelve el nombre y el id del usuario, si es False, devuelve un mensaje de error
         if resultado_login:
-            return Response({'login': True}, status=status.HTTP_200_OK)
+            # Si el login es correcto, devuelve True y los datos del usuario
+            return Response({
+                'login': True,
+                'id': usuario.pk_usus_id,
+                'nombre': usuario.usus_nombre,
+            }, status=status.HTTP_200_OK)
         elif resultado_login is False:
             return Response({'login': False, 'detail': 'Contraseña incorrecta'}, status=status.HTTP_401_UNAUTHORIZED)
         elif resultado_login is None:
@@ -172,6 +184,23 @@ class LogrosUsuarioViewSet(viewsets.ModelViewSet):
 class TestViewSet(viewsets.ModelViewSet):
     queryset = DrhtTestsTsts.objects.all()
     serializer_class = TestSerializer
+    
+@api_view(['GET'])
+def get_tests(request):
+    
+    tests = DrhtTestsTsts.objects.select_related('DrhtDificultadDiff')
+    
+    #Primero se pone la foreign key de la primera tabla y luego la key que quieras de la segunda
+    tests_completos = tests.values(
+        'pk_tsts_id',
+        'tsts_nombre',
+        'tsts_fecha_creacion',
+        'tsts_activo',
+        'fk_diff_tsts_dificultad__diff_nombre'
+    )
+    
+    return Response(tests_completos,status= status.HTTP_200_OK)
+    
 
 class TestUsuarioViewSet(viewsets.ModelViewSet):
     queryset = DrhtTestsUsuarioTeus.objects.all()

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from rest_framework_simplejwt import views as jwt_views     # Importar las vistas de JWT
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -55,12 +55,15 @@ urlpatterns = [
     path('api/', include(router.urls)),  # Rutas para las vistas de API
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),  # Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Ruta para obtener el token JWT
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Ruta para refrescar el token JWT
     path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
     path('api/usuarioprimi', views.get_usuario_primi),
-    path('api/verificar_login', views.verificar_login),
+    path('api/inicio_sesion', views.inicio_sesion),
     path('api/respuestas_a_tope',views.respuestas_a_tope),
     path('api/preguntas_en_test/<int:test_id>', views.get_preguntas_test),
     path('api/preguntas/<int:pregunta_id>/respuestas', views.obtener_respuestas),
+    path('api/tests_page', views.get_tests),
 ]
 
 
