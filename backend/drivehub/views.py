@@ -8,10 +8,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
+from .services import login_usuario
 
-from .services import login_usuario, obtener_token
-
-from rest_framework_simplejwt.tokens import RefreshToken
+from .auth_utils import obtener_token
 # Create your views here.
 
 # este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
@@ -36,11 +35,16 @@ def inicio_sesion(request):
         print(UsuariosSerializer(usuario).data)  # Imprimir los datos del usuario para depuración
         #resultado_login es un booleano, si es True, devuelve el nombre y el id del usuario, si es False, devuelve un mensaje de error
         if resultado_login:
+            
+            token = obtener_token(usuario)
+            
+            print(token)  # Imprimir el token para depuración
             # Si el login es correcto, devuelve True y los datos del usuario
             return Response({
                 'login': True,
                 'id': usuario.pk_usus_id,
                 'nombre': usuario.usus_nombre,
+                'token': token,
             }, status=status.HTTP_200_OK)
         elif resultado_login is False:
             return Response({'login': False, 'detail': 'Contraseña incorrecta'}, status=status.HTTP_401_UNAUTHORIZED)

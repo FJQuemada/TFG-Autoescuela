@@ -31,7 +31,9 @@ const Login = () => {
                 "nombre": verificacion.nombre,
             }
 
-            loginUser(userData); // Llama a la función login del contexto
+            const userToken = verificacion.token;
+
+            loginUser(userData,userToken); // Llama a la función login del contexto
 
             navigate("/home")
         }

@@ -55,8 +55,6 @@ urlpatterns = [
     path('api/', include(router.urls)),  # Rutas para las vistas de API
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),  # Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # Ruta para obtener el token JWT
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Ruta para refrescar el token JWT
     path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
     path('api/usuarioprimi', views.get_usuario_primi),
     path('api/inicio_sesion', views.inicio_sesion),

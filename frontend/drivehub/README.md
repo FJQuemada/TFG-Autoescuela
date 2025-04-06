@@ -28,3 +28,5 @@ Constantes: UPPER_SNAKE_CASE
 Clases: CamelCase (más concretamente, PascalCase)
 
 Módulos y archivos: snake_case.py
+
+voy a usar localstorage en lugar de cookies pq para mi proyecto es mas manejable

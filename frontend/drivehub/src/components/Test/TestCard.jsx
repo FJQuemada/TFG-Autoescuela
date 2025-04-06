@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 const TestCard = ({testNombre}) => {
     return(
         <div className='flex w-full h-96 justify-center items-center'>
-                <Link className='text-white' to={"/tests/1"}>
+                <Link className='text-white' to={"/test/1"}>
                 <p className="text-white">{testNombre}</p>
                 </Link> 
         </div>
