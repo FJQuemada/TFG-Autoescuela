@@ -4,7 +4,7 @@ import { useUser } from '../contexts/UserContext';
 const PrivateRoute = () => {
   // Obtiene el token del localStorage
   //const { token } = useUser(); // Obtiene el token del contexto de usuario
-  const token = localStorage.getItem('token'); // Obtiene el token del localStorage
+  const token = localStorage.getItem('accessToken'); // Obtiene el token del localStorage
   // Si no hay token, redirige a la página de login
   if (!token) {
     console.log("No hay token, redirigiendo a login");

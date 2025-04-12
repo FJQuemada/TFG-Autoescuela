@@ -11,6 +11,7 @@ from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSeriali
 from .services import login_usuario
 
 from .auth_utils import obtener_token
+from datetime import timedelta
 # Create your views here.
 
 # este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
@@ -36,16 +37,30 @@ def inicio_sesion(request):
         #resultado_login es un booleano, si es True, devuelve el nombre y el id del usuario, si es False, devuelve un mensaje de error
         if resultado_login:
             
-            token = obtener_token(usuario)
+            access_token,refresh_token = obtener_token(usuario)
             
-            print(token)  # Imprimir el token para depuración
-            # Si el login es correcto, devuelve True y los datos del usuario
-            return Response({
+            print('access token',access_token)  # Imprimir el token para depuración
+            print('refresh token',refresh_token)  # Imprimir el token para depuración
+
+            response = Response({
                 'login': True,
                 'id': usuario.pk_usus_id,
                 'nombre': usuario.usus_nombre,
-                'token': token,
+                'access_token': access_token,
             }, status=status.HTTP_200_OK)
+            # Configurar la cookie de acceso
+            response.set_cookie(
+                key='refresh_token',  # Nombre de la cookie
+                value=refresh_token,  # El refresh token
+                max_age=3600,  # Duración de la cookie
+                # httponly=True,  # Para que no sea accesible desde JavaScript
+                # secure=True,  # Solo sobre HTTPS
+                # samesite='Strict'  # Prevención de CSRF
+            )
+
+            # Si el login es correcto, devuelve True y los datos del usuario
+            return response
+        
         elif resultado_login is False:
             return Response({'login': False, 'detail': 'Contraseña incorrecta'}, status=status.HTTP_401_UNAUTHORIZED)
         elif resultado_login is None:

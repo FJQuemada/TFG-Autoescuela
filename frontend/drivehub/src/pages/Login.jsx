@@ -24,6 +24,7 @@ const Login = () => {
 
         const verificacion = await inicioSesion(creedencialesLogin);
 
+        console.log(verificacion);
         if (verificacion.login === true){
 
             const userData = {
@@ -31,7 +32,7 @@ const Login = () => {
                 "nombre": verificacion.nombre,
             }
 
-            const userToken = verificacion.token;
+            const userToken = verificacion.access_token;
 
             loginUser(userData,userToken); // Llama a la función login del contexto
 
