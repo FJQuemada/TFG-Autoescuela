@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',                   #Para REST
     'drf_yasg',                         #Para Swagger
     'corsheaders',                      #Para CORS  
-    'rest_framework_simplejwt',         #Para JWT
+    'rest_framework_simplejwt'         #Para JWT
 ]
 
 MIDDLEWARE = [

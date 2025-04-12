@@ -129,7 +129,7 @@ class DrhtDificultadDiff(models.Model):
     diff_nombre = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_dificultad_diff'
 
 
@@ -140,7 +140,7 @@ class DrhtLogrosLogr(models.Model):
     logr_image = models.TextField(default='', blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_logros_logr'
 
 
@@ -151,7 +151,7 @@ class DrhtLogrosUsuarioLgus(models.Model):
     lgus_fecha_obtencion = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_logros_usuario_lgus'
 
 
@@ -165,7 +165,7 @@ class DrhtPostForoPofr(models.Model):
     pofr_dislikes = models.IntegerField(default=0, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_post_foro_pofr'
 
 
@@ -176,7 +176,7 @@ class DrhtPreguntasPreg(models.Model):
     preg_image = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_preguntas_preg'
 
 
@@ -186,9 +186,11 @@ class DrhtPreguntasTestPgte(models.Model):
     fk_preg_pgte_pregunta = models.ForeignKey(DrhtPreguntasPreg, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_preguntas_test_pgte'
-
+        constraints = [
+                models.UniqueConstraint(fields=['fk_tsts_pgte_test', 'fk_preg_pgte_pregunta'], name='unique_test_question')
+                ]
 
 class DrhtRespuestasForoRefe(models.Model):
     pk_refe_id = models.AutoField(primary_key=True)
@@ -199,7 +201,7 @@ class DrhtRespuestasForoRefe(models.Model):
     refe_dislikes = models.IntegerField(default=0, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_respuestas_foro_refe'
 
 
@@ -210,7 +212,7 @@ class DrhtRespuestasResp(models.Model):
     resp_correcta = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_respuestas_resp'
 
 
@@ -222,7 +224,7 @@ class DrhtTestsTsts(models.Model):
     tsts_activo = models.BooleanField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_tests_tsts'
 
 
@@ -236,7 +238,7 @@ class DrhtTestsUsuarioTeus(models.Model):
     teus_tiempo = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_tests_usuario_teus'
 
 
@@ -249,5 +251,5 @@ class DrhtUsuariosUsus(models.Model):
     usus_nivel = models.IntegerField(default=1,blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'drht_usuarios_usus'
