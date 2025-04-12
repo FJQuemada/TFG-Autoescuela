@@ -30,10 +30,4 @@ def login_usuario(Model, input_email, input_password):
         # Si no existe el usuario, devolvemos False (o podrías usar None si quieres distinguir el caso)
         return None, None
     
-# Definimos la función para conceder el token al usuario que inicie la sesion
-def obtener_token(usuario):
-    refresh = RefreshToken.for_user(usuario)
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
+
