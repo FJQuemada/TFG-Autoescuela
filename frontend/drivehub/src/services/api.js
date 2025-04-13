@@ -1,19 +1,16 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api'
-
-// export const verUsuarioPrimi = async () => {
-//   try {
-//     const response = await axios.get(`${API_URL}/usuarioprimi`);
-//     console.log(response);
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
+const api = axios.create({
+  baseURL: 'http://localhost:8000/api/',
+  withCredentials: true,
+  headers: {
+      'Content-Type': 'application/json',
+  },
+});
 
 export const registroUsuario = async (usuario) => {
   try {
-    const response = await axios.post(`${API_URL}/usuarios/`, usuario);
+    const response = await api.post('usuarios/', usuario);
     console.log(`Usuario recien añadido`,response);
   } catch (error) {
     console.error('ESTE ES EL ERROR',error);
@@ -23,9 +20,7 @@ export const registroUsuario = async (usuario) => {
 
 export const inicioSesion = async (usuario) => {
   try{
-    const response = await axios.post(`${API_URL}/inicio_sesion`, usuario,{
-      withCredentials: true,
-    });
+    const response = await api.post('inicio_sesion', usuario);
     return response.data;
   } catch (error){
     console.error('No se ha podido iniciar sesion', error);
@@ -35,7 +30,7 @@ export const inicioSesion = async (usuario) => {
 
 export const verRespuestas = async(preguntaId) =>{
   try{
-    const response = await axios.get(`${API_URL}/preguntas/${preguntaId}/respuestas`);
+    const response = await api.get(`preguntas/${preguntaId}/respuestas`);
     console.log(response);
     return response.data;
   }catch(error){
@@ -47,7 +42,7 @@ export const verRespuestas = async(preguntaId) =>{
 
 export const verPreguntas = async(testId) =>{
   try{
-    const response = await axios.get(`${API_URL}/preguntas_en_test/${testId}`);
+    const response = await api.get(`/preguntas_en_test/${testId}`);
     console.log(response.data)
     return response.data;
   }catch(error){
@@ -59,7 +54,7 @@ export const verPreguntas = async(testId) =>{
 
 export const verTests = async() =>{
   try{
-    const response = await axios.get(`${API_URL}/tests_page`);
+    const response = await api.get('tests_page');
     return (response.data);
   }catch(error){
     console.log("No se han podido obtener los tests",error);

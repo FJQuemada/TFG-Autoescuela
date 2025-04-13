@@ -10,14 +10,49 @@ from rest_framework.response import Response
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
 from .services import login_usuario
 
-from .auth_utils import obtener_token
-from datetime import timedelta
+from rest_framework.permissions import IsAuthenticated
+from .auth_utils import obtener_access_token, obtener_refresh_token, decodificar_token
 # Create your views here.
 
-# este es un ejemplo de como se puede hacer una vista que retorne un json con los datos de una tabla, sin usar un serializer
-def get_dificultades(request):
-    dificultades = DrhtDificultadDiff.objects.all().values('pk_diff_id', 'diff_nombre')
-    return JsonResponse(list(dificultades), safe=False)
+@api_view(['POST'])
+def renovar_token(request):
+    try:
+        # Obtener el refresh token de la cookie
+        refresh_token = request.COOKIES.get('refresh_token')
+        
+        if not refresh_token:
+            return Response({'detail': 'No se encontró el token de actualización.'}, status=status.HTTP_401_BAD_REQUEST)
+        
+        # Decodificar el token para obtener el payload
+        payload = decodificar_token(refresh_token)
+        
+        if not payload:
+            return Response({'detail': 'Token inválido o expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        # Generar nuevos tokens
+        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=payload['user_id'])
+        access_token = obtener_access_token(usuario)
+        refresh_token = obtener_refresh_token(usuario)
+
+        response = Response({
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+        }, status=status.HTTP_200_OK)
+
+        # Configurar la cookie de acceso
+        response.set_cookie(
+            key='refresh_token',  # Nombre de la cookie
+            value=refresh_token,  # El refresh token
+            max_age=3600,  # Duración de la cookie
+            httponly=True,  # Para que no sea accesible desde JavaScript
+            secure=True,  # Solo sobre HTTPS
+            samesite='Strict'  # Prevención de CSRF
+        )
+
+        return response
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
 def inicio_sesion(request):
@@ -37,7 +72,8 @@ def inicio_sesion(request):
         #resultado_login es un booleano, si es True, devuelve el nombre y el id del usuario, si es False, devuelve un mensaje de error
         if resultado_login:
             
-            access_token,refresh_token = obtener_token(usuario)
+            access_token = obtener_access_token(usuario)
+            refresh_token = obtener_refresh_token(usuario)
             
             print('access token',access_token)  # Imprimir el token para depuración
             print('refresh token',refresh_token)  # Imprimir el token para depuración
@@ -53,9 +89,9 @@ def inicio_sesion(request):
                 key='refresh_token',  # Nombre de la cookie
                 value=refresh_token,  # El refresh token
                 max_age=3600,  # Duración de la cookie
-                # httponly=True,  # Para que no sea accesible desde JavaScript
-                # secure=True,  # Solo sobre HTTPS
-                # samesite='Strict'  # Prevención de CSRF
+                httponly=True,  # Para que no sea accesible desde JavaScript
+                secure=True,  # Solo sobre HTTPS
+                samesite='Strict'  # Prevención de CSRF
             )
 
             # Si el login es correcto, devuelve True y los datos del usuario
