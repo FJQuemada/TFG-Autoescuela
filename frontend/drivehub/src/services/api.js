@@ -104,6 +104,8 @@ const renovarAccessToken = async () => {
     return newAccessToken;
   } catch (error) {
     console.error('Error al renovar el token', error);
+    // Eliminar el token de localStorage si no se pudo renovar
+    localStorage.removeItem('access_token');
     window.location.href = '/'; // Redirigir al login si no se pudo renovar el token
     return null;
   }
@@ -121,8 +123,10 @@ api.interceptors.response.use(
         error.config.headers['Authorization'] = `Bearer ${nuevoAccessToken}`;
         return axios(error.config); // Reintentar la solicitud original
       } else {
+        // Eliminar el token de localStorage si no se pudo renovar
+        localStorage.removeItem('access_token');
         // Si no se pudo renovar el token, redirigir a login
-        window.location.href = '/login';
+        window.location.href = '/ ';
       }
     }
     return Promise.reject(error);
