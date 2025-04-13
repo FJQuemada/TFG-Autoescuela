@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt'         #Para JWT
 ]
 
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',

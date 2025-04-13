@@ -1,3 +1,6 @@
+import jwt
+from datetime import datetime, timedelta, timezone
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import DrhtDificultadDiff, DrhtUsuariosUsus, DrhtLogrosLogr, DrhtLogrosUsuarioLgus, DrhtTestsTsts, DrhtTestsUsuarioTeus, DrhtPreguntasPreg, DrhtPreguntasTestPgte, DrhtRespuestasResp, DrhtPostForoPofr, DrhtRespuestasForoRefe
@@ -10,49 +13,51 @@ from rest_framework.response import Response
 from .serializers import DificultadSerializer, UsuariosSerializer, LogrosSerializer, LogrosUsuarioSerializer, TestSerializer, TestUsuarioSerializer, PreguntasSerializer, PreguntasTestSerializer, RespuestasSerializer, PostForoSerializer, RespuestasForoSerializer
 from .services import login_usuario
 
-from rest_framework.permissions import IsAuthenticated
-from .auth_utils import obtener_access_token, obtener_refresh_token, decodificar_token
+
+from .auth_utils import obtener_access_token, obtener_refresh_token, decodificar_token, token_requerido
 # Create your views here.
 
 @api_view(['POST'])
-def renovar_token(request):
+def renovar_access_token(request):
     try:
         # Obtener el refresh token de la cookie
-        refresh_token = request.COOKIES.get('refresh_token')
-        
-        if not refresh_token:
+        refresh_token_cookie = request.COOKIES.get('refresh_token')
+        print('refresh_token', refresh_token_cookie)  # Verificar el valor del refresh_token
+
+        if not refresh_token_cookie:
             return Response({'detail': 'No se encontró el token de actualización.'}, status=status.HTTP_401_BAD_REQUEST)
-        
+
         # Decodificar el token para obtener el payload
-        payload = decodificar_token(refresh_token)
-        
+        payload = decodificar_token(refresh_token_cookie)
+        print('payload', payload)  # Verificar el payload
+
         if not payload:
             return Response({'detail': 'Token inválido o expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        # Generar nuevos tokens
-        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=payload['user_id'])
+
+        # Verificar la expiración del refresh token (si lo incluiste en el payload)
+        if 'exp' in payload and datetime.fromtimestamp(payload['exp'], tz=timezone.utc) < datetime.now(timezone.utc):
+            return Response({'detail': 'El token de actualización ha expirado. Inicie sesión nuevamente.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Generar un nuevo access token
+        try:
+            usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=payload['user_id'])
+            print('usuario encontrado', usuario)  # Verificar que se encuentra al usuario
+        except DrhtUsuariosUsus.DoesNotExist:
+            return Response({'detail': 'Usuario no encontrado asociado al refresh token.'}, status=status.HTTP_404_NOT_FOUND)
+
         access_token = obtener_access_token(usuario)
-        refresh_token = obtener_refresh_token(usuario)
 
         response = Response({
             'access_token': access_token,
-            'refresh_token': refresh_token,
         }, status=status.HTTP_200_OK)
 
-        # Configurar la cookie de acceso
-        response.set_cookie(
-            key='refresh_token',  # Nombre de la cookie
-            value=refresh_token,  # El refresh token
-            max_age=3600,  # Duración de la cookie
-            httponly=True,  # Para que no sea accesible desde JavaScript
-            secure=True,  # Solo sobre HTTPS
-            samesite='Strict'  # Prevención de CSRF
-        )
-
+        print('response', response)  # Verificar la respuesta
         return response
-    
+
     except Exception as e:
+        print('Error interno:', str(e))  # Imprimir el error
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['POST'])
 def inicio_sesion(request):
@@ -111,15 +116,34 @@ def inicio_sesion(request):
 @api_view(['GET'])
 def get_usuario_primi(request):
     try:
-        # Obtener el usuario con pk_usuario_id = 1
-        usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
-        
-        # Serializar el objeto usando el serializador
-        serializer = UsuariosSerializer(usuario_primi)
-        return Response(serializer.data)  # La respuesta con los datos serializados
-        
+        # Paso 1: Obtener el token del encabezado Authorization
+        auth_header = request.headers.get('Authorization')
+
+        if not auth_header or not auth_header.startswith('Bearer '):
+            return Response({'detail': 'Token no proporcionado'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Obtener el token
+        token = auth_header.split(' ')[1]
+
+        # Paso 2: Decodificar el token para obtener el payload
+        try:
+            payload = decodificar_token(token)
+            if not payload:
+                return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
+            # Si la decodificación es exitosa, el token es válido, continuar con la vista
+            usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
+            serializer = UsuariosSerializer(usuario_primi)
+            return Response(serializer.data)  # Devolver los datos del usuario
+
+        except jwt.ExpiredSignatureError:
+            # El access token ha expirado, devolver 401 para que el frontend inicie la renovación
+            return Response({'detail': 'Token ha expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
+
     except DrhtUsuariosUsus.DoesNotExist:
-        return Response({'error': 'Usuario no encontrado'}, status=404)
+        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    except Exception as e:
+        return Response({'detail': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #bulk de preguntas
 @api_view(['POST'])

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router";
 import { useNavigate,Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import { verUsuarioPrimi } from "../services/api";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
+                    <button onClick={verUsuarioPrimi}> prueba</button>
 
                     <div className="flex w-5/12 h-[65vh] mt-15 bg-[#ffffff21] ">
                         <div className="flex flex-col w-4/6 h-full">

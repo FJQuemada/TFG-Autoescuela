@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
     // Recuperamos el usuario y token de localStorage cuando el componente se monta, es decir, cuando la aplicación se carga por primera vez
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
-        const storedToken = localStorage.getItem("accessToken");
+        const storedToken = localStorage.getItem("access_token");
 
         // Si existen en localStorage, los seteamos en el estado
         if (storedUser && storedToken) {
@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
         setUser(userData);
         setToken(userToken);
         localStorage.setItem("user", JSON.stringify(userData)); // Guardamos el usuario en localStorage
-        localStorage.setItem("accessToken", userToken);               // Guardamos el token en localStorage
+        localStorage.setItem("access_token", userToken);               // Guardamos el token en localStorage
         console.log("Usuario guardado en localStorage", userData);
         console.log("Token guardado en localStorage", userToken);
     };
