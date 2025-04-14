@@ -1,7 +1,13 @@
 import { useState, createContext, useContext, useEffect } from "react";
+import { cerrarSesion } from "../services/api"; // Importamos la función cerrarSesion del servicio api.js
 
 // Crear el contexto, cuyo objetivo es almacenar el nombre, id y token del usuario para que se pueda acceder desde cualquier parte de la aplicación
 const UserContext = createContext();
+
+// Hook para usar el contexto de usuario
+export const UseUser = () => {
+    return useContext(UserContext);
+};
 
 // Componente proveedor del contexto
 export const UserProvider = ({ children }) => {
@@ -41,7 +47,9 @@ export const UserProvider = ({ children }) => {
         });
         setToken(null);
         localStorage.removeItem("user");  // Eliminamos el usuario de localStorage
-        localStorage.removeItem("token"); // Eliminamos el token de localStorage
+        localStorage.removeItem("access_token"); // Eliminamos el token de localStorage
+        const resultado = cerrarSesion(); // Llamamos a la función cerrarSesion del servicio api.js
+        console.log("Sesion cerrada", resultado);
     };
 
     return (
@@ -51,5 +59,3 @@ export const UserProvider = ({ children }) => {
     );
 };
 
-// Custom Hook para acceder al contexto
-export const useUser = () => useContext(UserContext);

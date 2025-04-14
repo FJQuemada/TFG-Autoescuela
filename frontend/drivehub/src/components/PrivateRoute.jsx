@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useUser } from '../contexts/UserContext';
+import { UseUser } from '../contexts/UserContext';
 
 const PrivateRoute = () => {
   // Obtiene el token del localStorage
-  //const { token } = useUser(); // Obtiene el token del contexto de usuario
+  //const { token } = UseUser(); // Obtiene el token del contexto de usuario
   const token = localStorage.getItem('access_token'); // Obtiene el token del localStorage
   // Si no hay token, redirige a la página de login
   if (!token) {

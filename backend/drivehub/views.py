@@ -251,19 +251,15 @@ def get_preguntas_test(request,test_id):
         
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-@api_view(['GET'])
-def obtener_respuestas(request,pregunta_id):
-    try:  
-        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta = pregunta_id)
-        
-        if not respuestas:
-            return Response({'detail:No se ha encontrado la pregunta '}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = RespuestasSerializer(respuestas,many = True)
-        return Response(serializer.data,status= status.HTTP_200_OK)
+
+@api_view(['POST'])
+def cerrar_sesion(request):
+    try:
+        response = Response({"detail":"Sesion cerrada"}, status=status.HTTP_200_OK)
+        response.delete_cookie("refresh_token")
+        return response
     except Exception as e:
-        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)    
 
 #Dificultad
 class DificultadViewSet(viewsets.ModelViewSet):

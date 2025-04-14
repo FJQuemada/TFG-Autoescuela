@@ -11,7 +11,7 @@ def obtener_access_token(usuario):
     # El payload contiene la información que quieres incluir en el token
     access_token_payload = {
         'user_id': usuario.pk_usus_id,
-        'exp': datetime.now(timezone.utc) + timedelta(seconds=10),  # El token expira en 5 minutos
+        'exp': datetime.now(timezone.utc) + timedelta(hours=2),  # El token expira en 5 minutos
         'iat': datetime.now(timezone.utc),  # Fecha de emisión
     }
     access_token = jwt.encode(access_token_payload, settings.SECRET_KEY, algorithm='HS256')
@@ -23,7 +23,7 @@ def obtener_refresh_token(usuario):
     # El payload contiene la información que quieres incluir en el token
     refresh_token_payload = {
         'user_id': usuario.pk_usus_id,
-        'exp': datetime.now(timezone.utc) + timedelta(minutes=1),  # El token expira en 30 días
+        'exp': datetime.now(timezone.utc) + timedelta(hours=24),  # El token expira en 30 días
         'iat': datetime.now(timezone.utc),  # Fecha de emisión
     }
     refresh_token = jwt.encode(refresh_token_payload, settings.SECRET_KEY, algorithm='HS256')

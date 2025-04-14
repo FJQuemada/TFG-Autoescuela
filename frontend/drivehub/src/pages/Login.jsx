@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { inicioSesion, verRespuestas, verPreguntas } from '../services/api'
-import { useUser } from '../contexts/UserContext';
+import { UseUser } from '../contexts/UserContext';
 
 const Login = () => {
 
     const navigate = useNavigate();
-    const { loginUser } = useUser(); // Accede a la función loginUser desde el contexto
+    const { loginUser } = UseUser(); // Accede a la función loginUser desde el contexto
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
