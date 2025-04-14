@@ -59,14 +59,19 @@ def token_requerido(func):
         token = auth_header.split(' ')[1]
         
         # Decodificar el token
-        payload = decodificar_token(token)
-        print('Estoy en token_requerido', payload)
-        
-        # Verificar si el token es válido
-        if not payload:
-            return Response({'detail': 'Token inválido o expirado'}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        # Llamar a la función original pasando el request con el payload
-        return func(request, *args, **kwargs)
+
+        try:
+            payload = decodificar_token(token)
+            if not payload:
+                return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
+            # Si la decodificación es exitosa, el token es válido, continuar con la vista
+            print('Estoy en token_requerido', payload)
+            #ESTO ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
+
+            return func(request, *args, **kwargs)
+
+        except jwt.ExpiredSignatureError:
+            # El access token ha expirado, devolver 401 para que el frontend inicie la renovación
+            return Response({'detail': 'Token ha expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
     
     return wrapped

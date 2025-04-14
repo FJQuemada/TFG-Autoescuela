@@ -17,6 +17,7 @@ from .services import login_usuario
 from .auth_utils import obtener_access_token, obtener_refresh_token, decodificar_token, token_requerido
 # Create your views here.
 
+#FUNCIONA
 @api_view(['POST'])
 def renovar_access_token(request):
     try:
@@ -112,38 +113,53 @@ def inicio_sesion(request):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#Ejemplo para usar un serializer 
+#get_usuaior_primi pero con el decorador token_requerido
+@token_requerido
 @api_view(['GET'])
 def get_usuario_primi(request):
     try:
-        # Paso 1: Obtener el token del encabezado Authorization
-        auth_header = request.headers.get('Authorization')
-
-        if not auth_header or not auth_header.startswith('Bearer '):
-            return Response({'detail': 'Token no proporcionado'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        # Obtener el token
-        token = auth_header.split(' ')[1]
-
-        # Paso 2: Decodificar el token para obtener el payload
-        try:
-            payload = decodificar_token(token)
-            if not payload:
-                return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
-            # Si la decodificación es exitosa, el token es válido, continuar con la vista
-            usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
-            serializer = UsuariosSerializer(usuario_primi)
-            return Response(serializer.data)  # Devolver los datos del usuario
-
-        except jwt.ExpiredSignatureError:
-            # El access token ha expirado, devolver 401 para que el frontend inicie la renovación
-            return Response({'detail': 'Token ha expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
-
+        usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
+        serializer = UsuariosSerializer(usuario_primi)
+        return Response(serializer.data)  # Devolver los datos del usuario
     except DrhtUsuariosUsus.DoesNotExist:
         return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
-    except Exception as e:
-        return Response({'detail': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# #Ejemplo para usar un serializer 
+# @api_view(['GET'])
+# def get_usuario_primi(request):
+#     try:
+#         # Paso 1: Obtener el token del encabezado Authorization
+#         auth_header = request.headers.get('Authorization')
+
+#         if not auth_header or not auth_header.startswith('Bearer '):
+#             return Response({'detail': 'Token no proporcionado'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#         # Obtener el token
+#         token = auth_header.split(' ')[1]
+
+#         # Paso 2: Decodificar el token para obtener el payload
+#         try:
+#             payload = decodificar_token(token)
+#             if not payload:
+#                 return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
+#             # Si la decodificación es exitosa, el token es válido, continuar con la vista
+#             #ESTO ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
+
+#             usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
+#             serializer = UsuariosSerializer(usuario_primi)
+#             return Response(serializer.data)  # Devolver los datos del usuario
+#             #HASTA AQUI ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
+
+#         except jwt.ExpiredSignatureError:
+#             # El access token ha expirado, devolver 401 para que el frontend inicie la renovación
+#             return Response({'detail': 'Token ha expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#     except DrhtUsuariosUsus.DoesNotExist:
+#         return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+#     except Exception as e:
+#         return Response({'detail': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #bulk de preguntas
 @api_view(['POST'])
@@ -197,6 +213,7 @@ def respuestas_a_tope(request):
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 #para obtener las preguntas del test
+@token_requerido
 @api_view(['GET'])
 def get_preguntas_test(request,test_id):
     try:

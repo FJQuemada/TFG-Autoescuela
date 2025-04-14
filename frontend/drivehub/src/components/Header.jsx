@@ -1,6 +1,9 @@
 import { useNavigate,Link } from "react-router-dom";
+import { UseUser } from '../contexts/UserContext';
 
 const Header = () =>{
+
+    const { user,logoutUser } = UseUser();
     return(
         <div className="flex flex-col items-center w-full h-full">
             <header>
@@ -18,6 +21,10 @@ const Header = () =>{
                 </Link>
                 <Link to="/" className="text-lg mt-10">
                     <p className="text-white">Stats</p>
+                </Link>
+                {/*Logout*/}
+                <Link to="/" className="text-lg mt-10" onClick={logoutUser}>
+                    <p className="text-white">Logout</p>
                 </Link>
             </nav>
         </div>

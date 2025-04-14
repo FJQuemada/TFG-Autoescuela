@@ -48,9 +48,7 @@ async (error) => {  // error.config contiene la configuración de la solicitud o
         localStorage.removeItem('access_token');
         localStorage.removeItem('user');
         // Eliminar el refresh token desde el backend
-        const response = await api.post('cerrar_sesion');
-        // Si no se pudo renovar el token, redirigir a login
-        window.location.href = '/ ';
+        await api.post('cerrar_sesion');
     }
     }
     return Promise.reject(error);
