@@ -173,7 +173,7 @@ const Registro = () => {
                     )}
                 </div>
 
-                <button type="submit" className='m-4'>
+                <button type="submit" className='bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold py-2 px-4 roundedm-4'>
                     Dar de alta
                 </button>
                 <p className="text-sm text-white mt-2">
