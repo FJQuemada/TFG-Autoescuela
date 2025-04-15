@@ -113,9 +113,9 @@ def inicio_sesion(request):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#get_usuaior_primi pero con el decorador token_requerido
-@token_requerido
+# get_usuaior_primi pero con el decorador token_requerido
 @api_view(['GET'])
+@token_requerido
 def get_usuario_primi(request):
     try:
         usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
@@ -213,8 +213,8 @@ def respuestas_a_tope(request):
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 #para obtener las preguntas del test
-@token_requerido
 @api_view(['GET'])
+@token_requerido
 def get_preguntas_test(request,test_id):
     try:
         preguntas_en_test = DrhtPreguntasTestPgte.objects.select_related('DrhtPreguntasPreg').filter(fk_tsts_pgte_test_id=test_id)  

@@ -69,6 +69,7 @@ try {
     return newAccessToken;
 } catch (error) {
     console.error('Error al renovar el token', error);
+    window.location.href = '/'; // Redirigir a la página de inicio o login
     return null;
 }
 };
