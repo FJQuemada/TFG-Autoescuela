@@ -7,7 +7,6 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
   /* background-color: #957db3; */
   background-color: #f0f0f0;
 
@@ -21,6 +20,7 @@
 
 html{
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 /* a {

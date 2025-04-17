@@ -23,10 +23,10 @@ export const registroUsuario = async (usuario) => {
 export const inicioSesion = async (usuario) => {
   try{
     const response = await apiNoAuth.post('inicio_sesion', usuario);
-    return response.data;
+    return response;
   } catch (error){
     console.error('No se ha podido iniciar sesion', error);
-    return error.response.data;
+    return error.response;
   }
 }
 

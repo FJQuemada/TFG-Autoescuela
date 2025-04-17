@@ -97,7 +97,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_nombre ? 'border-red-500' : null} border-b-2 ${usuario ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
+                        className={`${errors.usus_nombre ? 'border-red-500' : null} border-b-2 ${usuario ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
                         title="Rellene este campo"
                     />
                     {errors.usus_nombre && (
@@ -119,7 +119,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_email ? 'border-red-500' : null} border-b-2 ${email ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
+                        className={`${errors.usus_email ? 'border-red-500' : null} border-b-2 ${email ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
                         title="Rellene este campo"
                     />
                     
@@ -145,7 +145,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_password ? 'border-red-500' : null} border-b-2 ${password ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
+                        className={`${errors.usus_password ? 'border-red-500' : null} border-b-2 ${password ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
                         title="Rellene este campo"
                     />
                     {errors.usus_password && (
@@ -165,7 +165,7 @@ const Registro = () => {
                             setErrorPassword(null);
                         } 
                         } 
-                        className={`${errorPassword ? 'border-red-500' : null} border-b-2 ${passwordRepeat ? 'border-green-500' : 'border-gray-300'} no-underline border-b-2 border-gray-300 px-3 py-2 focus:outline-none`}
+                        className={`${errorPassword ? 'border-red-500' : null} border-b-2 ${passwordRepeat ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
                         title="Rellene este campo"
                     />
                     {errorPassword && (
@@ -176,7 +176,7 @@ const Registro = () => {
                 <button type="submit" className='bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold py-2 px-4 roundedm-4'>
                     Dar de alta
                 </button>
-                <p className="text-sm text-white mt-2">
+                <p className="text-sm  mt-2">
                     ¿Ya tienes cuenta?{' '}
                     <Link to="/" className="text-blue-600 hover:underline">
                         Inicia sesión aquí
