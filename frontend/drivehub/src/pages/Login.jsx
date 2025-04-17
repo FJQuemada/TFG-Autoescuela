@@ -3,8 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { inicioSesion, verRespuestas, verPreguntas } from "../services/api";
 import { UseUser } from "../contexts/UserContext";
 import HeaderLogin from "../components/HeaderLogin";
-import Beneficios from "../components/Beneficios";
-
+import BeneficiosLanding from "../components/BeneficiosLanding";
+import ComunidadLanding from "../components/ComunidadLanding";
 const Login = () => {
   const navigate = useNavigate();
   const { loginUser } = UseUser(); // Accede a la función loginUser desde el contexto
@@ -99,7 +99,7 @@ const Login = () => {
 
             <button
                 type="submit"
-                className="bg-blue-500 hover:bg-blue-700 cursor-pointer  font-bold py-2 px-4 mt-5 rounded"
+                className="bg-blue-500 hover:bg-blue-700 cursor-pointer  font-bold py-2 px-4 mt-5 rounded text-white"
                 >
                 Iniciar sesión
             </button>
@@ -108,7 +108,8 @@ const Login = () => {
         </div>
       </div>
     </div>
-    <Beneficios />
+    <BeneficiosLanding />
+    <ComunidadLanding />
     </div>
   );
 };
