@@ -104,3 +104,19 @@ INSERT INTO drht_dificultad_diff (diff_nombre) VALUES
 ('Intermedio'),
 ('Difícil'),
 ('Experto');
+
+--
+-- Primero, elimina los datos de la tabla que *hace referencia* a la otra
+DELETE FROM drht_preguntas_test_pgte;
+
+-- Luego, trunca la tabla referenciada y reinicia su identidad
+TRUNCATE TABLE drht_preguntas_preg RESTART IDENTITY CASCADE;
+
+-- Finalmente, trunca la tabla original y reinicia su identidad
+TRUNCATE TABLE drht_preguntas_test_pgte RESTART IDENTITY CASCADE;
+
+-- Primero, elimina los datos de la tabla que *hace referencia* a la otra
+DELETE FROM drht_respuestas_resp;
+
+-- Finalmente, trunca la tabla original y reinicia su identidad
+TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;

@@ -161,6 +161,31 @@ def get_usuario_primi(request):
 #     except Exception as e:
 #         return Response({'detail': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+#bulk de tests
+@api_view(['POST'])
+def tests_a_tope(request):
+    try:
+        # Obtener los datos enviados en la solicitud
+        tests = request.data
+
+        # Serializar los datos, convierte de objeto python a Json, se tiene que poner data= pq no esta directamente sacado de
+        #   un objeto de modelo, como en el usuario primi de antes.
+        # El many = true es para indicar que se van a serializar varios objetos y no uno solo, es decir, que tests es una lista de objetos a serializar
+        serializer = TestSerializer(data=tests, many=True)
+
+        # Verificar si los datos son válidos
+        if serializer.is_valid():
+            # Guardar los objetos si son válidos
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)  # Cambié a 201, ya que estamos creando nuevos recursos.
+        
+        # Si los datos no son válidos, devolver los errores de validación
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        # Manejo de excepciones generales (errores internos)
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 #bulk de preguntas
 @api_view(['POST'])
 def preguntas_a_tope(request):

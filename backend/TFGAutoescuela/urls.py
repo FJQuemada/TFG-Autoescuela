@@ -58,6 +58,7 @@ urlpatterns = [
     path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
     path('api/usuarioprimi/', views.get_usuario_primi),
     path('api/inicio_sesion', views.inicio_sesion),
+    path('api/tests_a_tope', views.tests_a_tope),
     path('api/preguntas_a_tope', views.preguntas_a_tope),
     path('api/respuestas_a_tope',views.respuestas_a_tope),
     path('api/preguntas_en_test/<int:test_id>', views.get_preguntas_test),
