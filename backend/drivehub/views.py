@@ -94,7 +94,7 @@ def inicio_sesion(request):
             response.set_cookie(
                 key='refresh_token',  # Nombre de la cookie
                 value=refresh_token,  # El refresh token
-                max_age=3600,  # Duración de la cookie
+                max_age=7*24*60*60,  # 7 días en segundos
                 httponly=True,  # Para que no sea accesible desde JavaScript
                 secure=True,  # Solo sobre HTTPS
                 samesite='Strict'  # Prevención de CSRF
@@ -236,6 +236,31 @@ def respuestas_a_tope(request):
     except Exception as e:
         # Manejo de excepciones generales (errores internos)
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+#bulk de preguntas en test
+@api_view(['POST'])
+def preguntas_en_test_a_tope(request):
+    try:
+        # Obtener los datos enviados en la solicitud
+        preguntas_en_test = request.data
+
+        # Serializar los datos, convierte de objeto python a Json, se tiene que poner data= pq no esta directamente sacado de
+        #   un objeto de modelo, como en el usuario primi de antes.
+        # El many = true es para indicar que se van a serializar varios objetos y no uno solo, es decir, que preguntas_en_test es una lista de objetos a serializar
+        serializer = PreguntasTestSerializer(data=preguntas_en_test, many=True)
+
+        # Verificar si los datos son válidos
+        if serializer.is_valid():
+            # Guardar los objetos si son válidos
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)  # Cambié a 201, ya que estamos creando nuevos recursos.
+        
+        # Si los datos no son válidos, devolver los errores de validación
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Exception as e:
+        # Manejo de excepciones generales (errores internos)
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 #para obtener las preguntas del test
 @api_view(['GET'])
@@ -253,7 +278,7 @@ def get_preguntas_test(request,test_id):
             'fk_tsts_pgte_test',
             'fk_preg_pgte_pregunta__preg_enunciado',
             'fk_preg_pgte_pregunta__preg_image'
-        ) 
+        )
         
         #el __in es para filtrar por el id de la pregunta, y el values_list es para que me devuelva una lista de ids, no un objeto
         #esto es para obtener las respuestas de las preguntas que estan en el test, ya que no se pueden obtener directamente
@@ -295,6 +320,18 @@ def get_preguntas_test(request,test_id):
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
+@token_requerido
+def correccion_test(request,testId):
+    try:
+        test_completado = request.data
+        print('test_completado', test_completado,testId)  # Verificar el contenido del test completado
+
+        return Response(status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['POST'])
 def cerrar_sesion(request):
     try:
         response = Response({"detail":"Sesion cerrada"}, status=status.HTTP_200_OK)
@@ -331,7 +368,7 @@ class TestViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def get_tests(request):
     
-    tests = DrhtTestsTsts.objects.select_related('DrhtDificultadDiff')
+    tests = DrhtTestsTsts.objects.select_related('DrhtDificultadDiff').order_by('pk_tsts_id')
     
     #Primero se pone la foreign key de la primera tabla y luego la key que quieras de la segunda
     tests_completos = tests.values(

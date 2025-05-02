@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 const MainLayout = ({ children }) => {
     
     return (
-        <div className="h-full w-full">
+        <div className="flex flex-col h-full w-full">
             <Header />
             {children}
             {/* <Footer /> */}

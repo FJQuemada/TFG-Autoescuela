@@ -85,3 +85,14 @@ export const verUsuarioPrimi = async () => {
     console.error('Error al obtener el usuario primi:', error);
   }
 };
+
+export const corregirTest = async (testId, respuestas) => {
+  try {
+    const response = await api.post(`tests/${testId}/correccion`, respuestas);
+    console.log('Resultado de la corrección:', response.data);
+    return response.data; // Devuelve el resultado de la corrección
+  } catch (error) {
+    console.error('Error al corregir el test:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}

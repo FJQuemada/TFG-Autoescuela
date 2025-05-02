@@ -26,13 +26,26 @@ const Tests = () =>{
             fetchTests(); // Llamamos a la función para obtener las preguntas
         }, []); // Este efecto depende del id del test
 
+    if (loading) {
+        return (
+            <MainLayout>
+                <div className="flex justify-center items-center h-screen">
+                    <h1 className="text-2xl font-bold">Cargando tests...</h1>
+                </div>
+            </MainLayout>
+        );
+    }
+
     return(
         <MainLayout>
-            {
-                tests && tests.map((test)=>(
-                    <TestCard key={test.pk_tsts_id} testId={test.pk_tsts_id} testNombre={test.tsts_nombre}/>
-                ))
-            }
+            <div className='flex flex-wrap justify-center items-center w-full'>
+                {
+                    tests && tests.map((test)=>(
+                        <TestCard key={test.pk_tsts_id} testId={test.pk_tsts_id} testNombre={test.tsts_nombre} testDificultad={test.fk_diff_tsts_dificultad__diff_nombre}/>
+                    ))
+                }
+            </div>
+            
         </MainLayout>
     )
 
