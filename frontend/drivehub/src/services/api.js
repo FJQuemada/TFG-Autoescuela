@@ -88,7 +88,7 @@ export const verUsuarioPrimi = async () => {
 
 export const corregirTest = async (testId, respuestas) => {
   try {
-    const response = await api.post(`tests/${testId}/correccion`, respuestas);
+    const response = await api.post(`test/${testId}/correccion`, respuestas);
     console.log('Resultado de la corrección:', response.data);
     return response.data; // Devuelve el resultado de la corrección
   } catch (error) {

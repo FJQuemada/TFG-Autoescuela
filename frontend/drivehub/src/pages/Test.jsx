@@ -39,6 +39,8 @@ const Test = () => {
   }, []); // Este efecto depende del id del test
 
   const handleCorregirTest = async () => {
+    await corregirTest(testId, respuestasParaBackend); // Llamada a la API para corregir el test
+    console.log("Respuestas para backend:", respuestasParaBackend);
     navigate(`/test/${testId}/resultado`, {
       state: { respuestasParaBackend }
     });

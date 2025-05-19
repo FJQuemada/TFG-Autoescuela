@@ -287,12 +287,12 @@ def get_preguntas_test(request,test_id):
         
         respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta__in=preguntas_en_test.values_list('fk_preg_pgte_pregunta', flat=True))
         
-        
+        # el .data es para convertir el objeto a JSON, y el many=True es para que me devuelva una lista de objetos
         serializer_respuesta = RespuestasSerializer(respuestas, many=True).data
+
         # respuesta_diccionario es un nuevo JSON que empieza por el numero de la fk_preg_resp_pregunta , y dentro
         # selecciona la respuesta de cada respuesta en RespuestaSerializer
         #Esto crea un diccionario donde cada clave es el fk_preg_resp_pregunta y cada valor es la respuesta completa.
-
         respuesta_diccionario = {}
         for respuesta in serializer_respuesta:
             pregunta_id = respuesta["fk_preg_resp_pregunta"]
