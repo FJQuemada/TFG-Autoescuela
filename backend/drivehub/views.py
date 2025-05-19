@@ -287,6 +287,7 @@ def get_preguntas_test(request,test_id):
         
         respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta__in=preguntas_en_test.values_list('fk_preg_pgte_pregunta', flat=True))
         
+        
         serializer_respuesta = RespuestasSerializer(respuestas, many=True).data
         # respuesta_diccionario es un nuevo JSON que empieza por el numero de la fk_preg_resp_pregunta , y dentro
         # selecciona la respuesta de cada respuesta en RespuestaSerializer
@@ -319,15 +320,79 @@ def get_preguntas_test(request,test_id):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+#la idea de corregir es obtener las respuestas del usuario, las respuestas del test y mandarlo al front, seguido de la calificacion, y ya en el front se pinta las que tengas bien y las que tengas mal. si la respuesta 
 @api_view(['POST'])
 @token_requerido
-def correccion_test(request,testId):
+def correccion_test(request, testId):
     try:
-        test_completado = request.data
-        print('test_completado', test_completado,testId)  # Verificar el contenido del test completado
-
-        return Response(status=status.HTTP_200_OK)
+        test_completado = request.data  # [{'pregunta_id': X, 'respuesta_id': Y}, ...]
+        user_id = request.user_id  # Obtener el user_id del token decodificado
         
+        # Extraer solo IDs de respuestas del usuario
+        ids_respuestas_usuario = [item['respuesta_id'] for item in test_completado]
+
+        # las respuestas del usuario, son las que ha seleccionado en el test
+        respuestas_usuario = DrhtRespuestasResp.objects.filter(
+            pk_resp_id__in=ids_respuestas_usuario
+        ).select_related('fk_preg_resp_pregunta').values(
+            'pk_resp_id',
+            'resp_contenido',
+            'resp_correcta',
+            'fk_preg_resp_pregunta__pk_preg_id',
+            'fk_preg_resp_pregunta__preg_enunciado'
+        )
+
+        # las respuestas correctas del test, par poder compararlas con las del usuario
+        # Se filtran las respuestas correctas de las preguntas que pertenecen al test
+        respuestas_correctas = DrhtRespuestasResp.objects.filter(
+            fk_preg_resp_pregunta__drhtpreguntastestpgte__fk_tsts_pgte_test_id=testId,
+            resp_correcta=True
+        ).select_related('fk_preg_resp_pregunta').values(
+            'fk_preg_resp_pregunta__pk_preg_id',
+            'pk_resp_id',
+            'resp_contenido'
+        )
+
+        # Crear un diccionario con las respuestas correctas por pregunta_id
+        respuestas_correctas_dict = {}
+        for item in respuestas_correctas:
+            pregunta_id = item['fk_preg_resp_pregunta__pk_preg_id']
+            respuestas_correctas_dict[pregunta_id] = {
+                'respuesta_id': item['pk_resp_id'],
+                'respuesta_texto': item['resp_contenido']
+            }
+
+        resultado_final = []
+
+        preguntas_acertadas = 0
+        # Comparamos las respuestas del usuario con las correctas
+        for r in respuestas_usuario:
+            pregunta_id = r['fk_preg_resp_pregunta__pk_preg_id']
+            
+            # el equivalente de respuestas_correctas_dict.get(pregunta_id) en js es acceder al objeto con un respuestas_correctas_dict['pregunta_id']
+            respuesta_correcta = respuestas_correctas_dict.get(pregunta_id)
+
+            print('respuesta_correcta', respuesta_correcta,r)  # Verificar la respuesta correcta
+            
+            resultado_final.append({
+                'pregunta_id': pregunta_id,
+                'pregunta_enunciado': r['fk_preg_resp_pregunta__preg_enunciado'],
+                'respuesta_usuario_id': r['pk_resp_id'],
+                'respuesta_usuario_texto': r['resp_contenido'],
+                'correcta': r['resp_correcta'],
+                'respuesta_correcta_id': respuesta_correcta['respuesta_id'] if respuesta_correcta else None,
+                'respuesta_correcta_texto': respuesta_correcta['respuesta_texto'] if respuesta_correcta else None,
+                'pregunta_respondida_correctamente': True if r['resp_correcta'] else False
+            })
+            
+            if r['resp_correcta'] == True :
+                preguntas_acertadas += 1
+
+        resultado_final.append({'user_id':user_id,'test_id':testId,'preguntas_acertadas': preguntas_acertadas, 'preguntas_totales': len(respuestas_usuario)})
+        
+        return Response(resultado_final, status=status.HTTP_200_OK)
+
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

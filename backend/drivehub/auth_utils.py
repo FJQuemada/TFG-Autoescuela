@@ -65,6 +65,7 @@ def token_requerido(func):
             if not payload:
                 return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
             # Si la decodificación es exitosa, el token es válido, continuar con la vista
+            request.user_id = payload.get('user_id')  #inyecto el user_id para pasarlo a la funcion envuelta por si fuese necesario, como en el caso de correccion!
             print('Estoy en token_requerido', payload)
             #ESTO ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
 

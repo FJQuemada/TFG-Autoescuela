@@ -1,4 +1,4 @@
-import { verPreguntas, verRespuestas, corregirTest } from "../services/api";
+import { verPreguntas,  corregirTest } from "../services/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -6,7 +6,10 @@ import MainLayout from "../layouts/MainLayout";
 import Placeholder from "../assets/Placeholder.png"; 
 
 
-const Tests = () => {
+const Test = () => {
+
+  const navigate = useNavigate(); // Hook para navegar entre rutas
+
   const { testId } = useParams(); // Obtenemos el id del test de los parámetros de la URL
 
   const [preguntas, setPreguntas] = useState(null); // Estado para almacenar las preguntas
@@ -35,6 +38,11 @@ const Tests = () => {
     fetchPreguntas(); // Llamamos a la función para obtener las preguntas
   }, []); // Este efecto depende del id del test
 
+  const handleCorregirTest = async () => {
+    navigate(`/test/${testId}/resultado`, {
+      state: { respuestasParaBackend }
+    });
+  };
 
   const handleRespuestasSeleccionada = (respuesta) => {
     //añade o actualiza, cada pregunta la respuesta que selecciona el usuario
@@ -179,7 +187,7 @@ const Tests = () => {
                       // Aquí puedes manejar la lógica para finalizar el test
                       console.log("Test finalizado", respuestasSeleccionada);
                       // Redirigir a otra página o mostrar un mensaje de éxito
-                      corregirTest(testId, respuestasParaBackend);
+                      handleCorregirTest();
                       console.log(respuestasParaBackend);
                     }}
                   >
@@ -203,4 +211,4 @@ const Tests = () => {
   );
 };
 
-export default Tests;
+export default Test;

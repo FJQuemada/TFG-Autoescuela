@@ -4,6 +4,7 @@ import Registro from "../pages/Registro";
 import Login from "../pages/Login";
 import Test from "../pages/Test";
 import Tests from "../pages/Tests"
+import ResultadoTest from "../pages/ResultadoTest";
 import PrivateRoute from "../components/PrivateRoute";
 
 export default function AppRoutes(){
@@ -18,6 +19,7 @@ export default function AppRoutes(){
         <Route path="/home" element={<Home />} />
         <Route path="/tests" element={<Tests />} />
         <Route path="/test/:testId" element={<Test />} />
+        <Route path="/test/:testId/resultado" element={<ResultadoTest />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>
