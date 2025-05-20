@@ -310,10 +310,10 @@ def get_preguntas_test(request,test_id):
             # print('respuesta_diccionario', respuesta_diccionario)  # Verificar las preguntas en el test
             
         #DIFERENTES MANERAS DE ACCEDER A LOS DATOS
-        print(respuesta_diccionario[3]) #accede a la lista de respuestas de la pregunta 3
-        print(respuesta_diccionario[3][0])  #accede al primer elemento de la lista de respuestas de la pregunta 3
-        print(respuesta_diccionario[3][0]['resp_contenido']) #accede al contenido de la respuesta 1 de la pregunta 3
-        print(respuesta_diccionario[3][0].get('resp_contenido')) #accede al contenido de la respuesta 1 de la pregunta 3 de otra manera
+        # print(respuesta_diccionario[3]) #accede a la lista de respuestas de la pregunta 3
+        # print(respuesta_diccionario[3][0])  #accede al primer elemento de la lista de respuestas de la pregunta 3
+        # print(respuesta_diccionario[3][0]['resp_contenido']) #accede al contenido de la respuesta 1 de la pregunta 3
+        # print(respuesta_diccionario[3][0].get('resp_contenido')) #accede al contenido de la respuesta 1 de la pregunta 3 de otra manera
         
          # Lista para combinar las preguntas con las respuestas
         preguntas_con_respuestas = []

@@ -42,7 +42,7 @@ const Test = () => {
     await corregirTest(testId, respuestasParaBackend); // Llamada a la API para corregir el test
     console.log("Respuestas para backend:", respuestasParaBackend);
     navigate(`/test/${testId}/resultado`, {
-      state: { respuestasParaBackend }
+      state: { respuestasParaBackend,preguntas}
     });
   };
 
