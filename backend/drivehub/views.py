@@ -287,26 +287,41 @@ def get_preguntas_test(request,test_id):
         
         respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta__in=preguntas_en_test.values_list('fk_preg_pgte_pregunta', flat=True))
         
-        # el .data es para convertir el objeto a JSON, y el many=True es para que me devuelva una lista de objetos
-        serializer_respuesta = RespuestasSerializer(respuestas, many=True).data
+        # # el .data es para convertir el objeto a JSON, y el many=True es para que me devuelva una lista de objetos
+        # serializer_respuesta = RespuestasSerializer(respuestas, many=True).data
 
+        # aqui hago un values directamente en lugar del data para no tener que traerme todos los datos de la respuesta, como el resp_correcta, solo los que necesito
+        respuestas_data = respuestas.values(
+            'pk_resp_id',
+            'fk_preg_resp_pregunta',
+            'resp_contenido',
+        )
         # respuesta_diccionario es un nuevo JSON que empieza por el numero de la fk_preg_resp_pregunta , y dentro
         # selecciona la respuesta de cada respuesta en RespuestaSerializer
         #Esto crea un diccionario donde cada clave es el fk_preg_resp_pregunta y cada valor es la respuesta completa.
         respuesta_diccionario = {}
-        for respuesta in serializer_respuesta:
+        for respuesta in respuestas_data:
             pregunta_id = respuesta["fk_preg_resp_pregunta"]
             if pregunta_id not in respuesta_diccionario:    #Cuando se pregunta si existe el id de la pregunta en el diccionario quiero decir que si existe el numero pregunta_id
                 #como clave del diccionario, si no existe, lo inicializa como una lista vacia
                 respuesta_diccionario[pregunta_id] = []  # Si no existe, inicializa la lista
+                print('aqui se crea uno nuevo')
             respuesta_diccionario[pregunta_id].append(respuesta)  # Añade la respuesta a la lista
+            # print('respuesta_diccionario', respuesta_diccionario)  # Verificar las preguntas en el test
             
-        # Lista para combinar las preguntas con las respuestas
+        #DIFERENTES MANERAS DE ACCEDER A LOS DATOS
+        print(respuesta_diccionario[3]) #accede a la lista de respuestas de la pregunta 3
+        print(respuesta_diccionario[3][0])  #accede al primer elemento de la lista de respuestas de la pregunta 3
+        print(respuesta_diccionario[3][0]['resp_contenido']) #accede al contenido de la respuesta 1 de la pregunta 3
+        print(respuesta_diccionario[3][0].get('resp_contenido')) #accede al contenido de la respuesta 1 de la pregunta 3 de otra manera
+        
+         # Lista para combinar las preguntas con las respuestas
         preguntas_con_respuestas = []
         
         # Recorrer las preguntas y buscar las respuestas correspondiente
         for pregunta in preguntas_en_test_data:
             pregunta_id = pregunta["fk_preg_pgte_pregunta__pk_preg_id"]
+            #este if es para comprobar pero no es necesario, ya que el filtro de arriba ya lo hace
             if pregunta_id in respuesta_diccionario:    #cuando pregunto si existe el id de la pregunta en el diccionario quiero decir que si existe el numero pregunta_id
                 # Si existe, añade la pregunta y sus respuestas a la lista
                 pregunta_con_respuesta = {
@@ -364,13 +379,12 @@ def correccion_test(request, testId):
             }
 
         resultado_final = []
-
         preguntas_acertadas = 0
         # Comparamos las respuestas del usuario con las correctas
         for r in respuestas_usuario:
             pregunta_id = r['fk_preg_resp_pregunta__pk_preg_id']
             
-            # el equivalente de respuestas_correctas_dict.get(pregunta_id) en js es acceder al objeto con un respuestas_correctas_dict['pregunta_id']
+            # el equivalente de respuestas_correctas_dict.get(pregunta_id) en js es acceder al objeto con un respuestas_correctas_dict.pregunta_id
             respuesta_correcta = respuestas_correctas_dict.get(pregunta_id)
 
             print('respuesta_correcta', respuesta_correcta,r)  # Verificar la respuesta correcta
@@ -389,9 +403,19 @@ def correccion_test(request, testId):
             if r['resp_correcta'] == True :
                 preguntas_acertadas += 1
 
-        resultado_final.append({'user_id':user_id,'test_id':testId,'preguntas_acertadas': preguntas_acertadas, 'preguntas_totales': len(respuestas_usuario)})
+        #Creo un diccionario llamado json final donde se accede mucho mejor a los datos que no son respuestas correctas
+        jsonfinal = {
+            'test_id': testId,
+            'user_id': user_id,
+            'preguntas_acertadas': preguntas_acertadas,
+            'preguntas_totales': len(respuestas_usuario),
+            'resultado_final': resultado_final,
+            'respuestas': respuestas_usuario,  # o preguntas, o lo que tengas en lista
+        }
+
+        # resultado_final.append({'user_id':user_id,'test_id':testId,'preguntas_acertadas': preguntas_acertadas, 'preguntas_totales': len(respuestas_usuario)})
         
-        return Response(resultado_final, status=status.HTTP_200_OK)
+        return Response(jsonfinal, status=status.HTTP_200_OK)
 
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
