@@ -343,7 +343,7 @@ def correccion_test(request, testId):
     try:
         test_completado = request.data  # [{'pregunta_id': X, 'respuesta_id': Y}, ...]
         user_id = request.user_id  # Obtener el user_id del token decodificado
-        
+            
         # Extraer solo IDs de respuestas del usuario
         ids_respuestas_usuario = [item['respuesta_id'] for item in test_completado]
 
@@ -412,6 +412,17 @@ def correccion_test(request, testId):
             'resultado_final': resultado_final,
             'respuestas': respuestas_usuario,  # o preguntas, o lo que tengas en lista
         }
+        
+        done_correccion = DrhtTestsUsuarioTeus(
+            fk_tsts_teus_test_id=testId,
+            fk_usus_teus_usuario_id=user_id,
+            teus_aciertos=preguntas_acertadas,
+            teus_fallos=len(respuestas_usuario) - preguntas_acertadas
+        )
+        
+        done_correccion.full_clean()
+        done_correccion.save()
+        
 
         # resultado_final.append({'user_id':user_id,'test_id':testId,'preguntas_acertadas': preguntas_acertadas, 'preguntas_totales': len(respuestas_usuario)})
         
@@ -455,11 +466,15 @@ class TestViewSet(viewsets.ModelViewSet):
     serializer_class = TestSerializer
     
 @api_view(['GET'])
+@token_requerido
 def get_tests(request):
     
     tests = DrhtTestsTsts.objects.select_related('DrhtDificultadDiff').order_by('pk_tsts_id')
     
     #Primero se pone la foreign key de la primera tabla y luego la key que quieras de la segunda
+    #.values lo que hace es devolver un diccionario con los campos que le digas, tantos como haya en la tabla que le pases
+    #en este caso, como no hay un serializer para esto, se hace manualmente
+    #QuerySet de diccionarios
     tests_completos = tests.values(
         'pk_tsts_id',
         'tsts_nombre',
@@ -468,7 +483,121 @@ def get_tests(request):
         'fk_diff_tsts_dificultad__diff_nombre'
     )
     
-    return Response(tests_completos,status= status.HTTP_200_OK)
+    for test in tests_completos:
+        print(test)
+    
+    #Extraemos el id del test y lo guardamos en un diccionario
+    
+    # Ahora buscamos en la base de datos si el test ya ha sido hecho, y si ha sido hecho buscar el intento con menos fallos
+    
+    user_id = request.user_id  # Obtener el user_id del token decodificado
+    
+    #esto es un queryset
+    puntuaciones_usuario = DrhtTestsUsuarioTeus.objects.filter(fk_usus_teus_usuario_id=user_id).order_by('fk_tsts_teus_test_id','teus_fallos')
+    
+    serializer_puntuaciones = TestUsuarioSerializer(puntuaciones_usuario, many=True)
+    
+    # diccionario para almacenar las mejores puntuaciones por test_id 
+    mejores_puntuaciones ={}
+    for puntuacion in serializer_puntuaciones.data:
+        test_id = puntuacion.get('fk_tsts_teus_test')
+        if test_id not in mejores_puntuaciones:
+            mejores_puntuaciones[test_id]=puntuacion
+        
+    # for test_id, puntuacion in mejores_puntuaciones.items():
+    #     print(f"Test ID: {test_id}")
+    #     print(f"Aciertos: {puntuacion['teus_aciertos']}")
+    #     print(f"Fallos: {puntuacion['teus_fallos']}")
+    #     print(f"Tiempo: {puntuacion['teus_tiempo']}")
+    #     print(f"Fecha: {puntuacion['teus_fecha']}")
+    #     print("-------------")
+    
+    # Crear un diccionario para almacenar los tests con sus puntuaciones
+    tests_con_puntuacion=[]
+    
+    for test in tests_completos:
+        test_id = test['pk_tsts_id']
+        puntuacion_test = mejores_puntuaciones.get(test_id)
+        if puntuacion_test:
+            tests_con_puntuacion.append({
+                'id':test_id,
+                'nombre':test['tsts_nombre'],
+                'activo':test['tsts_activo'],
+                'dificultad':test['fk_diff_tsts_dificultad__diff_nombre'],
+                'puntuacion':{
+                    'teus_aciertos':puntuacion_test['teus_aciertos'],
+                    'teus_fallos':puntuacion_test['teus_fallos'],
+                    'teus_tiempo':puntuacion_test['teus_tiempo'],
+                    'teus_fecha':puntuacion_test['teus_fecha']
+                }
+            })
+        else:
+            tests_con_puntuacion.append({
+                'id':test_id,
+                'nombre':test['tsts_nombre'],
+                'activo':test['tsts_activo'],
+                'dificultad':test['fk_diff_tsts_dificultad__diff_nombre']
+        })
+            
+    # for test in tests_con_puntuacion:
+    #     print('test', tests_con_puntuacion[test])
+    #es mejor usar el .items() para obtener el id y el valor del diccionario
+    for test in tests_con_puntuacion:
+        print('test', test)
+        
+            
+    
+    # #Instancia de serializer
+    # serializer_puntuaciones = TestUsuarioSerializer(puntuaciones,many=True)
+    
+    # tests_por_id = {}
+    # for test in tests_completos:
+    #     test_id = test['pk_tsts_id']
+    #     #obtener el primer test con menos fallos y del usuario
+    #     puntuacion_test = puntuaciones.filter(fk_tsts_teus_test_id=test_id).order_by('teus_fallos').first()
+    #     if puntuacion_test:
+    #         # Si existe una puntuación para el test, la añadimos al diccionario
+    #         tests_por_id[test_id] = {
+    #             'nombre': test['tsts_nombre'],
+    #             'activo': test['tsts_activo'],
+    #             'dificultad': test['fk_diff_tsts_dificultad__diff_nombre'],
+    #             'puntuacion': {
+    #                 'teus_aciertos': puntuacion_test.teus_aciertos,
+    #                 'teus_fallos': puntuacion_test.teus_fallos,
+    #                 'teus_tiempo': puntuacion_test.teus_tiempo,
+    #                 'teus_fecha': puntuacion_test.teus_fecha
+    #             }
+    #         }
+    # for test in tests_por_id:
+    #     print('test', tests_por_id[test]) 
+
+    # Crear un diccionario con las puntuaciones ordenadas por el usuario_id
+    # tests_por_id = {}
+    # for test in tests_completos:
+    #     test_id = test['pk_tsts_id']
+    #     tests_por_id[test_id] = {
+    #         'nombre': test['tsts_nombre'],
+    #         'activo': test['tsts_activo'],
+    #         'dificultad': test['fk_diff_tsts_dificultad__diff_nombre']
+    #     }
+    # print (tests_por_id)
+    
+    # # Crear un diccionario para almacenar las puntuaciones por test_id
+    # puntuaciones_por_test = {}
+    # for puntuacion in serializer_puntuaciones.data:
+    #     test_id = puntuacion['fk_tsts_teus_test']
+    #     if test_id not in puntuaciones_por_test:
+    #         puntuaciones_por_test[test_id] = []
+    #     puntuaciones_por_test[test_id].append(puntuacion)
+
+    # for punt in puntuaciones_por_test:
+    #     print('puntuaciones_por_test', puntuaciones_por_test[punt])
+    
+    
+    
+    
+    
+    return Response(tests_con_puntuacion,status= status.HTTP_200_OK)
     
 
 class TestUsuarioViewSet(viewsets.ModelViewSet):

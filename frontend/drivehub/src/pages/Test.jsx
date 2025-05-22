@@ -23,6 +23,7 @@ const Test = () => {
   useEffect(() => {
     // Esta función se ejecuta solo una vez cuando el componente se monta
     const fetchPreguntas = async () => {
+      localStorage.removeItem("testCorregido"); // Eliminar el booleano de localStorage
       try {
         const preguntas = await verPreguntas(testId); // Llamada a la API
         setPreguntas(preguntas); // Guardamos el resultado en el estado
@@ -39,8 +40,6 @@ const Test = () => {
   }, []); // Este efecto depende del id del test
 
   const handleCorregirTest = async () => {
-    await corregirTest(testId, respuestasParaBackend); // Llamada a la API para corregir el test
-    console.log("Respuestas para backend:", respuestasParaBackend);
     navigate(`/test/${testId}/resultado`, {
       state: { respuestasParaBackend,preguntas}
     });

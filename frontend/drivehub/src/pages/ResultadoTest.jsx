@@ -14,20 +14,30 @@ const Resultados = () => {
   const [preguntas, setPreguntas] = useState(location.state.preguntas); // Estado para almacenar las preguntas
 
   useEffect(() => {
-      // Esta función se ejecuta solo una vez cuando el componente se monta
-      const fetchCorreccion = async () => {
-        try {
-          setPreguntas(location.state.preguntas); // Guardamos las preguntas en el estado
-          const correccion = await corregirTest(testId, location.state.respuestasParaBackend); // Llamada a la API
-          console.log("Corrección realizada:", correccion);
-          setCorreccion(correccion); // Guardamos el resultado en el estado
-          console.log("Pregunatas:", preguntas);
-        } catch (error) {
-          console.error("Error al obtener correccion:", error);
-        }
-      };
+
+    if (localStorage.getItem('testCorregido')) {
+      localStorage.removeItem('testCorregido'); // Eliminar el booleano de localStorage
+      // Si el test ya ha sido corregido, redirigir a la página de tests y evitar la corrección de nuevo
+      navigate('/tests');
+      return;
+    }else{
+      // Guardo en el localStorage el booleano de si el test ha sido corregido o no
+      localStorage.setItem('testCorregido', true);
+    }
+    // Esta función se ejecuta solo una vez cuando el componente se monta
+    const fetchCorreccion = async () => {
+      try {
+        setPreguntas(location.state.preguntas); // Guardamos las preguntas en el estado
+        const correccion = await corregirTest(testId, location.state.respuestasParaBackend); // Llamada a la API
+        console.log("Corrección realizada:", correccion);
+        setCorreccion(correccion); // Guardamos el resultado en el estado
+        console.log("Pregunatas:", preguntas);
+      } catch (error) {
+        console.error("Error al obtener correccion:", error);
+      }
+    };
   
-      fetchCorreccion(); // Llamamos a la función para obtener las preguntas
+    fetchCorreccion(); // Llamamos a la función para obtener las preguntas
     }, []); // Este efecto depende del id del test
 
 
