@@ -15,7 +15,6 @@ const Test = () => {
   const [preguntas, setPreguntas] = useState(null); // Estado para almacenar las preguntas
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
 
-  //¡Exactamente! La re-renderización automática en React cuando cambia la pregunta seleccionada se debe a que preguntaActual es una variable de estado gestionada con useState.
   const [preguntaActual, setPreguntaActual] = useState(null); // Estado para almacenar la pregunta actual, como esta definido asi, al cambiar preguntaActual, se vuelve a renderizar el componente, haciendo asi que siempre este en constante renderizado
   const [indicePreguntaActual, setIndicePreguntaActual] = useState(0); // Estado para almacenar el índice de la pregunta actual
   const [respuestasSeleccionada, setRespuestasSeleccionada] = useState({}); //Estado para alamacenar las respuestas que vamos seleecionando
@@ -40,9 +39,13 @@ const Test = () => {
   }, []); // Este efecto depende del id del test
 
   const handleCorregirTest = async () => {
-    navigate(`/test/${testId}/resultado`, {
-      state: { respuestasParaBackend,preguntas}
-    });
+    if (respuestasParaBackend.length < preguntas.length) {
+      console.log("contesta todas las preguntas antes");
+    }else{
+      navigate(`/test/${testId}/resultado`, {
+        state: { respuestasParaBackend,preguntas}
+      });
+    }
   };
 
   const handleRespuestasSeleccionada = (respuesta) => {
@@ -189,7 +192,7 @@ const Test = () => {
                       console.log("Test finalizado", respuestasSeleccionada);
                       // Redirigir a otra página o mostrar un mensaje de éxito
                       handleCorregirTest();
-                      console.log(respuestasParaBackend);
+                      // console.log(respuestasParaBackend);
                     }}
                   >
                       Finalizar test

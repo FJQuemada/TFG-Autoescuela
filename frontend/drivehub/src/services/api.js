@@ -96,3 +96,14 @@ export const corregirTest = async (testId, respuestas) => {
     return error.response.data; // Devuelve el error si ocurre
   }
 }
+
+export const getStats = async () => {
+  try {
+    const response = await api.get('/get_stats');
+    console.log('Estadísticas obtenidas:', response.data);
+    return response.data; // Devuelve las estadísticas obtenidas
+  } catch (error) {
+    console.error('Error al obtener las estadísticas:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}

@@ -41,7 +41,7 @@ const Tests = () =>{
             <div className='flex flex-wrap justify-center items-center w-full'>
                 {
                     tests && tests.map((test)=>(
-                        <TestCard key={test.pk_tsts_id} testId={test.pk_tsts_id} testNombre={test.tsts_nombre} testDificultad={test.fk_diff_tsts_dificultad__diff_nombre}/>
+                        <TestCard key={test.id} testId={test.id} testNombre={test.nombre} testDificultad={test.dificultad} puntuacion={test?.puntuacion}/>
                     ))
                 }
             </div>

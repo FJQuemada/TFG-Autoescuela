@@ -65,7 +65,8 @@ urlpatterns = [
     path('api/preguntas_en_test/<int:test_id>', views.get_preguntas_test),
     path('api/test/<int:testId>/correccion',views.correccion_test),
     path('api/tests_page', views.get_tests),
-    path('api/cerrar_sesion', views.cerrar_sesion)
+    path('api/cerrar_sesion', views.cerrar_sesion),
+    path('api/get_stats',views.get_stats)
 ]
 
 

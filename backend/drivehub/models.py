@@ -230,12 +230,13 @@ class DrhtTestsTsts(models.Model):
 
 class DrhtTestsUsuarioTeus(models.Model):
     pk_teus_id = models.AutoField(primary_key=True)
-    fk_tsts_teus_test = models.ForeignKey(DrhtTestsTsts, models.DO_NOTHING, blank=True, null=True)
-    fk_usus_teus_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)
+    fk_tsts_teus_test = models.ForeignKey(DrhtTestsTsts, models.DO_NOTHING, blank=True, null=True) # si pongo fk_tsts_teus_test me devuelve el objeto Test completo, pero si
+    fk_usus_teus_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)  #añado el _id, no
     teus_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     teus_aciertos = models.IntegerField(blank=True, null=True)
     teus_fallos = models.IntegerField(blank=True, null=True)
     teus_tiempo = models.IntegerField(blank=True, null=True)
+    teus_aprobado = models.BooleanField(blank=True, null=True)
 
     class Meta:
         managed = True

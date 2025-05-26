@@ -295,7 +295,7 @@ def get_preguntas_test(request,test_id):
             'pk_resp_id',
             'fk_preg_resp_pregunta',
             'resp_contenido',
-        )
+        ).order_by('pk_resp_id')
         # respuesta_diccionario es un nuevo JSON que empieza por el numero de la fk_preg_resp_pregunta , y dentro
         # selecciona la respuesta de cada respuesta en RespuestaSerializer
         #Esto crea un diccionario donde cada clave es el fk_preg_resp_pregunta y cada valor es la respuesta completa.
@@ -312,7 +312,7 @@ def get_preguntas_test(request,test_id):
         #DIFERENTES MANERAS DE ACCEDER A LOS DATOS
         # print(respuesta_diccionario[3]) #accede a la lista de respuestas de la pregunta 3
         # print(respuesta_diccionario[3][0])  #accede al primer elemento de la lista de respuestas de la pregunta 3
-        # print(respuesta_diccionario[3][0]['resp_contenido']) #accede al contenido de la respuesta 1 de la pregunta 3
+        # print(respuesta_diccionario[3][0]['resp_contenido']) #accede al con tenido de la respuesta 1 de la pregunta 3
         # print(respuesta_diccionario[3][0].get('resp_contenido')) #accede al contenido de la respuesta 1 de la pregunta 3 de otra manera
         
          # Lista para combinar las preguntas con las respuestas
@@ -413,11 +413,16 @@ def correccion_test(request, testId):
             'respuestas': respuestas_usuario,  # o preguntas, o lo que tengas en lista
         }
         
+        test_aprobado = len(respuestas_usuario) - preguntas_acertadas <= 3
+        
+        print('test', test_aprobado)  # Verificar si el test ha sido aprobado
+        
         done_correccion = DrhtTestsUsuarioTeus(
             fk_tsts_teus_test_id=testId,
             fk_usus_teus_usuario_id=user_id,
             teus_aciertos=preguntas_acertadas,
-            teus_fallos=len(respuestas_usuario) - preguntas_acertadas
+            teus_fallos=len(respuestas_usuario) - preguntas_acertadas,
+            teus_aprobado=test_aprobado
         )
         
         done_correccion.full_clean()
@@ -603,6 +608,48 @@ def get_tests(request):
 class TestUsuarioViewSet(viewsets.ModelViewSet):
     queryset = DrhtTestsUsuarioTeus.objects.all()
     serializer_class = TestUsuarioSerializer
+
+@api_view(['GET'])
+@token_requerido
+def get_stats(request):
+    try:
+        # Obtener el user_id del token decodificado
+        user_id = request.user_id
+        
+        # Obtener los tests aprobados y suspensos
+        tests_aprobados = DrhtTestsUsuarioTeus.objects.filter(fk_usus_teus_usuario_id = user_id, teus_aprobado = True).distinct('fk_tsts_teus_test_id')
+        id_tests_aprobados = tests_aprobados.values_list('fk_tsts_teus_test',flat=True)
+        print(id_tests_aprobados)
+        
+        
+        serializer_tests_aprobados = TestUsuarioSerializer(tests_aprobados,many = True)
+        print(len(serializer_tests_aprobados.data))
+        
+        
+        tests_suspensos = DrhtTestsUsuarioTeus.objects.exclude(fk_tsts_teus_test__in=id_tests_aprobados).filter(fk_usus_teus_usuario_id = user_id, teus_aprobado = False).distinct('fk_tsts_teus_test').count()
+        
+        # Obtener el numero total de tests que hay
+        tests_sin_hacer = DrhtTestsTsts.objects.count() - (len(serializer_tests_aprobados.data) + tests_suspensos)
+        
+        # Creamos un diccionario para devolver el json en el response
+        
+        respuesta = [{
+            'nombre':'Tests aprobados',
+            'valor':len(serializer_tests_aprobados.data),
+            'color':'#82ca9d'},
+                     {
+            'nombre':'Tests suspensos',
+            'valor':tests_suspensos,
+            'color': '#ff5733'},
+                     {
+            'nombre':'Tests sin completar',
+            'valor':tests_sin_hacer,
+            'color': "#bbbacc"}
+        ]
+        return Response(respuesta, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #Preguntas
 class PreguntasViewSet(viewsets.ModelViewSet):

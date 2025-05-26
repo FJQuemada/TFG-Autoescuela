@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <div className="">
+    <>
       <div className="flex flex-col items-center max-w-screen h-screen scroll-smooth">
         <HeaderLogin />
 
@@ -138,7 +138,7 @@ const Login = () => {
       <BeneficiosLanding />
       <ComunidadLanding />
       <Footer />
-    </div>
+    </>
   );
 };
 
