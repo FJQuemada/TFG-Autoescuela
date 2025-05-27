@@ -5,8 +5,6 @@ import DriveHub_logo from '../assets/DriveHub_logo.png'
 const Header = () =>{
     const page = window.location.pathname;
     const { user,logoutUser } = UseUser();
-    console.log(page);
-    console.log(user);
     return(
         <div className="flex align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] ">
             <header className="">

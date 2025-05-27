@@ -7,6 +7,7 @@ import Tests from "../pages/Tests"
 import ResultadoTest from "../pages/ResultadoTest";
 import Stats from "../pages/Stats";
 import PrivateRoute from "../components/PrivateRoute";
+import PreguntasEncadenadas from "../pages/PreguntasEncadenadas";
 
 export default function AppRoutes(){
     return(
@@ -22,6 +23,7 @@ export default function AppRoutes(){
         <Route path="/test/:testId" element={<Test />} />
         <Route path="/test/:testId/resultado" element={<ResultadoTest />}></Route>
         <Route path="/stats" element={<Stats />}></Route>
+        <Route path="/preguntasEncadenadas" element={<PreguntasEncadenadas />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>

@@ -107,3 +107,14 @@ export const getStats = async () => {
     return error.response.data; // Devuelve el error si ocurre
   }
 }
+
+export const getPreguntaAleatoria = async () => {
+  try {
+    const response = await api.get('/pregunta_aleatoria');
+    console.log('Pregunta aleatoria obtenida:', response.data);
+    return response.data; // Devuelve la pregunta aleatoria obtenida
+  } catch (error) {
+    console.error('Error al obtener la pregunta aleatoria:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}

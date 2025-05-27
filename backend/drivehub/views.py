@@ -277,7 +277,8 @@ def get_preguntas_test(request,test_id):
             'fk_preg_pgte_pregunta__pk_preg_id',
             'fk_tsts_pgte_test',
             'fk_preg_pgte_pregunta__preg_enunciado',
-            'fk_preg_pgte_pregunta__preg_image'
+            'fk_preg_pgte_pregunta__preg_image',
+            'fk_preg_pgte_pregunta__fk_diff_preg_dificultad'
         )
         
         #el __in es para filtrar por el id de la pregunta, y el values_list es para que me devuelva una lista de ids, no un objeto
@@ -335,6 +336,34 @@ def get_preguntas_test(request,test_id):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+@api_view(['GET'])
+@token_requerido
+def pregunta_aleatoria(request):
+    try:
+        # Obtener una pregunta aleatoria de la base de datos
+        pregunta_aleatoria = DrhtPreguntasPreg.objects.order_by('?').first()
+        
+        if not pregunta_aleatoria:
+            return Response({'detail': 'No se encontraron preguntas.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Serializar la pregunta
+        serializer = PreguntasSerializer(pregunta_aleatoria)
+        
+        # Obtener las respuestas asociadas a la pregunta
+        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta=pregunta_aleatoria.pk_preg_id)
+        respuestas_serializer = RespuestasSerializer(respuestas, many=True)
+        
+        # Combinar la pregunta y sus respuestas en un solo objeto
+        resultado = {
+            'pregunta': serializer.data,
+            'respuestas': respuestas_serializer.data
+        }
+        
+        return Response(resultado, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #la idea de corregir es obtener las respuestas del usuario, las respuestas del test y mandarlo al front, seguido de la calificacion, y ya en el front se pinta las que tengas bien y las que tengas mal. si la respuesta 
 @api_view(['POST'])

@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import { useNavigate,Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import { verUsuarioPrimi } from "../services/api";
+import { getPreguntaAleatoria } from "../services/api";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -22,24 +23,26 @@ const Home = () => {
                     <div className="flex w-5/12 h-[65vh] mt-15 bg-[#ffffff21] ">
                         <div className="flex flex-col w-4/6 h-full">
                             <div className="h-[58%] bg-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl border-4 border-green-600 hover:border-green-800">
-                                Ultimo test/continua test
+                                Último test/continua test
                             </div>
                             <div className="flex h-[42%] space-x-4">
                                 <div className="flex-1 bg-red-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                    rojo1
+                                    Última medalla obtenida
                                 </div>
-                                <div className="flex-1 bg-red-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                    rojo2
-                                </div>
+                                
                             </div>
                         </div>
 
                         <div className="flex flex-col w-[40%] h-full">
                             <div className="h-[42%] bg-gray-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                test aleatorio
+                                <p className="p-5">Este test esta suspenso, ¿que tal si lo intentas de nuevo? / Todos los tests que has realizado estan aprobados, ¡genial!</p>
                             </div>
-                            <div className="h-[58%] bg-yellow-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                test aleatorio
+                            <div className="h-[58%] bg-yellow-400 p-5 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex flex-col justify-center items-center rounded-2xl"
+                                onClick={() => {
+                                    navigate('/preguntasEncadenadas');
+                                }}>
+                                <h2 className="text-center">Preguntas encadenadas</h2>
+                                <p className="text-sm text-gray-500 p-5 text-center">Contesta preguntas aleatorias de todos los tests</p>
                             </div>        
                         </div>   
                     </div>

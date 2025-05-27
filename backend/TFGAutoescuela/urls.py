@@ -66,7 +66,8 @@ urlpatterns = [
     path('api/test/<int:testId>/correccion',views.correccion_test),
     path('api/tests_page', views.get_tests),
     path('api/cerrar_sesion', views.cerrar_sesion),
-    path('api/get_stats',views.get_stats)
+    path('api/get_stats',views.get_stats),
+    path('api/pregunta_aleatoria', views.pregunta_aleatoria),
 ]
 
 

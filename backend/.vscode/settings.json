@@ -7,6 +7,6 @@
     "javascript": true,
     "javascriptreact": true,
     "astro": true,
-    "python": false
+    "python": true
   }
 }
