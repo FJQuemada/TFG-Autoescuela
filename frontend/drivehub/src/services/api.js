@@ -118,3 +118,36 @@ export const getPreguntaAleatoria = async () => {
     return error.response.data; // Devuelve el error si ocurre
   }
 }
+
+export const corregirPregunta = async (respuestaUsuario) => {
+  try {
+    const response = await api.post('/corregir_pregunta', respuestaUsuario);
+    console.log('Resultado de la corrección de la pregunta:', response.data);
+    return response.data; // Devuelve el resultado de la corrección
+  } catch (error) {
+    console.error('Error al corregir la pregunta:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const getRachaMaximaHistorica = async () => {
+  try {
+    const response = await api.get('/get_racha_maxima_historica');
+    console.log('Racha máxima histórica obtenida:', response.data);
+    return response.data; // Devuelve la racha máxima histórica obtenida
+  } catch (error) {
+    console.error('Error al obtener la racha máxima histórica:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const actualizarRachaMaximaHistorica = async (rachaMaxima) => {
+  try {
+    const response = await api.put('/actualizar_racha_maxima_historica', { racha_maxima: rachaMaxima });
+    console.log('Racha máxima histórica actualizada:', response.data);
+    return response.data; // Devuelve la racha máxima histórica actualizada
+  } catch (error) {
+    console.error('Error al actualizar la racha máxima histórica:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}

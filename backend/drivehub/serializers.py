@@ -55,8 +55,11 @@ class UsuariosSerializer(serializers.ModelSerializer):
         email_regex = r'^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,6}$'
         if not re.match(email_regex, value):
             raise serializers.ValidationError('El email no tiene un formato válido.')
-        # Se comprueba si el email ya existe en la base de datos.
-        if DrhtUsuariosUsus.objects.filter(usus_email=value).exists():
+        # Se comprueba si el email ya existe en la base de datos.Es necesario excluir el usuario actual de la comprobación para poder actualizar con PUT
+        # Si el usuario está siendo actualizado, se obtiene su ID para excluirlo de la comprobación.
+        # Esto es importante porque si se intenta actualizar el usuario con el mismo email, se lanzaría una excepción de unicidad.
+        user_id = self.instance.pk_usus_id if self.instance else None
+        if DrhtUsuariosUsus.objects.filter(usus_email=value).exclude(pk_usus_id=user_id).exists():
             raise serializers.ValidationError('El email ya está en uso.')
         return value
     

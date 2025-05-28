@@ -1,11 +1,11 @@
 import { NavLink } from "react-router";
 import { useNavigate,Link } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import { verUsuarioPrimi } from "../services/api";
-import { getPreguntaAleatoria } from "../services/api";
+import { UseUser } from "../contexts/UserContext";
 
 const Home = () => {
     const navigate = useNavigate();
+    const { rachaMaximaHistorica } = UseUser(); // Accede a la función loginUser desde el contexto
     return (
         <div className="">
             <MainLayout>
@@ -42,7 +42,7 @@ const Home = () => {
                                     navigate('/preguntasEncadenadas');
                                 }}>
                                 <h2 className="text-center">Preguntas encadenadas</h2>
-                                <p className="text-sm text-gray-500 p-5 text-center">Contesta preguntas aleatorias de todos los tests</p>
+                                <p className="text-sm text-gray-500 p-5 text-center">Contesta preguntas aleatorias de todos los tests Tu racha es de :{rachaMaximaHistorica}</p>
                             </div>        
                         </div>   
                     </div>

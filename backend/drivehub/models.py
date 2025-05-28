@@ -250,6 +250,8 @@ class DrhtUsuariosUsus(models.Model):
     usus_password = models.TextField(blank=True, null=True)
     usus_fecha_alta = models.DateTimeField(auto_now_add=True ,blank=True, null=True)
     usus_nivel = models.IntegerField(default=1,blank=True, null=True)
+    usus_racha = models.IntegerField(default=0, blank=True, null=True)
+    usus_avatar = models.TextField(default='', blank=True, null=True)
 
     class Meta:
         managed = True

@@ -249,7 +249,7 @@ def preguntas_en_test_a_tope(request):
         # El many = true es para indicar que se van a serializar varios objetos y no uno solo, es decir, que preguntas_en_test es una lista de objetos a serializar
         serializer = PreguntasTestSerializer(data=preguntas_en_test, many=True)
 
-        # Verificar si los datos son válidos
+        # Verificar si los datos son válidos, uso el is valid porque el data viene de fuera, y no de un objeto de modelo
         if serializer.is_valid():
             # Guardar los objetos si son válidos
             serializer.save()
@@ -261,7 +261,87 @@ def preguntas_en_test_a_tope(request):
     except Exception as e:
         # Manejo de excepciones generales (errores internos)
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+@token_requerido
+def pregunta_aleatoria(request):
+    try:
+        # Obtener una pregunta aleatoria de la base de datos
+        pregunta_aleatoria = DrhtPreguntasPreg.objects.order_by('?').first()
         
+        if not pregunta_aleatoria:
+            return Response({'detail': 'No se encontraron preguntas.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Serializar la pregunta
+        serializer = PreguntasSerializer(pregunta_aleatoria)
+        
+        # Obtener las respuestas asociadas a la pregunta
+        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta=pregunta_aleatoria.pk_preg_id).order_by('pk_resp_id')
+        respuestas_serializer = RespuestasSerializer(respuestas, many=True)
+        
+        # Combinar la pregunta y sus respuestas en un solo objeto
+        resultado = {
+            'pregunta': serializer.data,
+            'respuestas': respuestas_serializer.data
+        }
+        
+        return Response(resultado, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+#Correccion de una sola pregunta
+@api_view(['POST'])
+@token_requerido
+def corregir_pregunta(request):
+    try:
+        respuesta_dada = request.data #{"pregunta_id": 1,"respuesta_id": 2}
+        pregunta_id = respuesta_dada.get('pregunta_id')
+        respuesta_id = respuesta_dada.get('respuesta_id')
+        
+        if not pregunta_id or not respuesta_id:
+            return Response({'detail': 'Faltan datos en la petición'}, status=status.HTTP_400_BAD_REQUEST)
+        #aqui uso el filter y el first para que me devuelva un objeto o None, si solo pusiese filter me daria una queryset y tendria que poner en el serializer many = True
+        respuesta_correcta = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta=pregunta_id,resp_correcta=True).first()
+        if not respuesta_correcta:
+            return Response({'detail': 'No se encontró la respuesta correcta'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = RespuestasSerializer(respuesta_correcta)
+        
+        resultado_pregunta = serializer.data
+        
+        resultado_pregunta['respuesta_usuario'] = respuesta_id
+        if respuesta_id == resultado_pregunta['pk_resp_id']:
+            resultado_pregunta['es_correcta'] = True
+        else:
+            resultado_pregunta['es_correcta'] = False
+        print(resultado_pregunta)
+        return Response(resultado_pregunta, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(['PUT'])
+@token_requerido
+def actualizar_racha_maxima(request):
+    try:
+        user_id = request.user_id  # Obtener el user_id del token decodificado
+        nueva_racha = request.data.get('racha_maxima')
+
+        if nueva_racha is None:
+            return Response({'detail': 'Racha máxima no proporcionada.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=user_id)
+        usuario.usus_racha = nueva_racha
+        usuario.save()  #Django detecta si ya existe el usuario y actualiza el campo usus_racha, si no existe lo crea, pero en este caso no deberia pasar porque el token es valido y
+        # el usuario existe
+        # save no hace reemplazo total de los datos, solo actualiza los campos que se han modificado, en este caso usus_racha
+        return Response({'detail': 'Racha máxima actualizada correctamente.'}, status=status.HTTP_200_OK)
+
+    except DrhtUsuariosUsus.DoesNotExist:
+        return Response({'detail': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 #para obtener las preguntas del test
 @api_view(['GET'])
 @token_requerido
@@ -336,34 +416,6 @@ def get_preguntas_test(request,test_id):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-@api_view(['GET'])
-@token_requerido
-def pregunta_aleatoria(request):
-    try:
-        # Obtener una pregunta aleatoria de la base de datos
-        pregunta_aleatoria = DrhtPreguntasPreg.objects.order_by('?').first()
-        
-        if not pregunta_aleatoria:
-            return Response({'detail': 'No se encontraron preguntas.'}, status=status.HTTP_404_NOT_FOUND)
-        
-        # Serializar la pregunta
-        serializer = PreguntasSerializer(pregunta_aleatoria)
-        
-        # Obtener las respuestas asociadas a la pregunta
-        respuestas = DrhtRespuestasResp.objects.filter(fk_preg_resp_pregunta=pregunta_aleatoria.pk_preg_id)
-        respuestas_serializer = RespuestasSerializer(respuestas, many=True)
-        
-        # Combinar la pregunta y sus respuestas en un solo objeto
-        resultado = {
-            'pregunta': serializer.data,
-            'respuestas': respuestas_serializer.data
-        }
-        
-        return Response(resultado, status=status.HTTP_200_OK)
-    
-    except Exception as e:
-        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #la idea de corregir es obtener las respuestas del usuario, las respuestas del test y mandarlo al front, seguido de la calificacion, y ya en el front se pinta las que tengas bien y las que tengas mal. si la respuesta 
 @api_view(['POST'])
@@ -484,6 +536,27 @@ class UsuariosViewSet(viewsets.ModelViewSet):
     queryset = DrhtUsuariosUsus.objects.all()
     serializer_class = UsuariosSerializer
     
+@api_view(['GET'])
+@token_requerido
+def get_racha_maxima_historica(request):
+    try:
+        # Obtener el user_id del token decodificado
+        user_id = request.user_id
+        
+        # Obtener el usuario, esto es un objeto de tipo DrhtUsuariosUsus, es por eso que puede acceder a sus campos con el punto
+        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=user_id)
+        
+        print('usuario', usuario)  # Verificar que se obtiene el usuario correctamente
+        # Obtener la racha máxima histórica del usuario
+        racha_maxima = usuario.usus_racha
+        
+        return Response({'racha_maxima': racha_maxima}, status=status.HTTP_200_OK)
+    
+    except DrhtUsuariosUsus.DoesNotExist:
+        return Response({'detail': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #Logros
 class LogrosViewSet(viewsets.ModelViewSet):

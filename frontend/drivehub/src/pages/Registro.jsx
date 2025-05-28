@@ -42,9 +42,8 @@ const Registro = () => {
         
         if (passwordError){
             setErrorPassword(passwordError);
-        } 
-
-        const data = await registroUsuario(nuevoUsuario);
+        }else{
+            const data = await registroUsuario(nuevoUsuario);
         console.log("Data: ", data);
 
         if (data) {
@@ -70,6 +69,7 @@ const Registro = () => {
             navigate("/");
            
         } 
+        }
     
     setPassword("");
     setPasswordRepeat("");

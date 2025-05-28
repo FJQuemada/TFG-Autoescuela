@@ -68,6 +68,9 @@ urlpatterns = [
     path('api/cerrar_sesion', views.cerrar_sesion),
     path('api/get_stats',views.get_stats),
     path('api/pregunta_aleatoria', views.pregunta_aleatoria),
+    path('api/corregir_pregunta', views.corregir_pregunta),
+    path('api/get_racha_maxima_historica', views.get_racha_maxima_historica),
+    path('api/actualizar_racha_maxima_historica', views.actualizar_racha_maxima),
 ]
 
 

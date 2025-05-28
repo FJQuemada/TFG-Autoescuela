@@ -165,7 +165,7 @@ const Test = () => {
                       className="w-fit p-2 rounded-md m-1 cursor-pointer" 
                       onClick={() => handleRespuestasSeleccionada(respuesta.pk_resp_id)}>
                      <p className="font-semibold">{etiquetar(index)} 
-                        <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300":"bg-green-400"} w-fit p-2 rounded-md m-1 cursor-pointer`} >{respuesta.resp_contenido}</span>
+                        <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300":"bg-gray-300"} w-fit p-2 rounded-md m-1 cursor-pointer`} >{respuesta.resp_contenido}</span>
                      </p>
                     </div>
                   ))}
