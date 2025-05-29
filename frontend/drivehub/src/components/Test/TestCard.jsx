@@ -40,7 +40,7 @@ const TestCard = ({ testId, testNombre, testDificultad, puntuacion }) => {
               <h3 className="text-sm font-semibold text-gray-700">Mejor puntuación</h3>
               <div className="mt-1 text-xs text-gray-600 space-y-1">
                 <p>✅ Aciertos: {puntuacion.teus_aciertos} &nbsp; ❌ Fallos: {puntuacion.teus_fallos}</p>
-                <p>⏱️ Tiempo: {puntuacion.teus_tiempo}</p>
+                {/* <p>⏱️ Tiempo: {puntuacion.teus_tiempo}</p> */}
               </div>
             </>
           ) : (

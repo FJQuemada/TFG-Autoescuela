@@ -25,10 +25,10 @@ const Stats = () => {
     return (
         <div className="">
             <MainLayout>
-                <div className="w-full h-full flex">
-                    <div className="flex p-10 w-4/12 h-[65vh] bg-[#ffffff21]">
+                <div className="w-full h-full flex max-[600px]:flex-col max-[600px]:items-center max-[600px]:justify-center">
+                    <div className="flex p-10 w-6/12 bg-[#ffffff21]">
                         <div className="flex flex-col p-10 h-full items-center w-full">
-                            <PieChart width={500} height={500}>
+                            <PieChart width={300} height={300}>
                                 <Pie data={data} dataKey="valor" nameKey="nombre" startAngle={180} endAngle={0} cx="50%" cy="50%" outerRadius={120} fill="#8884d8" label >
                                     {data.map((entry, index) => (
                                         <Cell key={`cell-${index}`} fill={entry.color} />
@@ -40,24 +40,12 @@ const Stats = () => {
                             </PieChart>
                         </div>
                     </div>
-                    <div className="flex flex-col w-4/12 h-full p-10">
+                    <div className="flex flex-col max-[600px]:w-8/12 w-4/12 h-full p-10">
                         <h1 className="text-3xl font-bold mb-5">Estadísticas de Tests</h1>
-                        <p className="text-lg mb-2">Total de tests realizados: 45</p>
-                        <p className="text-lg mb-2">Tests aprobados: 30</p>
-                        <p className="text-lg mb-2">Tests suspensos: 10</p>
-                        <p className="text-lg mb-2">Tests sin hacer: 5</p>
-                        <p className="text-lg mb-2">Mejor puntuación: 95/100</p>
-                        <p className="text-lg mb-2">Peor puntuación: 60/100</p>
-                        <p className="text-lg mb-2">Tiempo medio por test: 15 minutos</p>
-                                    
-                        <p className="text-lg mb-2">Test más difícil: Test de Matemáticas</p>
-                        <p className="text-lg mb-2">Test más fácil: Test de Geografía</p>
-                        <p className="text-lg mb-2">Test más reciente: Test de Historia</p>
-                        <p className="text-lg mb-2">Test más antiguo: Test de Lengua</p>
                                     
                     </div>
 
-                    <div className="flex flex-col items-center w-4/12 h-full p-10 bg-[#ffffff21]">
+                    <div className="flex flex-col items-center w-4/12 max-[600px]:w-9/12 h-full p-10 bg-[#ffffff21]">
                         <h1>Medallas</h1>
                         <div className="flex flex-col items-center w-full h-full">
                             <div className="flex flex-col items-center bg-yellow-300 p-5 m-2 rounded-lg shadow-lg">

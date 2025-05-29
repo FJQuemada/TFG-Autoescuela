@@ -32,7 +32,7 @@ const Home = () => {
         <div className="">
             <MainLayout>
                 <div className="w-full h-full flex justify-center">
-                    <div id="noticias" className="flex flex-col w-3/12 items-center mt-5">
+                    {/* <div id="noticias" className="flex flex-col w-3/12 items-center mt-5">
                         <h2 className="text-3xl mt-10">Noticias</h2>
                         <div className="flex flex-col w-2/6">
                             <div className="flex flex-col mt-4">
@@ -41,21 +41,21 @@ const Home = () => {
                                 </p>
                             </div>
                         </div>
-                    </div>
-                    <div className="flex w-5/12 h-[65vh] mt-15 bg-[#ffffff21] ">
-                        <div className="flex flex-col w-4/6 h-full">
-                            <div className="h-[58%] bg-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl border-4 border-green-600 hover:border-green-800">
+                    </div> */}
+                    <div className="flex w-5/12 h-[65vh] max-[600px]:h-full max-[600px]:flex-col max-[600px]:w-10/12 max-[600px]:items-center mt-15 bg-[#ffffff21] ">
+                        <div className="flex flex-col w-4/6 max-[600px]:w-5/6 h-full">
+                            <div className="h-[58%] max-[600px]:py-20 bg-linear-to-bl from-blue-300 to-purple-300 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
                                 Último test/continua test
                             </div>
                             <div className="flex h-[42%] space-x-4">
-                                <div className="flex-1 bg-red-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
+                                <div className="flex-1 max-[600px]:py-20 bg-linear-to-bl from-cyan-400 to-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
                                     Última medalla obtenida
                                 </div>
                                 
                             </div>
                         </div>
 
-                        <div className="flex flex-col w-[40%] h-full">
+                        <div className="flex flex-col w-[40%] max-[600px]:w-[80%] h-full">
                             {loading ?
                             <div className="h-[58%] bg-gray-200 m-5 flex justify-center items-center rounded-2xl">
                                 <p className="p-5">Cargando...</p>
@@ -76,14 +76,16 @@ const Home = () => {
                                 </p>
                             </div>}
                             
-                            <div className="h-[58%] bg-yellow-400 p-5 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex flex-col justify-center items-center rounded-2xl"
+                            <div className="h-[58%] bg-linear-to-bl from-rose-400 to-orange-400 p-5 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex flex-col justify-center items-center rounded-2xl"
                                 onClick={() => {
                                     navigate('/preguntasEncadenadas');
                                 }}>
                                 <h2 className="text-center">Preguntas encadenadas</h2>
-                                <p className="text-sm text-gray-500 p-5 text-center">Contesta preguntas aleatorias de todos los tests Tu racha es de :{rachaMaximaHistorica}</p>
+                                <p className="text-sm text-gray-800 p-5 text-center">Contesta preguntas aleatorias de todos los tests Tu racha es de :{rachaMaximaHistorica}</p>
                             </div>        
-                        </div>   
+                        </div> 
+                        
+                          
                     </div>
                 </div>
             </MainLayout>

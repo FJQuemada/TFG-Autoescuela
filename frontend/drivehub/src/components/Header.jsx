@@ -17,7 +17,7 @@ const Header = () =>{
                 <Link to="/tests" className={`flex-1 flex justify-center items-center hover:bg-purple-400/20 p-1 rounded-lg`}>
                     <p className={`${page === '/tests' ? 'border-b-2' : ''}`}>Tests</p>
                 </Link>
-                <Link to="/"className={`flex-1 flex justify-center items-center hover:bg-purple-400/20 p-1 rounded-lg`}>
+                <Link to="/foro"className={`flex-1 flex justify-center items-center hover:bg-purple-400/20 p-1 rounded-lg`}>
                    <p className={`${page === '/foro' ? 'border-b-2' : ''}`}>Foro</p>
                 </Link>
                 <Link to="/stats" className={`flex-1 flex justify-center items-center hover:bg-purple-400/20 p-1 rounded-lg`}>

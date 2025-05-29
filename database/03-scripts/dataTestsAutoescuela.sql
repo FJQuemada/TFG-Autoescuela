@@ -419,147 +419,147 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "fk_diff_preg_dificultad": 2
   },{
     "preg_enunciado": "¿Está permitido circular con un vehículo cuyas placas de matrícula presentan obstáculos que impiden o dificultan su lectura e identificación?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P02-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "Respecto al uso del cinturón de seguridad, como norma general, el ocupante de un turismo distinto del conductor está obligado a...",
-    "preg_image": "/Galerias/test/N-273/Test-273-P03-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "En vías interurbanas con tres carriles para el mismo sentido, ¿le está permitido circular por el carril izquierdo a un turismo con remolque?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P04-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "El conductor de este vehículo está indicando que va a...",
-    "preg_image": "/Galerias/test/N-273/Test-273-P05-250x226.jpg",
+    "preg_image": "/intermitenteDerecha",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "Cuando se adelante a vehículos de tracción animal, fuera de poblado, la separación lateral...",
-    "preg_image": "/Galerias/test/N-273/Test-273-P06-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué alumbrado deberá dejar encendido, como norma general, el conductor de un vehículo inmovilizado entre la puesta y la salida del sol en el arcén de una travesía insuficientemente iluminada?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P07-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿De qué peligro advierte esta señal?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P08-250x226.jpg",
+    "preg_image": "/señalProximidadPasoANivelSinBarrera",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "Esta señal, ¿prohíbe proseguir la marcha si no dispone de cadenas para nieve?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P09-250x226.jpg",
+    "preg_image": "/SeñalR-412",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué alteración provoca con mayor frecuencia el consumo de alcohol en el comportamiento del conductor?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P10-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué indica esta señal situada en la parte posterior de un vehículo?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P11-250x226.jpg",
+    "preg_image": "/señalcargasobresalientecoche",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "Si ha dormido mal o no ha dormido lo suficiente debe tener en cuenta que...",
-    "preg_image": "/Galerias/test/N-273/Test-273-P12-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Con qué dos factores suelen relacionarse muchos de los accidentes más graves que sufren los jóvenes conductores?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P13-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Cuál de las siguientes circunstancias hace que aumente el consumo de combustible?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P14-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuál de las siguientes razones puede explicar que el vehículo sea el factor de riesgo que aparece en un grado menor como causa principal de los accidentes de tráfico?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P15-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "Para mantener la seguridad, ¿qué elementos se deben revisar periódicamente y con mayor frecuencia que el resto de componentes del vehículo?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P16-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué distancia mínima debe mantener un vehículo respecto al vehículo que circula delante en condiciones normales?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P17-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué documento debe llevar siempre el conductor cuando conduce un vehículo a motor?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P18-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Está permitido estacionar en zonas reservadas para personas con discapacidad si no se dispone del correspondiente permiso?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P19-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué significa una señal de tráfico con fondo azul y una letra blanca 'P'?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P20-250x226.jpg",
+    "preg_image": "/fondoAzulLetraPSeñal",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuál es la velocidad máxima permitida en una vía urbana para turismos, salvo señalización específica?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P21-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿En qué situaciones se recomienda utilizar las luces de emergencia?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P22-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Qué debe hacer un conductor ante un semáforo en ámbar intermitente?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P23-250x226.jpg",
+    "preg_image": "/semaforoAmbar",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué precauciones debe tomar un conductor al aproximarse a un paso de peatones sin semáforo?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P24-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cuál es la principal causa de accidentes por fatiga al volante?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P25-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué elementos debe revisar un conductor antes de iniciar un viaje largo?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P26-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué se debe hacer si un vehículo comienza a derrapar en una curva?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P27-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Cuál es el significado de una señal triangular con borde rojo y fondo blanco?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P28-250x226.jpg",
+    "preg_image": "/señalTriangularBordeRojoFondoBlancoPELIGRO",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuándo está permitido usar el teléfono móvil mientras se conduce?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P29-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué debe hacer un conductor ante un accidente de tráfico con heridos?",
-    "preg_image": "/Galerias/test/N-273/Test-273-P30-250x226.jpg",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   }
 ]
