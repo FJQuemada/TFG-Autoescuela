@@ -753,6 +753,41 @@ def get_stats(request):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['GET'])
+@token_requerido
+def get_test_suspenso(request):
+    try:
+        # Obtener el user_id del token decodificado
+        user_id = request.user_id
+
+        # Obtener los tests aprobados
+        tests_aprobados = DrhtTestsUsuarioTeus.objects.filter(
+            fk_usus_teus_usuario_id=user_id,
+            teus_aprobado=True
+        ).distinct('fk_tsts_teus_test_id')
+
+        id_tests_aprobados = tests_aprobados.values_list('fk_tsts_teus_test', flat=True)
+        
+        print('id_tests_aprobados', id_tests_aprobados)  # Verificar los tests aprobados
+        
+        tests_suspensos = DrhtTestsUsuarioTeus.objects.exclude(
+            fk_tsts_teus_test__in=id_tests_aprobados
+        ).filter(
+            fk_usus_teus_usuario_id=user_id,
+            teus_aprobado=False
+        ).distinct('fk_tsts_teus_test').order_by('fk_tsts_teus_test_id','teus_fallos').first() # Obtiene el primer test suspenso, si hay más, no los devuelve
+        
+        if not tests_suspensos:
+            return Response(None, status=status.HTTP_200_OK)
+
+        serializer_tests_suspensos = TestUsuarioSerializer(tests_suspensos)
+    
+        print('tests_suspensos', serializer_tests_suspensos.data)  # Verificar los tests suspensos
+        return Response(serializer_tests_suspensos.data, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 #Preguntas
 class PreguntasViewSet(viewsets.ModelViewSet):
     queryset = DrhtPreguntasPreg.objects.all()

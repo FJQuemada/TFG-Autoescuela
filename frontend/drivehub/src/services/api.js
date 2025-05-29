@@ -151,3 +151,14 @@ export const actualizarRachaMaximaHistorica = async (rachaMaxima) => {
     return error.response.data; // Devuelve el error si ocurre
   }
 }
+
+export const getTestSuspenso = async () => {
+  try {
+    const response = await api.get('/get_test_suspenso');
+    console.log('Test suspenso aleatorio obtenido:', response.data);
+    return response.data; // Devuelve el test suspenso aleatorio obtenido
+  } catch (error) {
+    console.error('Error al obtener el test suspenso aleatorio:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}

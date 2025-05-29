@@ -42,42 +42,47 @@ const Resultados = () => {
 
 
   const displaySolucion = (preguntas,correccion) => {
-    return preguntas.map((preguntaElement) =>{
+    return preguntas.map((preguntaElement) =>{  
+      // Buscamos la corrección correspondiente a la pregunta actual, aunque todas las preguntas van en orden, es mejor buscarla por si acaso
       let corregida = correccion.resultado_final.find((correccionElement) => correccionElement.pregunta_id === preguntaElement.pregunta.fk_preg_pgte_pregunta__pk_preg_id)
-      console.log("encontrado",corregida);
-
+      console.log("Corregida:", corregida);
       return(
-        <div key={corregida.pregunta_id} >
-          {corregida.correcta ? (
-            <div className='flex items-center'>
-              <h1 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{corregida.pregunta_enunciado}</h1>
-            </div>
-          ) : (
-            <div className='flex items-center'>
-              <h1 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{corregida.pregunta_enunciado}</h1>
-            </div>
-          )}
-          
-          {preguntaElement.respuestas.map((respuesta,index)=>{
+        <div key={corregida.pregunta_id} className='w-full flex justify-center items-center'>
+          <div className='w-1/2 p-2'>
+            {corregida.correcta ? (
+              <div className='items-center mt-3'>
+                <h1 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{corregida.pregunta_enunciado}</h1>
+              </div>
+            ) : (
+              <div className='items-center mt-3'>
+                <h1 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{corregida.pregunta_enunciado}</h1>
+              </div>
+            )}
+            
+            {preguntaElement.respuestas.map((respuesta,index)=>{
 
-            let backgroundColor = '';
+              let backgroundColor = '';
 
-            if (corregida.correcta && respuesta.pk_resp_id == corregida.respuesta_usuario_id){
-              backgroundColor = 'bg-green-500';
-            }else if(!corregida.correcta){
-              if(respuesta.pk_resp_id == corregida.respuesta_usuario_id){
-                backgroundColor = 'bg-red-500';
-              }
-
-              if(respuesta.pk_resp_id == corregida.respuesta_correcta_id){
+              if (corregida.correcta && respuesta.pk_resp_id == corregida.respuesta_usuario_id){
                 backgroundColor = 'bg-green-500';
+              }else if(!corregida.correcta){
+                if(respuesta.pk_resp_id == corregida.respuesta_usuario_id){
+                  backgroundColor = 'bg-red-500';
+                }
+
+                if(respuesta.pk_resp_id == corregida.respuesta_correcta_id){
+                  backgroundColor = 'bg-green-500';
+                }
+                
+              }else{
+                backgroundColor = '';
               }
-              
-            }else{
-              backgroundColor = '';
-            }
-            return <p key={respuesta.pk_resp_id} className={`${backgroundColor} w-full`}>{etiquetar(index) + ' ' + respuesta.resp_contenido}</p>
-          })}
+              return <p key={respuesta.pk_resp_id} className={`${backgroundColor} rounded-md p-1 text-`}>{etiquetar(index)}<span className='p-2'>{respuesta.resp_contenido}</span></p>
+            })}
+          </div>
+          <div className='p-2'>
+            <img src={preguntaElement.pregunta.fk_preg_pgte_pregunta__preg_image} alt="palceholder" className='w-[200px] p-3' />
+          </div>
         </div>
       );
     })  
@@ -97,12 +102,17 @@ const Resultados = () => {
   return (
     <MainLayout>
       
-      <div className="">
+      <div className="w-2/3 mx-auto mt-10 p-5 flex flex-col justify-around bg-white rounded-lg shadow-md">
         {correccion ? (
-          <div className='w-full'>
+          <div className='flex flex-col justify-center items-center align-middle'>
             <h1 className="text-2xl font-bold">Resultado de la corrección</h1>
             <p>Has acertado {correccion.preguntas_acertadas + " de " + correccion.preguntas_totales}</p>
             <p>Fallos: {correccion.preguntas_totales - correccion.preguntas_acertadas}</p>
+            {(correccion.preguntas_totales - correccion.preguntas_acertadas) <= 3 ? (
+              <p className="text-green-700 font-semibold">¡Felicidades! Has aprobado el test.</p>
+            ) : (
+              <p className="text-red-700 font-semibold">Lo siento, has suspendido el test.</p>
+            )}
             {displaySolucion(preguntas,correccion)}
           </div>
         ) : (

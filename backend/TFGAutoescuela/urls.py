@@ -71,6 +71,7 @@ urlpatterns = [
     path('api/corregir_pregunta', views.corregir_pregunta),
     path('api/get_racha_maxima_historica', views.get_racha_maxima_historica),
     path('api/actualizar_racha_maxima_historica', views.actualizar_racha_maxima),
+    path('api/get_test_suspenso', views.get_test_suspenso),
 ]
 
 

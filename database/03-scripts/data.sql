@@ -183,77 +183,77 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
 [
   {
     "preg_enunciado": "¿Cuál es la capital de Australia?",
-    "preg_image": null,
+    "preg_image":'/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuál es el símbolo químico del oxígeno?",
-    "preg_image": null,
+    "preg_image":'/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Quién pintó la Mona Lisa?",
-    "preg_image": "mona_lisa.jpg",
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cuál es el océano más grande del mundo?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Quién escribió 'Don Quijote de la Mancha'?",
-    "preg_image": "don_quijote.jpg",
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cuánto es la raíz cuadrada de 144?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Qué significa CPU?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Quién compuso la 'Quinta Sinfonía'?",
-    "preg_image": "quinta_sinfonia.jpg",
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Quién dirigió la película 'El Padrino'?",
-    "preg_image": "el_padrino.jpg",
+    "preg_image":'/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cuántos anillos tienen los Juegos Olímpicos?",
-    "preg_image": "anillos_olimpicos.png",
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuál es el planeta más grande de nuestro sistema solar?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Cuál es el metal más abundante en la corteza terrestre?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Quién escribió 'Hamlet'?",
-    "preg_image": "hamlet.jpg",
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Cuál es el río que atraviesa París?",
-    "preg_image": null,
+    "preg_image":'/Placeholder.png',
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Qué es un algoritmo?",
-    "preg_image": null,
+    "preg_image": '/Placeholder.png',
     "fk_diff_preg_dificultad": 2
   }
 ]

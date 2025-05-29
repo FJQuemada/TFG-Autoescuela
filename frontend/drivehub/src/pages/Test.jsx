@@ -27,7 +27,6 @@ const Test = () => {
         const preguntas = await verPreguntas(testId); // Llamada a la API
         setPreguntas(preguntas); // Guardamos el resultado en el estado
         setPreguntaActual(preguntas[indicePreguntaActual]); // Guardamos la primera pregunta en el estado
-        console.log(preguntaActual);
         setLoading(false); // Cambiamos el estado de carga
       } catch (error) {
         console.error("Error al obtener las preguntas:", error);
@@ -111,12 +110,12 @@ const Test = () => {
       const respondida = preguntaRespondida(pregunta.pregunta.fk_preg_pgte_pregunta__pk_preg_id);
       const esActual = preguntaActual?.pregunta?.fk_preg_pgte_pregunta__pk_preg_id === pregunta.pregunta.fk_preg_pgte_pregunta__pk_preg_id;
 
-      let backgroundColorClass = "bg-lime-300"; // Color por defecto
+      let backgroundColorClass = "bg-blue-200"; // Color por defecto
 
       if (respondida && esActual) {
-        backgroundColorClass = "bg-amber-500"; // Si ya se respondió
+        backgroundColorClass = "bg-amber-300"; // Si ya se respondió
       } else if (esActual) {
-        backgroundColorClass = "bg-lime-400"; // Si es la pregunta actual y no respondida
+        backgroundColorClass = "bg-blue-300"; // Si es la pregunta actual y no respondida
       } else if (respondida) {
         backgroundColorClass = "bg-amber-400"; // Si ya se respondió
       }
@@ -152,7 +151,7 @@ const Test = () => {
           <div className="w-full h-full flex flex-col">
             <div className="w-full flex justify-around">
 
-              <img src={Placeholder} alt="Placeholder" className='w-1/4 m-5' />
+              <img src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image} alt="Placeholder" className='w-1/4 m-5' />
 
               <div className="w-4/12 flex flex-col justify-center m-5"> 
                 <h1 className="text-2xl font-bold mb-4">
