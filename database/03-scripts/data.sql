@@ -361,3 +361,43 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"fk_tsts_pgte_test": 10, "fk_preg_pgte_pregunta": 5},
   {"fk_tsts_pgte_test": 10, "fk_preg_pgte_pregunta": 8}
 ]
+
+/*NUEVO*/
+[
+  {
+    "tsts_nombre": "Test 1 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 1
+  },
+  {
+    "tsts_nombre": "Test 2 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 2
+  },
+  {
+    "tsts_nombre": "Test 3 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 3
+  },
+  {
+    "tsts_nombre": "Test 4 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 1
+  },
+  {
+    "tsts_nombre": "Test 5 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 2
+  },
+  {
+    "tsts_nombre": "Test 6 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 3
+  },
+  {
+    "tsts_nombre": "Test 7 - Teórico de Conducir",
+    "tsts_activo": true,
+    "fk_diff_tsts_dificultad": 1
+  }
+]
+

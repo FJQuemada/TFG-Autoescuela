@@ -42,20 +42,19 @@ const Resultados = () => {
 
 
   const displaySolucion = (preguntas,correccion) => {
-    return preguntas.map((preguntaElement) =>{  
+    return preguntas.map((preguntaElement,index) =>{  
       // Buscamos la corrección correspondiente a la pregunta actual, aunque todas las preguntas van en orden, es mejor buscarla por si acaso
       let corregida = correccion.resultado_final.find((correccionElement) => correccionElement.pregunta_id === preguntaElement.pregunta.fk_preg_pgte_pregunta__pk_preg_id)
-      console.log("Corregida:", corregida);
       return(
         <div key={corregida.pregunta_id} className='w-full flex justify-center items-center'>
           <div className='w-1/2 p-2'>
             {corregida.correcta ? (
               <div className='items-center mt-3'>
-                <h1 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{corregida.pregunta_enunciado}</h1>
+                <h1 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{index + 1} {corregida.pregunta_enunciado}</h1>
               </div>
             ) : (
               <div className='items-center mt-3'>
-                <h1 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{corregida.pregunta_enunciado}</h1>
+                <h1 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{index + 1} {corregida.pregunta_enunciado}</h1>
               </div>
             )}
             

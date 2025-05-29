@@ -28,7 +28,7 @@ const TestCard = ({ testId, testNombre, testDificultad, puntuacion }) => {
     }
 
     return (
-      <Link id={testId} className={`items-center w-64 h-40 ${puntuacion ? colorTest() : "bg-gray-200"} rounded-lg shadow-md p-4 m-4 cursor-pointer`} to={`/test/${testId}`}>
+      <Link id={testId} className={`items-center w-64 h-48 ${puntuacion ? colorTest() : "bg-gray-200"} rounded-lg shadow-md p-4 m-4 cursor-pointer`} to={`/test/${testId}`}>
         <p className="font-semibold">{testNombre}</p>
         <div className="flex flex-col mt-2">
           <div className="flex items-center mb-2">

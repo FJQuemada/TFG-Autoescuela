@@ -9,6 +9,7 @@ const Home = () => {
     const navigate = useNavigate();
     const { rachaMaximaHistorica } = UseUser(); // Accede a la función loginUser desde el contexto
     const [testSuspenso, setTestSuspenso] = useState(null); // Estado para almacenar el test suspendido
+    const [loading, setLoading] = useState(true); // Estado para manejar la carga de datos
 
     useEffect(() => {
         const fetchGetTestSuspenso = async() =>{
@@ -16,6 +17,7 @@ const Home = () => {
                     const response = await getTestSuspenso();
                     setTestSuspenso(response); // Guardamos el test suspendido en el estado
                     console.log("Test suspendido aleatorio:", response);
+                    setLoading(false); // Cambiamos el estado de carga a false
                     // Aquí puedes manejar la respuesta como desees, por ejemplo, mostrar un mensaje o redirigir al usuario
                 } catch (error) {
                     console.error("Error al obtener el test suspendido aleatorio:", error);
@@ -54,7 +56,12 @@ const Home = () => {
                         </div>
 
                         <div className="flex flex-col w-[40%] h-full">
-                            {testSuspenso ?
+                            {loading ?
+                            <div className="h-[58%] bg-gray-200 m-5 flex justify-center items-center rounded-2xl">
+                                <p className="p-5">Cargando...</p>
+                                
+                                </div> 
+                                    :   testSuspenso ?
                             <div className="h-[58%] bg-red-200 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl"
                                 onClick={() => {
                                     navigate(`/test/${testSuspenso.fk_tsts_teus_test}`);
