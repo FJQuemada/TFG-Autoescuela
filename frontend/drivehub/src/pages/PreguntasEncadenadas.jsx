@@ -1,4 +1,4 @@
-import { verPreguntas,  corregirTest, getPreguntaAleatoria, corregirPregunta, getRachaMaximaHistorica, actualizarRachaMaximaHistorica } from "../services/api";
+import { getPreguntaAleatoria, corregirPregunta, getRachaMaximaHistorica, actualizarRachaMaximaHistorica } from "../services/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { UseUser } from "../contexts/UserContext"; // Importamos el contexto del usuario

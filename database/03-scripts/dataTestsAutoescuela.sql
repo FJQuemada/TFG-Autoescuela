@@ -2508,3 +2508,80 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"fk_tsts_pgte_test": 8, "fk_preg_pgte_pregunta": 111},
   {"fk_tsts_pgte_test": 8, "fk_preg_pgte_pregunta": 112}
 ]
+
+/*LOGROS*/
+
+[
+    {
+        "logr_nombre": "Se empieza por algo",
+        "logr_descripcion": "Completa un test",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "Vas en serio",
+        "logr_descripcion": "Realiza 3 tests, sin importar el resultado",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "Experto en práctica",
+        "logr_descripcion": "Completa los 7 tests disponibles",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "¡Lo lograste!",
+        "logr_descripcion": "Aprueba un test con al menos 27 respuestas correctas",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "Constancia que vale",
+        "logr_descripcion": "Aprueba 3 tests distintos",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "Perfecto",
+        "logr_descripcion": "Aprueba un test con 30 respuestas correctas",
+        "logr_image": "",
+        "logr_etiqueta":"test"
+    },
+    {
+        "logr_nombre": "Sanguinario",
+        "logr_descripcion": "Ten una racha de 5 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    },
+    {
+        "logr_nombre": "Despiadado",
+        "logr_descripcion": "Ten una racha de 10 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    },
+    {
+        "logr_nombre": "Inexorable",
+        "logr_descripcion": "Ten una racha de 15 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    },
+    {
+        "logr_nombre": "Implacable",
+        "logr_descripcion": "Ten una racha de 20 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    },
+    {
+        "logr_nombre": "Brutal",
+        "logr_descripcion": "Ten una racha de 25 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    },
+    {
+        "logr_nombre": "Nuclear",
+        "logr_descripcion": "Ten una racha de 30 en preguntas encadenadas",
+        "logr_image": "",
+        "logr_etiqueta":"racha"
+    }
+]

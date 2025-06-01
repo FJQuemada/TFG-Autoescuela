@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { registroUsuario } from '../services/api';
 import { useNavigate,Link } from 'react-router-dom';
+import MainLayout from '../layouts/MainLayout';
 
 
 const Registro = () => {
@@ -78,11 +79,14 @@ const Registro = () => {
 
     return (
         <div className="flex flex-col items-center text-base">
-
-            <h1 className="text-4xl mt-10">Registro</h1>
-
             {/* Mostramos los errores debajo de cada campo */}
+            <div className="flex justify-between align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] ">
+            <header className="ml-20">
+                <img src="src\assets\DriveHub_logo.png" alt="drive_logo" className="w-70 h-20" />
+            </header>
+            </div>
             <form className="flex flex-col items-center mt-10" onSubmit={(e) => handleSumbit(e)} noValidate>
+                <h1 className="text-4xl mt-10 mx-auto">Registro</h1>
                 <div className="m-4 relative">
                     <input
                         type="text"

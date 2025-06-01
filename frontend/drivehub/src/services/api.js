@@ -162,3 +162,96 @@ export const getTestSuspenso = async () => {
     return error.response.data; // Devuelve el error si ocurre
   }
 }
+
+export const getLogrosUsuario = async () => {
+  try {
+    const response = await api.get('/get_logros_usuario');
+    console.log('Logros del usuario obtenidos:', response.data);
+    return response.data; // Devuelve los logros del usuario obtenidos
+  } catch (error) {
+    console.error('Error al obtener los logros del usuario:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const getUltimaMedalla = async () => {
+  try {
+    const response = await api.get('/get_ultimo_logro_usuario');
+    console.log('Última medalla obtenida:', response.data);
+    return response.data; // Devuelve la última medalla obtenida
+  } catch (error) {
+    console.error('Error al obtener la última medalla:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const getRankingUsers = async () => {
+  try {
+    const response = await api.get('/get_ranking_users');
+    console.log('Ranking de usuarios obtenido:', response.data);
+    return response.data; // Devuelve el ranking de usuarios obtenido
+  } catch (error) {
+    console.error('Error al obtener el ranking de usuarios:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+/**
+ * FORO
+ */
+
+export const getForoPosts = async () => {
+  try {
+    const response = await api.get('/posts_foro');
+    console.log('Posts del foro obtenidos:', response.data);
+    return response.data; // Devuelve los posts del foro obtenidos
+  } catch (error) {
+    console.error('Error al obtener los posts del foro:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const postForoPost = async (titulo,contenido) => {
+  try {
+    const response = await api.post('/posts_foro', {pofr_titulo: titulo,
+      pofr_contenido: contenido});  //lo paso directamente asi para no tener que diseccionar el objeto en el backend
+    console.log('Post del foro creado:', response.data);
+    return response.data; // Devuelve el post del foro creado
+  } catch (error) {
+    console.error('Error al crear el post del foro:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+}
+
+export const getForoPostById = async (id) => {
+  try {
+    const response = await api.get(`/posts_foro/${id}`); // Asegúrate que esta ruta existe en tu backend
+    console.log('Post del foro creado:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener el post:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+};
+
+export const getRespuestasByPostId = async (postId) => {
+  try{
+    const response = await api.get(`/respuestas_post_foro/${postId}`);
+    console.log('Respuestas del post obtenidas:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener las respuestas del post:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+};
+
+export const postRespuestaByPostId = async (postId, contenido) => {
+  try {
+    const response = await api.post(`/respuestas_post_foro/${postId}`, { refe_contenido: contenido });
+    console.log('Respuesta del post creada:', response.data);
+    return response.data; // Devuelve la respuesta del post creada
+  } catch (error) {
+    console.error('Error al crear la respuesta del post:', error);
+    return error.response.data; // Devuelve el error si ocurre
+  }
+};

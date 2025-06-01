@@ -1,4 +1,4 @@
-import { verPreguntas,  corregirTest } from "../services/api";
+import { verPreguntas } from "../services/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";

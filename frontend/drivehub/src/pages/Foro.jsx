@@ -1,91 +1,91 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainLayout from "../layouts/MainLayout"; 
+import { getForoPosts, postForoPost } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
-export default function Foro() {
-  const [nuevoPost, setNuevoPost] = useState("");
-  const [posts, setPosts] = useState([
-    { id: 1, contenido: "¡Bienvenido al foro de autoescuela!" },
-    { id: 2, contenido: "¿Alguien sabe cuántos fallos se permiten en el examen?" },
-  ]);
-  const [postRespondiendoId, setPostRespondiendoId] = useState(null);
-  const [respuesta, setRespuesta] = useState("");
+const ForoPage = () => {
+  const [posts, setPosts] = useState([]);
+  const [titulo, setTitulo] = useState('');
+  const [contenido, setContenido] = useState('');
 
-  const manejarPublicacion = () => {
-    if (nuevoPost.trim() === "") return;
-    const nuevo = {
-      id: posts.length + 1,
-      contenido: nuevoPost,
-    };
-    setPosts([nuevo, ...posts]);
-    setNuevoPost("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    cargarPosts();
+  }, []);
+
+  const cargarPosts = async () => {
+    const data = await getForoPosts();
+    if (!data || data.error) {
+      alert('Error al cargar los posts del foro');
+      return;
+    }
+    setPosts(data);
   };
 
-  const manejarClickPost = (id) => {
-    setPostRespondiendoId((prev) => (prev === id ? null : id)); // alterna visibilidad
-    setRespuesta(""); // limpia el textarea al cambiar
-  };
-
-  const manejarRespuesta = () => {
-    // Aquí iría la lógica de envío de respuesta
-    setRespuesta("");
-    setPostRespondiendoId(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await postForoPost(titulo, contenido);
+      setTitulo('');
+      setContenido('');
+      cargarPosts(); // Refresca los posts
+    } catch (err) {
+      alert('Error al publicar el post');
+    }
   };
 
   return (
     <MainLayout>
-        <div className="max-w-2xl mx-auto p-4 space-y-4">
-      <h1 className="text-2xl font-bold mb-4 text-center">Foro de estudiantes</h1>
+        <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-2xl font-medium mb-4 dark:text-white">Crea tu post</h1>
 
-      <div className="bg-white shadow rounded-2xl p-4">
-        <textarea
-          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-          rows={4}
-          placeholder="Comparte tu duda o comentario..."
-          value={nuevoPost}
-          onChange={(e) => setNuevoPost(e.target.value)}
+      <form onSubmit={handleSubmit} className="mb-6 dark:text-white">
+        <input
+          type="text"
+          placeholder="Título del post"
+          value={titulo}
+          onChange={(e) => setTitulo(e.target.value)}
+          className="w-full p-2 border border-gray-400 rounded mb-2 dark:text-white dark:placeholder:text-white"
+          required
         />
-        <div className="flex justify-end mt-2">
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-xl transition"
-            onClick={manejarPublicacion}
-          >
-            Publicar
-          </button>
-        </div>
-      </div>
+        <textarea
+          placeholder="Contenido"
+          value={contenido}
+          onChange={(e) => setContenido(e.target.value)}
+          className="w-full p-2 border border-gray-400 rounded mb-2 h-24 dark:text-white dark:placeholder:text-white"
+          required
+        />
+        <button
+          type="submit"
+          className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          Publicar
+        </button>
+      </form>
 
-      <div className="space-y-4">
+      <section className="space-y-4">
         {posts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-white border border-gray-200 shadow-sm rounded-2xl p-4 cursor-pointer"
-            onClick={() => manejarClickPost(post.id)}
-          >
-            <p className="text-gray-800">{post.contenido}</p>
-
-            {postRespondiendoId === post.id && (
-              <div className="mt-3">
-                <textarea
-                  className="w-full p-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none"
-                  rows={3}
-                  placeholder="Escribe tu respuesta..."
-                  value={respuesta}
-                  onChange={(e) => setRespuesta(e.target.value)}
-                />
-                <div className="flex justify-end mt-2">
-                  <button
-                    className="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded-xl transition"
-                    onClick={manejarRespuesta}
-                  >
-                    Responder
-                  </button>
-                </div>
-              </div>
-            )}
+          <div 
+            key={post.pk_pofr_id} 
+            className="p-6 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition-shadow dark:bg-[#2e2f35]">     
+            <div className="flex items-center text-sm text-gray-500 mb-1 dark:text-white">
+              <span className="font-semibold text-gray-700 dark:text-white">👤{post.fk_usus_pofr_usuario__usus_nombre}</span>
+              <span className="mx-2">•</span>
+              <span className="text-gray-500 dark:text-[#82959b] italic">{new Date(post.pofr_fecha).toLocaleString()}</span>
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{post.pofr_titulo}</h2>
+            <p className="text-gray-800 dark:text-white leading-relaxed">{post.pofr_contenido}</p>
+            <div className="mt-3 italic inline-block text-gray-600 dark:text-white cursor-pointer"
+              onClick={() => navigate(`/foro/post/${post.pk_pofr_id}`)}>
+              Responder / Ver respuestas ({post.numero_respuestas})
+            </div>
           </div>
         ))}
-      </div>
+      </section>
     </div>
     </MainLayout>
   );
 }
+
+export default ForoPage;

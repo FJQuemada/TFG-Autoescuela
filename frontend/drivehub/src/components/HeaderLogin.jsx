@@ -17,8 +17,6 @@ const Header = () =>{
                     <img src={Linkedin} alt="Linkedin" className='size-7' />
                     <img src={Linkedin} alt="Linkedin" className='size-7' />
                 </div>
-                
-                {/*Logout*/}
             </nav>
         </div>
 

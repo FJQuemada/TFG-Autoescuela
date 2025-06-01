@@ -72,6 +72,12 @@ urlpatterns = [
     path('api/get_racha_maxima_historica', views.get_racha_maxima_historica),
     path('api/actualizar_racha_maxima_historica', views.actualizar_racha_maxima),
     path('api/get_test_suspenso', views.get_test_suspenso),
+    path('api/get_logros_usuario', views.get_logros_usuario),
+    path('api/get_ultimo_logro_usuario', views.get_ultimo_logro_usuario),
+    path('api/get_ranking_users', views.get_ranking_users),
+    path('api/posts_foro', views.posts_foro),
+    path('api/posts_foro/<int:post_id>', views.posts_foro_by_id),
+    path('api/respuestas_post_foro/<int:post_id>', views.respuestas_post_foro),
 ]
 
 

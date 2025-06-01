@@ -89,7 +89,7 @@ class LogrosSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtLogrosLogr
         fields = '__all__'
-        read_only_fields = ('pk_logr_id','logr_image')
+        read_only_fields = ('pk_logr_id',)
 
 class LogrosUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -128,7 +128,7 @@ class PostForoSerializer(serializers.ModelSerializer):
     class Meta:
         model = DrhtPostForoPofr
         fields = '__all__'
-        read_only_fields = ('pk_pofr_id','pofr_fecha','pofr_likes','pofr_dislikes')
+        read_only_fields = ('pk_pofr_id','pofr_fecha')
 
 class RespuestasForoSerializer(serializers.ModelSerializer):
     class Meta:

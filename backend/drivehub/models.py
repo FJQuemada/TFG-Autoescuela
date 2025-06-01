@@ -137,8 +137,9 @@ class DrhtLogrosLogr(models.Model):
     pk_logr_id = models.AutoField(primary_key=True)
     logr_nombre = models.TextField(blank=True, null=True)
     logr_descripcion = models.TextField(blank=True, null=True)
-    logr_image = models.TextField(default='', blank=True, null=True)
-
+    logr_image = models.TextField(blank=True, null=True)
+    logr_etiqueta = models.TextField(blank=True, null=True)
+    
     class Meta:
         managed = True
         db_table = 'drht_logros_logr'
@@ -153,11 +154,14 @@ class DrhtLogrosUsuarioLgus(models.Model):
     class Meta:
         managed = True
         db_table = 'drht_logros_usuario_lgus'
+        constraints = [
+                models.UniqueConstraint(fields=['fk_usus_lgus_usuario', 'fk_logr_lgus_logro'], name='unique_user_achievement')
+                ]
 
 
 class DrhtPostForoPofr(models.Model):
     pk_pofr_id = models.AutoField(primary_key=True)
-    fk_usus_pofr_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=True, null=True)
+    fk_usus_pofr_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=False, null=False) # Cambiado a False para que sea obligatorio
     pofr_titulo = models.TextField(blank=True, null=True)
     pofr_contenido = models.TextField(blank=True, null=True)
     pofr_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -194,8 +198,9 @@ class DrhtPreguntasTestPgte(models.Model):
 
 class DrhtRespuestasForoRefe(models.Model):
     pk_refe_id = models.AutoField(primary_key=True)
-    fk_pofr_refe_post = models.ForeignKey(DrhtPostForoPofr, models.DO_NOTHING, blank=True, null=True)
-    refe_contenido = models.TextField(blank=True, null=True)
+    fk_pofr_refe_post = models.ForeignKey(DrhtPostForoPofr, models.DO_NOTHING, blank=False, null=False) # Cambiado a False para que sea obligatorio
+    fk_usus_refe_usuario = models.ForeignKey('DrhtUsuariosUsus', models.DO_NOTHING, blank=False, null=False) # Cambiado a False para que sea obligatorio
+    refe_contenido = models.TextField(blank=False, null=False) # Cambiado a False para que sea obligatorio
     refe_fecha = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     refe_likes = models.IntegerField(default=0, blank=True, null=True)
     refe_dislikes = models.IntegerField(default=0, blank=True, null=True)

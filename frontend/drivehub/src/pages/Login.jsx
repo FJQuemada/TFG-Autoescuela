@@ -68,7 +68,7 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col justify-center align-middle items-center">
-            <h1 className="text-4xl mt-10">Inicia sesión</h1>
+            <h2 className="text-4xl mt-10">Inicia sesión</h2>
 
             <form
               action=""

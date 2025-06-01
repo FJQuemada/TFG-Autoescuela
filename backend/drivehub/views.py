@@ -319,28 +319,7 @@ def corregir_pregunta(request):
         return Response(resultado_pregunta, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-@api_view(['PUT'])
-@token_requerido
-def actualizar_racha_maxima(request):
-    try:
-        user_id = request.user_id  # Obtener el user_id del token decodificado
-        nueva_racha = request.data.get('racha_maxima')
 
-        if nueva_racha is None:
-            return Response({'detail': 'Racha máxima no proporcionada.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=user_id)
-        usuario.usus_racha = nueva_racha
-        usuario.save()  #Django detecta si ya existe el usuario y actualiza el campo usus_racha, si no existe lo crea, pero en este caso no deberia pasar porque el token es valido y
-        # el usuario existe
-        # save no hace reemplazo total de los datos, solo actualiza los campos que se han modificado, en este caso usus_racha
-        return Response({'detail': 'Racha máxima actualizada correctamente.'}, status=status.HTTP_200_OK)
-
-    except DrhtUsuariosUsus.DoesNotExist:
-        return Response({'detail': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
-    except Exception as e:
-        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #para obtener las preguntas del test
 @api_view(['GET'])
@@ -509,7 +488,93 @@ def correccion_test(request, testId):
         done_correccion.full_clean()
         done_correccion.save()
         
-
+        if test_aprobado:
+            tests_usuario= DrhtTestsUsuarioTeus.objects.filter(
+                fk_usus_teus_usuario_id=user_id,
+                teus_aprobado=True
+            ).distinct('fk_tsts_teus_test_id').count()
+            
+            if tests_usuario >= 3:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 5, le asignamos la medalla de racha de bronce
+                medalla = DrhtLogrosLogr.objects.get(logr_nombre='Constancia que vale')
+                
+                medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+                
+                if not medalla_asignada:
+                    # Si no tiene la medalla de racha de bronce, se la asignamos
+                    #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                    medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                    medalla_usuario.save()
+                    print('Medalla de racha Constancia que vale asignada al usuario.')
+            
+            elif tests_usuario >= 1:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 5, le asignamos la medalla de racha de bronce
+                medalla = DrhtLogrosLogr.objects.get(logr_nombre='¡Lo lograste!')
+                
+                medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+                
+                if not medalla_asignada:
+                    # Si no tiene la medalla de racha de bronce, se la asignamos
+                    #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                    medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                    medalla_usuario.save()
+                    print('Medalla ¡Lo lograste! que vale asignada al usuario.')
+            
+            if (len(respuestas_usuario) - preguntas_acertadas) == 0:
+                print('test perfecto')
+                # Si el usuario ha acertado todas las preguntas del test, le asignamos la medalla de test perfecto
+                medalla = DrhtLogrosLogr.objects.get(logr_nombre='Perfecto')
+                
+                medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+                
+                if not medalla_asignada:
+                    # Si no tiene la medalla de test perfecto, se la asignamos
+                    medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                    medalla_usuario.save()
+                    print('Medalla de test perfecto asignada al usuario.')
+        
+        tests_hechos_usuario= DrhtTestsUsuarioTeus.objects.filter(
+                fk_usus_teus_usuario_id=user_id,
+            ).distinct('fk_tsts_teus_test_id').count()
+        
+        if tests_hechos_usuario >= 7:
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Experto en práctica')
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()  
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de bronce, se la asignamos
+                #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Experto en práctica asignada al usuario.')    
+        
+        elif tests_hechos_usuario >= 3:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 3, le asignamos la medalla de racha de bronce
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Vas en serio')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de bronce, se la asignamos
+                #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Vas en serio')
+        
+        elif tests_hechos_usuario >= 1:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 5, le asignamos la medalla de racha de bronce
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Se empieza por algo')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de bronce, se la asignamos
+                #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Se empieza por algo')
+          
+            
         # resultado_final.append({'user_id':user_id,'test_id':testId,'preguntas_acertadas': preguntas_acertadas, 'preguntas_totales': len(respuestas_usuario)})
         
         return Response(jsonfinal, status=status.HTTP_200_OK)
@@ -549,7 +614,7 @@ def get_racha_maxima_historica(request):
         print('usuario', usuario)  # Verificar que se obtiene el usuario correctamente
         # Obtener la racha máxima histórica del usuario
         racha_maxima = usuario.usus_racha
-        
+
         return Response({'racha_maxima': racha_maxima}, status=status.HTTP_200_OK)
     
     except DrhtUsuariosUsus.DoesNotExist:
@@ -558,6 +623,100 @@ def get_racha_maxima_historica(request):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+@api_view(['PUT'])
+@token_requerido
+def actualizar_racha_maxima(request):
+    try:
+        user_id = request.user_id  # Obtener el user_id del token decodificado
+        nueva_racha = request.data.get('racha_maxima')
+
+        if nueva_racha is None:
+            return Response({'detail': 'Racha máxima no proporcionada.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        usuario = DrhtUsuariosUsus.objects.get(pk_usus_id=user_id)
+        usuario.usus_racha = nueva_racha
+        usuario.save()  #Django detecta si ya existe el usuario y actualiza el campo usus_racha, si no existe lo crea, pero en este caso no deberia pasar porque el token es valido y
+        # el usuario existe
+        # save no hace reemplazo total de los datos, solo actualiza los campos que se han modificado, en este caso usus_racha
+        
+        if nueva_racha >= 5:
+        # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 5, le asignamos la medalla de racha de bronce
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Sanguinario')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de bronce, se la asignamos
+                #aqui podemos usar fk_logr_lgus_logro en lugar de fk_logr_lgus_logro_id, ya que es un campo de tipo ForeignKey y django lo sabe
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Sanguinario asignada al usuario.')
+        if nueva_racha >= 10:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 10, le asignamos la medalla de racha de plata
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Despiadado')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de plata, se la asignamos
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Despiadado asignada al usuario.')
+        if nueva_racha >= 15:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 15, le asignamos la medalla de racha de oro
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Inexorable')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de oro, se la asignamos
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Inexorable asignada al usuario.')
+        if nueva_racha >= 20:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 20, le asignamos la medalla de racha de platino
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Implacable')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de platino, se la asignamos
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Implacable asignada al usuario.')
+        if nueva_racha >= 25:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 25, le asignamos la medalla de racha de diamante
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Brutal')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de diamante, se la asignamos
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Brutal asignada al usuario.')
+        if nueva_racha >= 30:
+            # Si no tiene medallas de racha, pero la racha máxima es mayor o igual a 30, le asignamos la medalla de racha de rubí
+            medalla = DrhtLogrosLogr.objects.get(logr_nombre='Nuclear')
+            
+            medalla_asignada = DrhtLogrosUsuarioLgus.objects.filter(fk_logr_lgus_logro=medalla,fk_usus_lgus_usuario_id=user_id).exists()
+            
+            if not medalla_asignada:
+                # Si no tiene la medalla de racha de rubí, se la asignamos
+                medalla_usuario = DrhtLogrosUsuarioLgus(fk_usus_lgus_usuario_id=user_id, fk_logr_lgus_logro=medalla)
+                medalla_usuario.save()
+                print('Medalla de racha Nuclear asignada al usuario.')
+                
+        
+        return Response({'detail': 'Racha máxima actualizada correctamente.'}, status=status.HTTP_200_OK)
+
+    except DrhtUsuariosUsus.DoesNotExist:
+        return Response({'detail': 'Usuario no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
 #Logros
 class LogrosViewSet(viewsets.ModelViewSet):
     queryset = DrhtLogrosLogr.objects.all()
@@ -566,6 +725,102 @@ class LogrosViewSet(viewsets.ModelViewSet):
 class LogrosUsuarioViewSet(viewsets.ModelViewSet):
     queryset = DrhtLogrosUsuarioLgus.objects.all()
     serializer_class = LogrosUsuarioSerializer
+    
+@api_view(['GET'])
+@token_requerido
+def get_logros_usuario(request):
+    # quiero llevar al front todos los logros, y poner un booleano que diga si el usuario tiene ese logro o no
+    try:
+        user_id = request.user_id  # Obtener el user_id del token decodificado
+        
+        # Obtener todos los logros del usuario
+        logros_usuario = DrhtLogrosUsuarioLgus.objects.filter(fk_usus_lgus_usuario_id=user_id).values(
+            'fk_logr_lgus_logro_id',
+            'fk_logr_lgus_logro__logr_nombre',
+            'fk_logr_lgus_logro__logr_descripcion',
+            'fk_logr_lgus_logro__logr_image',
+            'lgus_fecha_obtencion',
+        )
+        
+        # Obtener todos los logros disponibles
+        logros_disponibles = DrhtLogrosLogr.objects.all().values(
+            'pk_logr_id',
+            'logr_nombre',
+            'logr_descripcion',
+            'logr_image'
+        )
+        
+        # Crear un diccionario para almacenar los logros del usuario
+        logros_dict = {logro['fk_logr_lgus_logro_id']: logro for logro in logros_usuario}
+        
+        #esto como ya hemos visto devolvería algo del estilo
+        # {
+        #     1: {'fk_logr_lgus_logro_id': 1, 'nombre': 'Medalla A', 'fecha': '2023-05-01', ...},
+        #     2: {'fk_logr_lgus_logro_id': 2, 'nombre': 'Medalla B', 'fecha': '2023-05-02', ...},
+        #     ...
+        # }
+        
+        # Combinar los logros disponibles con los del usuario
+        resultados = []
+        for logro in logros_disponibles:
+            tiene_logro = logro['pk_logr_id'] in logros_dict    #en un diccionario, el "in" comprueba si la clave existe, no el valor
+            resultado = {
+                'id': logro['pk_logr_id'],
+                'nombre': logro['logr_nombre'],
+                'descripcion': logro['logr_descripcion'],
+                'image': logro['logr_image'],
+                'tiene_logro': tiene_logro,
+                'fecha_obtencion': logros_dict.get(logro['pk_logr_id'], {}).get('lgus_fecha_obtencion', None)
+            }
+            resultados.append(resultado)
+        return Response(resultados, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(['GET'])
+@token_requerido
+def get_ultimo_logro_usuario(request):
+    try:
+        user_id = request.user_id  # Obtener el user_id del token decodificado
+        
+        # Obtener el último logro del usuario
+        ultimo_logro = DrhtLogrosUsuarioLgus.objects.filter(fk_usus_lgus_usuario_id=user_id).order_by('-lgus_fecha_obtencion').values(
+            'fk_logr_lgus_logro_id',
+            'fk_logr_lgus_logro__logr_nombre',
+            'fk_logr_lgus_logro__logr_descripcion',
+            'fk_logr_lgus_logro__logr_image',
+            'lgus_fecha_obtencion',
+        ).first()  # Usamos first() para obtener solo el último logro
+        
+        print('ultimo_logro', ultimo_logro)  # Verificar el último logro obtenido
+        
+        if not ultimo_logro:
+            return Response({'detail': 'No se encontraron logros para este usuario.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response(ultimo_logro, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+@token_requerido
+def get_ranking_users(request):
+    try:
+        all_users_data = DrhtUsuariosUsus.objects.values(
+            'pk_usus_id',
+            'usus_nombre',
+            'usus_racha'
+        ).order_by('-usus_racha')[:15]
+        
+        print('all_users_data', all_users_data)  # Verificar los datos de los usuarios
+        return Response(all_users_data, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
 
 #Tests
 class TestViewSet(viewsets.ModelViewSet):
@@ -806,10 +1061,100 @@ class RespuestasViewSet(viewsets.ModelViewSet):
 class PostForoViewSet(viewsets.ModelViewSet):
     queryset = DrhtPostForoPofr.objects.all()
     serializer_class = PostForoSerializer
+    
+@api_view(['GET', 'POST'])
+@token_requerido
+def posts_foro(request):
+    try:
+        if request.method == 'GET':
+            posts = DrhtPostForoPofr.objects.all().order_by('-pofr_fecha').values(
+                'pk_pofr_id',
+                'pofr_titulo',
+                'pofr_contenido',
+                'fk_usus_pofr_usuario__pk_usus_id',
+                'fk_usus_pofr_usuario__usus_nombre',
+                'pofr_fecha'
+            )
+            print('posts', posts)  # Verificar los posts obtenidos
+            
+            # Añadir el número de respuestas a cada post
+            for post in posts:
+                post['numero_respuestas'] = DrhtRespuestasForoRefe.objects.filter(fk_pofr_refe_post_id=post['pk_pofr_id']).count()
+            return Response(posts, status=status.HTTP_200_OK)
+        
+        elif request.method == 'POST':
+            print('request.data', request.data)  # Verificar los datos recibidos
+            # Obtener el user_id del token decodificado
+            user_id = request.user_id
+            serializer = PostForoSerializer(data={'pofr_titulo':request.data['pofr_titulo'],'pofr_contenido':request.data['pofr_contenido'], 'fk_usus_pofr_usuario': user_id})
+            if serializer.is_valid():
+                serializer.save()
+                print('Post creado con éxito', serializer.data)  # Verificar que el post se ha creado correctamente
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(['GET'])
+@token_requerido
+def posts_foro_by_id(request,post_id):
+    try:
+        if not post_id:
+            return Response({'detail': 'Post ID no proporcionado.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        post = DrhtPostForoPofr.objects.filter(pk_pofr_id=post_id).values(
+            'pk_pofr_id',
+            'pofr_titulo',
+            'pofr_contenido',
+            'fk_usus_pofr_usuario__pk_usus_id',
+            'fk_usus_pofr_usuario__usus_nombre',
+            'pofr_fecha'
+        ).first()  # Usamos first() para obtener solo 1 post, y no un queryset de diccionarios
+        
+        if not post:
+            return Response({'detail': 'Post no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        print('post', post)  # Verificar el post obtenido
+        return Response(post, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)    
 
 class RespuestasForoViewSet(viewsets.ModelViewSet):
     queryset = DrhtRespuestasForoRefe.objects.all()
     serializer_class = RespuestasForoSerializer
+    
+@api_view(['GET', 'POST'])
+@token_requerido
+def respuestas_post_foro(request, post_id):
+    try:
+        if not post_id:
+            return Response({'detail': 'Post ID no proporcionado.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        if request.method == 'GET':
+            respuestas = DrhtRespuestasForoRefe.objects.filter(fk_pofr_refe_post_id=post_id).order_by('-refe_fecha').values(
+                'pk_refe_id',
+                'refe_contenido',
+                'fk_usus_refe_usuario__pk_usus_id',
+                'fk_usus_refe_usuario__usus_nombre',
+                'refe_fecha'
+            )
+            print('respuestas', respuestas)  # Verificar las respuestas obtenidas
+            return Response(respuestas, status=status.HTTP_200_OK)
+        
+        elif request.method == 'POST':
+            print('request.data', request.data)  # Verificar los datos recibidos
+            # Obtener el user_id del token decodificado
+            user_id = request.user_id
+            serializer = RespuestasForoSerializer(data={'refe_contenido':request.data['refe_contenido'], 'fk_usus_refe_usuario': user_id, 'fk_pofr_refe_post': post_id})
+            if serializer.is_valid():
+                serializer.save()
+                print('Respuesta creada con éxito', serializer.data)  # Verificar que la respuesta se ha creado correctamente
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    except Exception as e:
+        return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 #Esto un ejemplo de que no todos los modelos necesitan ser un ModelViewSet, en este caso solo necesitamos un ListCreateAPIView
 class DificultadList(generics.ListCreateAPIView):

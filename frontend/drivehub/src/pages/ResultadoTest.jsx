@@ -50,11 +50,11 @@ const Resultados = () => {
           <div className='w-1/2 p-2'>
             {corregida.correcta ? (
               <div className='items-center mt-3'>
-                <h1 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{index + 1} {corregida.pregunta_enunciado}</h1>
+                <h2 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{index + 1} {corregida.pregunta_enunciado}</h2>
               </div>
             ) : (
               <div className='items-center mt-3'>
-                <h1 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{index + 1} {corregida.pregunta_enunciado}</h1>
+                <h2 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{index + 1} {corregida.pregunta_enunciado}</h2>
               </div>
             )}
             

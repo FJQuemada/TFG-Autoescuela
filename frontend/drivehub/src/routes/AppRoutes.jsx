@@ -9,6 +9,7 @@ import Stats from "../pages/Stats";
 import PrivateRoute from "../components/PrivateRoute";
 import PreguntasEncadenadas from "../pages/PreguntasEncadenadas";
 import Foro from "../pages/Foro";
+import PostDetallado from "../pages/PostDetallado";
 
 export default function AppRoutes(){
     return(
@@ -26,6 +27,7 @@ export default function AppRoutes(){
         <Route path="/stats" element={<Stats />}></Route>
         <Route path="/preguntasEncadenadas" element={<PreguntasEncadenadas />}></Route>
         <Route path="/foro" element={<Foro />}></Route>
+        <Route path="/foro/post/:id" element={<PostDetallado />} />
       </Route>
     </Routes>
   </BrowserRouter>
