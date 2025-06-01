@@ -143,6 +143,9 @@ class DrhtLogrosLogr(models.Model):
     class Meta:
         managed = True
         db_table = 'drht_logros_logr'
+        constraints = [
+                models.UniqueConstraint(fields=['logr_nombre'], name='unique_achievement_name')
+                ]
 
 
 class DrhtLogrosUsuarioLgus(models.Model):

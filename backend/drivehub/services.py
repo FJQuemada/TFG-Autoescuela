@@ -1,13 +1,6 @@
 
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
-
-def obtener_usuario(tabla):
-    try:
-        usuarioPrimi = tabla.objects.get(pk_usuario_id = 1)
-        return usuarioPrimi
-    except tabla.DoesNotExist:
-        return None
     
 # Definimos la función para verificar el login del usuario
 # Esta función recibe el modelo, el email y la contraseña del usuario

@@ -796,7 +796,7 @@ def get_ultimo_logro_usuario(request):
         print('ultimo_logro', ultimo_logro)  # Verificar el último logro obtenido
         
         if not ultimo_logro:
-            return Response({'detail': 'No se encontraron logros para este usuario.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': 'No se encontraron logros para este usuario.'}, status=status.HTTP_200_OK)
         
         return Response(ultimo_logro, status=status.HTTP_200_OK)
     

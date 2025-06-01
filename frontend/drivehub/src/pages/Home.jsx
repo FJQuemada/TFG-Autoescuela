@@ -52,7 +52,7 @@ const Home = () => {
                                     onClick={() => {
                                         navigate('/stats');
                                     }}>
-                                    {ultimaMedalla ?
+                                    {ultimaMedalla?.fk_logr_lgus_logro__logr_nombre ?
                                     <div className="flex flex-col items-center">
                                         <h2 className="text-center font-semibold">Última medalla obtenida</h2>
                                         <p className="text-center text-sm">{ultimaMedalla.fk_logr_lgus_logro__logr_nombre}</p>
