@@ -40,6 +40,7 @@ const Test = () => {
   const handleCorregirTest = async () => {
     if (respuestasParaBackend.length < preguntas.length) {
       console.log("contesta todas las preguntas antes");
+      alert("Por favor, responde a todas las preguntas antes de finalizar el test.");
     }else{
       navigate(`/test/${testId}/resultado`, {
         state: { respuestasParaBackend,preguntas}
@@ -115,9 +116,9 @@ const Test = () => {
       if (respondida && esActual) {
         backgroundColorClass = "bg-amber-300"; // Si ya se respondió
       } else if (esActual) {
-        backgroundColorClass = "bg-blue-300"; // Si es la pregunta actual y no respondida
+        backgroundColorClass = "bg-blue-500/70"; // Si es la pregunta actual y no respondida
       } else if (respondida) {
-        backgroundColorClass = "bg-amber-400"; // Si ya se respondió
+        backgroundColorClass = "bg-amber-500"; // Si ya se respondió
       }
       
       return (
@@ -151,10 +152,10 @@ const Test = () => {
           <div className="w-full h-full flex flex-col">
             <div className="w-full flex justify-around">
 
-              <img src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image} alt="Placeholder" className='h-[350px] m-5' />
+              <img src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image} alt="Placeholder" className='max-w-[500px] h-[350px] m-5' />
 
-              <div className="w-4/12 flex flex-col justify-center m-5"> 
-                <h1 className="text-2xl font-bold mb-4">
+              <div className="w-4/12 flex flex-col justify-center "> 
+                <h1 className="text-2xl font-bold mb-4 dark:text-white">
                   {preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_enunciado}
                 </h1>
                   {preguntaActual.respuestas.map((respuesta,index) => (
@@ -163,8 +164,8 @@ const Test = () => {
                       key={respuesta.pk_resp_id}
                       className="w-fit p-2 rounded-md m-1 cursor-pointer" 
                       onClick={() => handleRespuestasSeleccionada(respuesta.pk_resp_id)}>
-                     <p className="font-semibold">{etiquetar(index)} 
-                        <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300":"bg-gray-300"} w-fit p-2 rounded-md m-1 cursor-pointer`} >{respuesta.resp_contenido}</span>
+                     <p className="font-semibold dark:text-white">{etiquetar(index)} 
+                        <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300 dark:bg-amber-500/70":"bg-gray-300 dark:bg-gray-700"} w-fit p-2 rounded-md m-1 cursor-pointer`} >{respuesta.resp_contenido}</span>
                      </p>
                     </div>
                   ))}

@@ -77,7 +77,7 @@ const PostDetalle = () => {
             <span className="text-gray-500 dark:text-[#82959b] text-sm">{new Date(post.pofr_fecha).toLocaleString()}</span>
           </div>
           <h1 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{post.pofr_titulo}</h1>
-          <p className='text-gray-800 dark:text-white leading-relaxed'>{post.pofr_contenido}</p>
+          <p className='text-gray-800 dark:text-white leading-relaxed ml-3'>{post.pofr_contenido}</p>
         </div>
 
         <form onSubmit={handleSubmitRespuesta} className="my-6">

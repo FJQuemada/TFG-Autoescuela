@@ -48,8 +48,37 @@ const Stats = () => {
     return (
         <div className="">
             <MainLayout>
-                <div className="w-full h-full flex max-[600px]:flex-col max-[600px]:items-center max-[600px]:justify-center">
-                    <div className="flex p-10 w-3/12 bg-[#ffffff21]">
+                <div className="w-full h-full flex max-[950px]:flex-col max-[950px]:items-center max-[950px]:justify-center">
+                    <div className="flex flex-col items-center w-8/12 max-[950px]:w-9/12 h-full p-10">
+                        <h1 className="text-3xl font-bold mb-5 dark:text-gray-200">Logros</h1>
+                        <div className="flex flex-wrap items-center w-full h-full">
+                            {logrosUsuario.length > 0 ? (
+                                logrosUsuario.map((logro, index) => (
+                                    <div key={index} className={`text-center space-y-1 mx-auto flex flex-col items-center w-[180px] h-[130px] p-2 m-2 ${logro.tiene_logro ? "bg-gradient-to-br from-green-300 via-green-400 to-green-500 cursor-" : "bg-gray-200"} rounded-lg`}>
+                                        <h2 className="font-semibold mt-2">{logro.nombre}</h2>
+                                        <p className="text-sm text-gray-500 p-3">{logro.descripcion}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p className="text-center dark:text-white">No tienes logros aún.</p>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col max-[950px]:w-8/12 w-4/12 h-full p-10">
+                        <h2 className="text-3xl font-bold mb-5 dark:text-gray-200">Ranking</h2>
+                        <ResponsiveContainer width="100%" height={200}>
+                            <BarChart
+                            layout="vertical"
+                            data={ranking}
+                            margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
+                            >
+                                <XAxis type="number" ticks={[0,5,10,15,20,25,30,35]} />
+                                <YAxis dataKey="usus_nombre" type="category" />
+                                <Tooltip />
+                                <Bar dataKey="usus_racha" fill="#80003e" />
+                            </BarChart>
+                        </ResponsiveContainer>
                         <div className="flex flex-col p-10 h-full items-center w-full">
                             <PieChart width={300} height={300}>
                                 <Pie data={data} dataKey="valor" nameKey="nombre" startAngle={180} endAngle={0} cx="50%" cy="50%" outerRadius={120} fill="#8884d8" label >
@@ -61,40 +90,7 @@ const Stats = () => {
                                 
                                 <Tooltip />
                             </PieChart>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col items-center w-5/12 max-[600px]:w-9/12 h-full p-10 bg-[#ffffff21]">
-                        <h1>Logros</h1>
-                        <div className="flex flex-wrap items-center w-full h-full">
-                            {logrosUsuario.length > 0 ? (
-                                logrosUsuario.map((logro, index) => (
-                                    <div key={index} className={`text-center space-y-1 mx-auto flex flex-col items-center w-[180px] h-[130px] p-2 m-2 ${logro.tiene_logro ? "bg-gradient-to-br from-green-300 via-green-400 to-green-500 cursor-" : "bg-gray-200"} rounded-lg`}>
-                                        <h2 className="font-semibold mt-2">{logro.nombre}</h2>
-                                        <p className="text-sm text-gray-500 p-3">{logro.descripcion}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <p className="text-center">No tienes logros aún.</p>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col max-[600px]:w-8/12 w-4/12 h-full p-10">
-                        <h1 className="text-3xl font-bold mb-5">Ranking</h1>
-                            <ResponsiveContainer width="100%" height={200}>
-                                <BarChart
-                                layout="vertical"
-                                data={ranking}
-                                margin={{ top: 10, right: 30, left: 20, bottom: 5 }}
-                                >
-                                    <XAxis type="number" ticks={[0,5,10,15,20,25,30,35]} />
-                                    <YAxis dataKey="usus_nombre" type="category" />
-                                    <Tooltip />
-                                    <Bar dataKey="usus_racha" fill="#80003e" />
-                                </BarChart>
-                            </ResponsiveContainer>
-                                    
+                        </div>       
                     </div>
 
 

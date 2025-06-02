@@ -38,7 +38,7 @@ const Tests = () =>{
 
     return(
         <MainLayout>
-            <div className='flex flex-wrap justify-center items-center w-full'>
+            <div className='flex flex-wrap justify-center mt-[60px] items-center w-full'>
                 {
                     tests && tests.map((test)=>(
                         <TestCard key={test.id} testId={test.id} testNombre={test.nombre} testDificultad={test.dificultad} puntuacion={test?.puntuacion}/>

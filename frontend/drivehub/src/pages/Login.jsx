@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { inicioSesion } from "../services/api";
 import { UseUser } from "../contexts/UserContext";
-import HeaderLogin from "../components/HeaderLogin";
 import BeneficiosLanding from "../components/BeneficiosLanding";
 import ComunidadLanding from "../components/ComunidadLanding";
-import Footer from "../components/Footer";
+import LoginRegisterLayout from "../layouts/LoginRegisterLayout";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -53,93 +52,84 @@ const Login = () => {
     setPassword("");
   };
 
-  return (
-    <>
-      <div className="flex flex-col items-center max-w-screen h-screen scroll-smooth">
-        <HeaderLogin />
+   return (
+<LoginRegisterLayout>
+    <div className="flex flex-col min-h-[90vh] items-center max-w-screen scroll-smooth">
+      
+      <div className="flex flex-1 flex-col md:flex-row items-center justify-around w-full h-9/12 px-4 md:px-20">
+        <div className="w-full md:w-[550px] flex flex-col text-center md:text-left">
+          <h1 className="text-5xl md:text-7xl dark:text-gray-100">Bienvenido a DriveHub</h1>
+          <p className="mt-6 md:mt-10 text-base md:text-lg dark:text-gray-300">
+            Practica con tests. Conecta con una comunidad dedicada a obtener
+            el permiso de conducción
+          </p>
+        </div>
 
-        <div className="flex items-center justify-around w-full h-9/12">
-          <div className="w-[550px] flex flex-col">
-            <h1 className="text-7xl">Bienvenido a DriveHub</h1>
-            <p className="mt-10">
-              Practica con tests. Conecta con una comunidad dedicada a obtener
-              el permiso de conducción
+        <div className="flex flex-col justify-center items-center mt-10 md:mt-0">
+          <h2 className="text-3xl md:text-4xl dark:text-gray-100">Inicia sesión</h2>
+
+          <form
+            action=""
+            className="flex flex-col items-center mt-4 w-full max-w-md dark:text-gray-100"
+            noValidate
+            onSubmit={(e) => {
+              handleLogin(e);
+            }}
+          >
+            <div className="relative w-80">
+              <input
+                type="email"
+                placeholder="Correo electrónico"
+                value={email}
+                required
+                title="Completa este campo"
+                className={`${errors ? 'border-red-500' : ''} border-b-2 ${email ? 'border-[#3EB489]' : 'border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80`}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors) setErrors("");
+                }}
+              />
+            </div>
+
+            <div className="m-4 relative w-80">
+              <input
+                type="password"
+                placeholder="Contraseña"
+                value={password}
+                required
+                title="Completa este campo"
+                className={`${errors ? 'border-red-500' : ''} border-b-2 ${password ? 'border-[#3EB489]' : 'border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80`}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errors) setErrors("");
+                }}
+              />
+              {errors && (
+                <p className="text-red-500 text-sm absolute ml-3 mt-1 whitespace-nowrap">{errors}</p>
+              )}
+            </div>
+
+            <p className="text-sm mt-3 w-full text-center md:text-left">
+              ¿No eres usuario?{" "}
+              <Link to="/register" className="text-blue-800 dark:text-blue-400 hover:underline">
+                Regístrate aquí
+              </Link>
             </p>
-          </div>
 
-          <div className="flex flex-col justify-center align-middle items-center">
-            <h2 className="text-4xl mt-10">Inicia sesión</h2>
-
-            <form
-              action=""
-              className="flex flex-col items-center mt-4"
-              noValidate
-              onSubmit={(e) => {
-                handleLogin(e);
-              }}
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 cursor-pointer font-bold py-2 px-4 mt-5 rounded text-white w-full"
             >
-              <div className=" relative">
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  value={email}
-                  required
-                  title="Completa este campo"
-                  className={`${errors ? 'border-red-500' : null} border-b-2 ${email ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
-                  onChange={(e) =>{
-                    setEmail(e.target.value);
-                    if (errors) {
-                      setErrors("");
-                      }
-                    }
-                  }
-                />
-                
-              </div>
-
-              <div className="m-4 relative">
-                <input
-                  type="password"
-                  placeholder="Contraseña"
-                  value={password}
-                  required
-                  title="Completa este campo"
-                  className={`${errors ? 'border-red-500' : null} border-b-2 ${password ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
-                  onChange={(e) =>{
-                    setPassword(e.target.value);
-                    if (errors) {
-                      setErrors("");
-                      }
-                    }
-                  }
-                />
-                {errors && (
-                        <p className="text-red-500 text-sm absolute ml-3 mt-1 text-nowrap">{errors}</p>
-                )}
-              </div>
-
-              <p className="text-sm  mt-3">
-                ¿No eres usuario?{" "}
-                <Link to="/register" className="text-blue-800 hover:underline">
-                  Registrate aquí
-                </Link>
-              </p>
-
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 cursor-pointer  font-bold py-2 px-4 mt-5 rounded text-white"
-              >
-                Iniciar sesión
-              </button>
-            </form>
-          </div>
+              Iniciar sesión
+            </button>
+          </form>
         </div>
       </div>
-      <BeneficiosLanding />
-      <ComunidadLanding />
-      <Footer />
-    </>
-  );
+    </div>
+    <BeneficiosLanding />
+    <ComunidadLanding />
+  </LoginRegisterLayout>
+);
 };
 
 export default Login;

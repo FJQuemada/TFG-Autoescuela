@@ -17,10 +17,39 @@ DELETE FROM drht_respuestas_resp;
 TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
 
 
+-- Eliminar datos de la tabla logros_usuarios
+DELETE FROM drht_logros_usuario_lgus;
+
+-- Truncar la tabla logros_usuarios y reiniciar su identidad
+TRUNCATE TABLE drht_logros_usuario_lgus RESTART IDENTITY CASCADE;
+
+-- Eliminar datos de la tabla respuestas del foro
+DELETE FROM drht_respuestas_foro_refe;
+
+-- Truncar la tabla respuestas del foro y reiniciar su identidad
+TRUNCATE TABLE drht_respuestas_foro_refe RESTART IDENTITY CASCADE;
+
+-- Eliminar datos de la tabla foro
+DELETE FROM drht_post_foro_pofr;
+
+-- Truncar la tabla foro y reiniciar su identidad
+TRUNCATE TABLE drht_post_foro_pofr RESTART IDENTITY CASCADE;
+
+-- Eliminar datos de la tabla tests_usuario
+DELETE FROM drht_tests_usuario_teus;
+
+-- Truncar la tabla drht_tests_usuario_teus y reiniciar su identidad
+TRUNCATE TABLE drht_tests_usuario_teus RESTART IDENTITY CASCADE;
+
+-- Eliminar datos de la tabla usuarios
+DELETE FROM drht_usuarios_usus;
+
+-- Truncar la tabla usuarios y reiniciar su identidad
+TRUNCATE TABLE drht_usuarios_usus RESTART IDENTITY CASCADE;
 
 
 
-
+/*TESTS*/
 
 [
   {
@@ -70,7 +99,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una señal de stop?",
-    "preg_image": "/señal_stop.png",
+    "preg_image": "/imagenesPreguntas/senialStop.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -80,7 +109,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué debe hacer un conductor ante un semáforo en rojo?",
-    "preg_image": "/semaforo_rojo.png",
+    "preg_image": "/imagenesPreguntas/semaforoRojo.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -90,7 +119,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Quién tiene prioridad en una rotonda?",
-    "preg_image": "/prioridad_rotonda.png",
+    "preg_image": "/imagenesPreguntas/rotonda.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -100,7 +129,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una señal de ceda el paso?",
-    "preg_image": "/señal_ceda_el_paso.png",
+    "preg_image": "/imagenesPreguntas/cedaElPaso.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -110,7 +139,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué distancia mínima se debe guardar al adelantar a un ciclista?",
-    "preg_image": "/distancia_ciclista.png",
+    "preg_image": "/imagenesPreguntas/ciclistas.jpg",
     "fk_diff_preg_dificultad": 3
   },
   {
@@ -125,12 +154,12 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de peligro por curvas?",
-    "preg_image": "/señal_curvas.png",
+    "preg_image": "/imagenesPreguntas/peligroCurvas.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué hacer si un vehículo de emergencia se acerca con luces y sirena encendidas?",
-    "preg_image": "/vehiculo_emergencia.png",
+    "preg_image": "/imagenesPreguntas/vehiculoEmergencia.jpg",
     "fk_diff_preg_dificultad": 3
   },
   {
@@ -140,7 +169,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica prohibido el paso a vehículos de motor?",
-    "preg_image": "/señal_prohibido.png",
+    "preg_image": "/imagenesPreguntas/prohibidoElPaso.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -155,7 +184,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una señal de fin de limitación de velocidad?",
-    "preg_image": "/señal_fin_limite_velocidad.png",
+    "preg_image": "/imagenesPreguntas/finLimitacion.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -165,7 +194,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de zona escolar?",
-    "preg_image": "/señal_zona_escolar.png",
+    "preg_image": "/imagenesPreguntas/señalNiños.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -175,7 +204,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica prioridad sobre los vehículos que circulan por la vía transversal?",
-    "preg_image": "/prioridad_via_transversal.png",
+    "preg_image": "/imagenesPreguntas/prioridadTransversal.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -185,7 +214,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica paso prohibido a vehículos pesados?",
-    "preg_image": "/señal_prohibido_pesados.png",
+    "preg_image": "/imagenesPreguntas/vehiculosPesados.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -205,7 +234,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es el significado de una señal de prohibido girar a la izquierda?",
-    "preg_image": "/señal_prohibido_girar_izquierda.png",
+    "preg_image": "/imagenesPreguntas/prohibidoGirarIzquierda.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -215,7 +244,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de límite de peso para vehículos?",
-    "preg_image": "/señal_limite_peso.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -225,17 +254,17 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué debe hacer el conductor si ve una señal de peligro por obras?",
-    "preg_image": "/señal_obras.png",
+    "preg_image": "/imagenesPreguntas/peligroObras.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cómo debe reaccionar el conductor ante un paso a nivel sin barreras?",
-    "preg_image": "/paso_a_nivel.png",
+    "preg_image": "/imagenesPreguntas/pasoNivelSinBarrera.jpg",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué indica una señal de prohibido estacionar?",
-    "preg_image": "/señal_prohibido_estacionar.png",
+    "preg_image": "/imagenesPreguntas/prohibidoEstacionar.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -245,7 +274,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de sentido obligatorio a la derecha?",
-    "preg_image": "/señal_sentido_obligatorio_derecha.png",
+    "preg_image": "/imagenesPreguntas/sentidoDerecha.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -255,7 +284,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una luz amarilla intermitente en un semáforo?",
-    "preg_image": "/semáforo_amarillo_intermitente.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -265,7 +294,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica un cruce con prioridad?",
-    "preg_image": "/señal_prioridad_cruce.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -280,7 +309,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de prioridad a la derecha?",
-    "preg_image": "/señal_prioridad_derecha.png",
+    "preg_image": "/imagenesPreguntas/interseccionPrioridadDerecha.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -290,12 +319,12 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cómo debe actuar ante una señal de fin de autopista?",
-    "preg_image": "/señal_fin_autopista.png",
+    "preg_image": "/imagenesPreguntas/finAutopista.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
     "preg_enunciado": "¿Qué indica una señal de obligación de detenerse para inspección policial?",
-    "preg_image": "/señal_inspeccion_policial.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
@@ -310,7 +339,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de carril reversible?",
-    "preg_image": "/señal_carril_reversible.png",
+    "preg_image": "/imagenesPreguntas/carrilReversible.jpg",
     "fk_diff_preg_dificultad": 3
   },
   {
@@ -325,7 +354,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de prohibido girar a la derecha?",
-    "preg_image": "/señal_prohibido_girar_derecha.png",
+    "preg_image": "/imagenesPreguntas/prohibidoGirarDerecha.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -335,7 +364,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de carril para vehículos lentos?",
-    "preg_image": "/señal_carril_vehiculos_lentos.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -345,7 +374,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una señal de prohibido el paso a peatones?",
-    "preg_image": "/señal_prohibido_paso_peatones.png",
+    "preg_image": "/imagenesPreguntas/prohibidoPasoPeatones.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -360,7 +389,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica una curva peligrosa a la derecha?",
-    "preg_image": "/señal_curva_peligrosa_derecha.png",
+    "preg_image": "/imagenesPreguntas/curvaPeligrosaDerecha.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -370,7 +399,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de límite de altura para vehículos?",
-    "preg_image": "/señal_limite_altura.png",
+    "preg_image": "/imagenesPreguntas/limiteAltura.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -385,7 +414,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica una señal de zona de carga y descarga?",
-    "preg_image": "/señal_carga_descarga.png",
+    "preg_image": "/imagenesPreguntas/cargaDescarga.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -395,22 +424,22 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es la señal que indica que se aproxima un paso a nivel con barreras?",
-    "preg_image": "/señal_paso_a_nivel_barreras.png",
+    "preg_image": "/imagenesPreguntas/pasoNivelBarrera.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Qué significa una señal de velocidad mínima obligatoria?",
-    "preg_image": "/señal_velocidad_minima.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 2
   },
   {
     "preg_enunciado": "¿Cómo debe actuar el conductor si se encuentra con una señal de prioridad en sentido contrario?",
-    "preg_image": "/prioridad_sentido_contrario.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "¿Qué significa una señal de prohibido el paso a bicicletas?",
-    "preg_image": "/señal_prohibido_bicicletas.png",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -434,7 +463,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "El conductor de este vehículo está indicando que va a...",
-    "preg_image": "/intermitenteDerecha",
+    "preg_image": "/imagenesPreguntas/intermitenteDerecha.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -449,12 +478,12 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿De qué peligro advierte esta señal?",
-    "preg_image": "/señalProximidadPasoANivelSinBarrera",
+    "preg_image": "/imagenesPreguntas/pasoNivelSinBarrera.jpg",
     "fk_diff_preg_dificultad": 3
   },
   {
     "preg_enunciado": "Esta señal, ¿prohíbe proseguir la marcha si no dispone de cadenas para nieve?",
-    "preg_image": "/SeñalR-412",
+    "preg_image": "/imagenesPreguntas/neumaticoNieve.jpg",
     "fk_diff_preg_dificultad": 2
   },
   {
@@ -464,7 +493,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué indica esta señal situada en la parte posterior de un vehículo?",
-    "preg_image": "/señalcargasobresalientecoche",
+    "preg_image": "/imagenesPreguntas/cargaSobresaliente.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -509,7 +538,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué significa una señal de tráfico con fondo azul y una letra blanca 'P'?",
-    "preg_image": "/fondoAzulLetraPSeñal",
+    "preg_image": "/imagenesPreguntas/Pazul.jpg",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -524,7 +553,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Qué debe hacer un conductor ante un semáforo en ámbar intermitente?",
-    "preg_image": "/semaforoAmbar",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 3
   },
   {
@@ -549,7 +578,7 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   },
   {
     "preg_enunciado": "¿Cuál es el significado de una señal triangular con borde rojo y fondo blanco?",
-    "preg_image": "/señalTriangularBordeRojoFondoBlancoPELIGRO",
+    "preg_image": "/Placeholder.png",
     "fk_diff_preg_dificultad": 1
   },
   {
@@ -568,17 +597,18 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
 /*RESPUESTAS*/
 
 [
-  {"resp_contenido": "50 km/h", "fk_preg_resp_pregunta": 1, "resp_correcta": true},
+  
   {"resp_contenido": "80 km/h", "fk_preg_resp_pregunta": 1, "resp_correcta": false},
   {"resp_contenido": "30 km/h", "fk_preg_resp_pregunta": 1, "resp_correcta": false},
+  {"resp_contenido": "50 km/h", "fk_preg_resp_pregunta": 1, "resp_correcta": true},
 
-  {"resp_contenido": "Ceder el paso y detenerse completamente", "fk_preg_resp_pregunta": 2, "resp_correcta": true},
   {"resp_contenido": "Reducir la velocidad y continuar", "fk_preg_resp_pregunta": 2, "resp_correcta": false},
+  {"resp_contenido": "Ceder el paso y detenerse completamente", "fk_preg_resp_pregunta": 2, "resp_correcta": true},
   {"resp_contenido": "Acelerar para pasar rápido", "fk_preg_resp_pregunta": 2, "resp_correcta": false},
 
-  {"resp_contenido": "Antes de girar a la izquierda", "fk_preg_resp_pregunta": 3, "resp_correcta": true},
   {"resp_contenido": "Al estacionar el vehículo", "fk_preg_resp_pregunta": 3, "resp_correcta": false},
   {"resp_contenido": "Solo en autopistas", "fk_preg_resp_pregunta": 3, "resp_correcta": false},
+  {"resp_contenido": "Antes de girar a la izquierda", "fk_preg_resp_pregunta": 3, "resp_correcta": true},
 
   {"resp_contenido": "Detenerse completamente y esperar", "fk_preg_resp_pregunta": 4, "resp_correcta": true},
   {"resp_contenido": "Reducir velocidad y pasar con cuidado", "fk_preg_resp_pregunta": 4, "resp_correcta": false},
@@ -592,17 +622,20 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "Los que llegan a la rotonda", "fk_preg_resp_pregunta": 6, "resp_correcta": false},
   {"resp_contenido": "Los peatones que cruzan", "fk_preg_resp_pregunta": 6, "resp_correcta": false},
 
-  {"resp_contenido": "Usar el intermitente para indicar el giro", "fk_preg_resp_pregunta": 7, "resp_correcta": true},
+
   {"resp_contenido": "Tocar el claxon antes de girar", "fk_preg_resp_pregunta": 7, "resp_correcta": false},
+    {"resp_contenido": "Usar el intermitente para indicar el giro", "fk_preg_resp_pregunta": 7, "resp_correcta": true},
   {"resp_contenido": "Encender las luces largas", "fk_preg_resp_pregunta": 7, "resp_correcta": false},
 
-  {"resp_contenido": "Reducir la velocidad y ceder el paso si es necesario", "fk_preg_resp_pregunta": 8, "resp_correcta": true},
+
   {"resp_contenido": "Detenerse siempre, aunque no haya tráfico", "fk_preg_resp_pregunta": 8, "resp_correcta": false},
+    {"resp_contenido": "Reducir la velocidad y ceder el paso si es necesario", "fk_preg_resp_pregunta": 8, "resp_correcta": true},
   {"resp_contenido": "Pasar sin detenerse", "fk_preg_resp_pregunta": 8, "resp_correcta": false},
 
-  {"resp_contenido": "Solo cuando la maniobra sea segura y permitida", "fk_preg_resp_pregunta": 9, "resp_correcta": true},
+
   {"resp_contenido": "En cualquier momento sin precaución", "fk_preg_resp_pregunta": 9, "resp_correcta": false},
   {"resp_contenido": "Nunca está permitido adelantar", "fk_preg_resp_pregunta": 9, "resp_correcta": false},
+    {"resp_contenido": "Solo cuando la maniobra sea segura y permitida", "fk_preg_resp_pregunta": 9, "resp_correcta": true},
 
   {"resp_contenido": "Como mínimo 1,5 metros de separación", "fk_preg_resp_pregunta": 10, "resp_correcta": true},
   {"resp_contenido": "No hay distancia mínima establecida", "fk_preg_resp_pregunta": 10, "resp_correcta": false},
@@ -612,33 +645,33 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "0,5 gramos por litro", "fk_preg_resp_pregunta": 11, "resp_correcta": false},
   {"resp_contenido": "0,8 gramos por litro", "fk_preg_resp_pregunta": 11, "resp_correcta": false},
 
-  {"resp_contenido": "Ceder el paso al vehículo de la derecha", "fk_preg_resp_pregunta": 12, "resp_correcta": true},
   {"resp_contenido": "Continuar sin detenerse", "fk_preg_resp_pregunta": 12, "resp_correcta": false},
   {"resp_contenido": "Detenerse siempre", "fk_preg_resp_pregunta": 12, "resp_correcta": false},
+  {"resp_contenido": "Ceder el paso al vehículo de la derecha", "fk_preg_resp_pregunta": 12, "resp_correcta": true},
 
-  {"resp_contenido": "Precaución por curvas peligrosas adelante", "fk_preg_resp_pregunta": 13, "resp_correcta": true},
   {"resp_contenido": "Prohibido girar en curvas", "fk_preg_resp_pregunta": 13, "resp_correcta": false},
   {"resp_contenido": "Velocidad máxima en curva 30 km/h", "fk_preg_resp_pregunta": 13, "resp_correcta": false},
+  {"resp_contenido": "Precaución por curvas peligrosas adelante", "fk_preg_resp_pregunta": 13, "resp_correcta": true},
 
-  {"resp_contenido": "Apartarse y facilitar el paso", "fk_preg_resp_pregunta": 14, "resp_correcta": true},
   {"resp_contenido": "Continuar sin modificar la marcha", "fk_preg_resp_pregunta": 14, "resp_correcta": false},
+  {"resp_contenido": "Apartarse y facilitar el paso", "fk_preg_resp_pregunta": 14, "resp_correcta": true},
   {"resp_contenido": "Acelerar para despejar la vía", "fk_preg_resp_pregunta": 14, "resp_correcta": false},
 
-  {"resp_contenido": "Zona para que los peatones crucen la calle", "fk_preg_resp_pregunta": 15, "resp_correcta": true},
   {"resp_contenido": "Zona para estacionar bicicletas", "fk_preg_resp_pregunta": 15, "resp_correcta": false},
   {"resp_contenido": "Zona exclusiva para vehículos", "fk_preg_resp_pregunta": 15, "resp_correcta": false},
+  {"resp_contenido": "Zona para que los peatones crucen la calle", "fk_preg_resp_pregunta": 15, "resp_correcta": true},
 
   {"resp_contenido": "Señal roja con coche tachado", "fk_preg_resp_pregunta": 16, "resp_correcta": true},
   {"resp_contenido": "Señal azul con coche permitido", "fk_preg_resp_pregunta": 16, "resp_correcta": false},
   {"resp_contenido": "Señal amarilla de precaución", "fk_preg_resp_pregunta": 16, "resp_correcta": false},
 
-  {"resp_contenido": "Señalizar el lugar y avisar a la autoridad", "fk_preg_resp_pregunta": 17, "resp_correcta": true},
   {"resp_contenido": "Abandonar el lugar rápidamente", "fk_preg_resp_pregunta": 17, "resp_correcta": false},
+  {"resp_contenido": "Señalizar el lugar y avisar a la autoridad", "fk_preg_resp_pregunta": 17, "resp_correcta": true},
   {"resp_contenido": "Ignorar el accidente y continuar", "fk_preg_resp_pregunta": 17, "resp_correcta": false},
 
-  {"resp_contenido": "Solo para carga y descarga breve", "fk_preg_resp_pregunta": 18, "resp_correcta": true},
   {"resp_contenido": "Está permitido siempre", "fk_preg_resp_pregunta": 18, "resp_correcta": false},
   {"resp_contenido": "Nunca está permitido", "fk_preg_resp_pregunta": 18, "resp_correcta": false},
+  {"resp_contenido": "Solo para carga y descarga breve", "fk_preg_resp_pregunta": 18, "resp_correcta": true},
 
   {"resp_contenido": "Finaliza la restricción de velocidad máxima", "fk_preg_resp_pregunta": 19, "resp_correcta": true},
   {"resp_contenido": "Comienza una zona escolar", "fk_preg_resp_pregunta": 19, "resp_correcta": false},
@@ -652,33 +685,33 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "Zona exclusiva para peatones", "fk_preg_resp_pregunta": 21, "resp_correcta": false},
   {"resp_contenido": "Zona de estacionamiento para escolares", "fk_preg_resp_pregunta": 21, "resp_correcta": false},
 
-  {"resp_contenido": "Reducir la velocidad y extremar la precaución", "fk_preg_resp_pregunta": 22, "resp_correcta": true},
   {"resp_contenido": "Acelerar para evitar retrasos", "fk_preg_resp_pregunta": 22, "resp_correcta": false},
+  {"resp_contenido": "Reducir la velocidad y extremar la precaución", "fk_preg_resp_pregunta": 22, "resp_correcta": true},
   {"resp_contenido": "Ignorar la señal y continuar", "fk_preg_resp_pregunta": 22, "resp_correcta": false},
 
-  {"resp_contenido": "Señal que indica prioridad en la vía principal", "fk_preg_resp_pregunta": 23, "resp_correcta": true},
   {"resp_contenido": "Señal que indica ceda el paso", "fk_preg_resp_pregunta": 23, "resp_correcta": false},
+  {"resp_contenido": "Señal que indica prioridad en la vía principal", "fk_preg_resp_pregunta": 23, "resp_correcta": true},
   {"resp_contenido": "Señal de stop", "fk_preg_resp_pregunta": 23, "resp_correcta": false},
 
-  {"resp_contenido": "Accionar el freno de emergencia y usar el freno motor", "fk_preg_resp_pregunta": 24, "resp_correcta": true},
   {"resp_contenido": "Seguir conduciendo normalmente", "fk_preg_resp_pregunta": 24, "resp_correcta": false},
+  {"resp_contenido": "Accionar el freno de emergencia y usar el freno motor", "fk_preg_resp_pregunta": 24, "resp_correcta": true},
   {"resp_contenido": "Apagar el motor inmediatamente", "fk_preg_resp_pregunta": 24, "resp_correcta": false},
 
-  {"resp_contenido": "Señal que prohíbe el paso a camiones y vehículos pesados", "fk_preg_resp_pregunta": 25, "resp_correcta": true},
   {"resp_contenido": "Señal que permite el paso solo a vehículos pesados", "fk_preg_resp_pregunta": 25, "resp_correcta": false},
+  {"resp_contenido": "Señal que prohíbe el paso a camiones y vehículos pesados", "fk_preg_resp_pregunta": 25, "resp_correcta": true},
   {"resp_contenido": "Señal de estacionamiento para vehículos pesados", "fk_preg_resp_pregunta": 25, "resp_correcta": false},
 
-  {"resp_contenido": "Permitir el paso a los peatones y no detenerse encima del paso", "fk_preg_resp_pregunta": 26, "resp_correcta": true},
   {"resp_contenido": "Detenerse siempre delante del paso de peatones", "fk_preg_resp_pregunta": 26, "resp_correcta": false},
   {"resp_contenido": "Ignorar a los peatones si hay semáforo en verde", "fk_preg_resp_pregunta": 26, "resp_correcta": false},
+  {"resp_contenido": "Permitir el paso a los peatones y no detenerse encima del paso", "fk_preg_resp_pregunta": 26, "resp_correcta": true},
 
-  {"resp_contenido": "Prioridad para el vehículo que circula en sentido contrario", "fk_preg_resp_pregunta": 27, "resp_correcta": true},
   {"resp_contenido": "Prioridad para el vehículo que entra al paso estrecho", "fk_preg_resp_pregunta": 27, "resp_correcta": false},
   {"resp_contenido": "No hay prioridad, ambos deben detenerse", "fk_preg_resp_pregunta": 27, "resp_correcta": false},
+  {"resp_contenido": "Prioridad para el vehículo que circula en sentido contrario", "fk_preg_resp_pregunta": 27, "resp_correcta": true},
 
-  {"resp_contenido": "Solo en casos de emergencia para evitar accidentes", "fk_preg_resp_pregunta": 28, "resp_correcta": true},
   {"resp_contenido": "Para saludar a otros conductores", "fk_preg_resp_pregunta": 28, "resp_correcta": false},
   {"resp_contenido": "Siempre que se circule en ciudad", "fk_preg_resp_pregunta": 28, "resp_correcta": false},
+  {"resp_contenido": "Solo en casos de emergencia para evitar accidentes", "fk_preg_resp_pregunta": 28, "resp_correcta": true},
 
   {"resp_contenido": "Está prohibido girar a la izquierda en esa intersección", "fk_preg_resp_pregunta": 29, "resp_correcta": true},
   {"resp_contenido": "Se permite girar a la izquierda con precaución", "fk_preg_resp_pregunta": 29, "resp_correcta": false},
@@ -688,24 +721,24 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "Continuar sin detenerse", "fk_preg_resp_pregunta": 30, "resp_correcta": false},
   {"resp_contenido": "Detenerse siempre", "fk_preg_resp_pregunta": 30, "resp_correcta": false},
 
-  {"resp_contenido": "Indica el peso máximo permitido para vehículos en esa vía", "fk_preg_resp_pregunta": 31, "resp_correcta": true},
   {"resp_contenido": "Indica el límite de velocidad para vehículos pesados", "fk_preg_resp_pregunta": 31, "resp_correcta": false},
+  {"resp_contenido": "Indica el peso máximo permitido para vehículos en esa vía", "fk_preg_resp_pregunta": 31, "resp_correcta": true},
   {"resp_contenido": "Señal para zonas de carga y descarga", "fk_preg_resp_pregunta": 31, "resp_correcta": false},
 
-  {"resp_contenido": "Cuando la visibilidad es inferior a 50 metros", "fk_preg_resp_pregunta": 32, "resp_correcta": true},
   {"resp_contenido": "Siempre que haya lluvia", "fk_preg_resp_pregunta": 32, "resp_correcta": false},
+  {"resp_contenido": "Cuando la visibilidad es inferior a 50 metros", "fk_preg_resp_pregunta": 32, "resp_correcta": true},
   {"resp_contenido": "Al circular por autopista", "fk_preg_resp_pregunta": 32, "resp_correcta": false},
 
-  {"resp_contenido": "Reducir la velocidad y extremar la precaución", "fk_preg_resp_pregunta": 33, "resp_correcta": true},
   {"resp_contenido": "Acelerar para pasar rápido", "fk_preg_resp_pregunta": 33, "resp_correcta": false},
+  {"resp_contenido": "Reducir la velocidad y extremar la precaución", "fk_preg_resp_pregunta": 33, "resp_correcta": true},
   {"resp_contenido": "Ignorar la señal y continuar", "fk_preg_resp_pregunta": 33, "resp_correcta": false},
 
-  {"resp_contenido": "Parar, mirar en ambas direcciones y cruzar solo si es seguro", "fk_preg_resp_pregunta": 34, "resp_correcta": true},
   {"resp_contenido": "Acelerar para cruzar rápido", "fk_preg_resp_pregunta": 34, "resp_correcta": false},
+  {"resp_contenido": "Parar, mirar en ambas direcciones y cruzar solo si es seguro", "fk_preg_resp_pregunta": 34, "resp_correcta": true},
   {"resp_contenido": "Ignorar el paso a nivel", "fk_preg_resp_pregunta": 34, "resp_correcta": false},
 
-  {"resp_contenido": "Prohíbe estacionar en la zona indicada", "fk_preg_resp_pregunta": 35, "resp_correcta": true},
   {"resp_contenido": "Prohíbe el paso de vehículos", "fk_preg_resp_pregunta": 35, "resp_correcta": false},
+  {"resp_contenido": "Prohíbe estacionar en la zona indicada", "fk_preg_resp_pregunta": 35, "resp_correcta": true},
   {"resp_contenido": "Indica zona de estacionamiento permitido", "fk_preg_resp_pregunta": 35, "resp_correcta": false},
 
   {"resp_contenido": "Solo con dispositivos manos libres", "fk_preg_resp_pregunta": 36, "resp_correcta": true},
@@ -720,9 +753,9 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "Colocarlo justo al lado del vehículo", "fk_preg_resp_pregunta": 38, "resp_correcta": false},
   {"resp_contenido": "No es necesario colocar triángulo", "fk_preg_resp_pregunta": 38, "resp_correcta": false},
 
-  {"resp_contenido": "Precaución, se puede pasar pero con cuidado", "fk_preg_resp_pregunta": 39, "resp_correcta": true},
   {"resp_contenido": "Parar obligatoriamente", "fk_preg_resp_pregunta": 39, "resp_correcta": false},
   {"resp_contenido": "Acelerar para pasar rápido", "fk_preg_resp_pregunta": 39, "resp_correcta": false},
+  {"resp_contenido": "Precaución, se puede pasar pero con cuidado", "fk_preg_resp_pregunta": 39, "resp_correcta": true},
 
   {"resp_contenido": "Reducir velocidad y cambiar de carril para alejarse del arcén", "fk_preg_resp_pregunta": 40, "resp_correcta": true},
   {"resp_contenido": "Pasar junto al vehículo sin modificar la velocidad", "fk_preg_resp_pregunta": 40, "resp_correcta": false},
@@ -732,24 +765,24 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "Obliga a detenerse antes de cruzar", "fk_preg_resp_pregunta": 41, "resp_correcta": false},
   {"resp_contenido": "Prohíbe girar en el cruce", "fk_preg_resp_pregunta": 41, "resp_correcta": false},
 
-  {"resp_contenido": "Disminuye la capacidad de reacción y percepción", "fk_preg_resp_pregunta": 42, "resp_correcta": true},
   {"resp_contenido": "Mejora la concentración y reflejos", "fk_preg_resp_pregunta": 42, "resp_correcta": false},
+  {"resp_contenido": "Disminuye la capacidad de reacción y percepción", "fk_preg_resp_pregunta": 42, "resp_correcta": true},
   {"resp_contenido": "No afecta a la conducción", "fk_preg_resp_pregunta": 42, "resp_correcta": false},
 
-  {"resp_contenido": "Encender luces antiniebla y reducir velocidad", "fk_preg_resp_pregunta": 43, "resp_correcta": true},
   {"resp_contenido": "Acelerar para evitar la niebla", "fk_preg_resp_pregunta": 43, "resp_correcta": false},
   {"resp_contenido": "Apagar todas las luces para no deslumbrar", "fk_preg_resp_pregunta": 43, "resp_correcta": false},
+  {"resp_contenido": "Encender luces antiniebla y reducir velocidad", "fk_preg_resp_pregunta": 43, "resp_correcta": true},
 
-  {"resp_contenido": "Indica que debes ceder el paso a vehículos que vienen por la derecha", "fk_preg_resp_pregunta": 44, "resp_correcta": true},
   {"resp_contenido": "Prohíbe girar a la derecha", "fk_preg_resp_pregunta": 44, "resp_correcta": false},
+  {"resp_contenido": "Indica que debes ceder el paso a vehículos que vienen por la derecha", "fk_preg_resp_pregunta": 44, "resp_correcta": true},
   {"resp_contenido": "Obliga a detenerse antes de seguir", "fk_preg_resp_pregunta": 44, "resp_correcta": false},
 
-  {"resp_contenido": "Permiso de conducir, documentación del vehículo y seguro obligatorio", "fk_preg_resp_pregunta": 45, "resp_correcta": true},
   {"resp_contenido": "Solo el permiso de conducir", "fk_preg_resp_pregunta": 45, "resp_correcta": false},
   {"resp_contenido": "Solo la documentación del vehículo", "fk_preg_resp_pregunta": 45, "resp_correcta": false},
+  {"resp_contenido": "Permiso de conducir, documentación del vehículo y seguro obligatorio", "fk_preg_resp_pregunta": 45, "resp_correcta": true},
 
-  {"resp_contenido": "Reducir velocidad y prepararse para salir de la autopista", "fk_preg_resp_pregunta": 46, "resp_correcta": true},
   {"resp_contenido": "Acelerar para salir rápido", "fk_preg_resp_pregunta": 46, "resp_correcta": false},
+  {"resp_contenido": "Reducir velocidad y prepararse para salir de la autopista", "fk_preg_resp_pregunta": 46, "resp_correcta": true},
   {"resp_contenido": "Ignorar la señal y continuar", "fk_preg_resp_pregunta": 46, "resp_correcta": false},
 
   {"resp_contenido": "Obliga a detenerse para control policial", "fk_preg_resp_pregunta": 47, "resp_correcta": true},
@@ -760,8 +793,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"resp_contenido": "90 km/h", "fk_preg_resp_pregunta": 48, "resp_correcta": false},
   {"resp_contenido": "100 km/h", "fk_preg_resp_pregunta": 48, "resp_correcta": false},
 
-  {"resp_contenido": "Detenerse y ceder el paso a peatones", "fk_preg_resp_pregunta": 49, "resp_correcta": true},
   {"resp_contenido": "Pasar sin detenerse", "fk_preg_resp_pregunta": 49, "resp_correcta": false},
+  {"resp_contenido": "Detenerse y ceder el paso a peatones", "fk_preg_resp_pregunta": 49, "resp_correcta": true},
   {"resp_contenido": "Acelerar para evitar que crucen", "fk_preg_resp_pregunta": 49, "resp_correcta": false},
 
   {"resp_contenido": "Indica que el sentido del carril puede cambiar según la señalización", "fk_preg_resp_pregunta": 50, "resp_correcta": true},
@@ -784,14 +817,14 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Reducir la velocidad y detenerse si es necesario para ceder el paso",
-    "fk_preg_resp_pregunta": 52,
-    "resp_correcta": true
-  },
-  {
     "resp_contenido": "Acelerar para pasar antes que el otro vehículo",
     "fk_preg_resp_pregunta": 52,
     "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Reducir la velocidad y detenerse si es necesario para ceder el paso",
+    "fk_preg_resp_pregunta": 52,
+    "resp_correcta": true
   },
   {
     "resp_contenido": "Permanecer en el centro de la calzada",
@@ -950,11 +983,6 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Cuando hay niebla densa, lluvia intensa o nevada",
-    "fk_preg_resp_pregunta": 63,
-    "resp_correcta": true
-  },
-  {
     "resp_contenido": "Solamente en ciudad, por la noche",
     "fk_preg_resp_pregunta": 63,
     "resp_correcta": false
@@ -965,8 +993,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Dar marcha atrás, detenerse y cambiar de sentido están prohibidos",
-    "fk_preg_resp_pregunta": 64,
+    "resp_contenido": "Cuando hay niebla densa, lluvia intensa o nevada",
+    "fk_preg_resp_pregunta": 63,
     "resp_correcta": true
   },
   {
@@ -980,8 +1008,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Indica un espacio reservado para operaciones de carga y descarga",
-    "fk_preg_resp_pregunta": 65,
+    "resp_contenido": "Dar marcha atrás, detenerse y cambiar de sentido están prohibidos",
+    "fk_preg_resp_pregunta": 64,
     "resp_correcta": true
   },
   {
@@ -995,8 +1023,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Reducir la velocidad y detenerse si hay peatones cruzando",
-    "fk_preg_resp_pregunta": 66,
+    "resp_contenido": "Indica un espacio reservado para operaciones de carga y descarga",
+    "fk_preg_resp_pregunta": 65,
     "resp_correcta": true
   },
   {
@@ -1005,8 +1033,18 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
+    "resp_contenido": "Reducir la velocidad y detenerse si hay peatones cruzando",
+    "fk_preg_resp_pregunta": 66,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "Pasar rápidamente sin detenerse",
     "fk_preg_resp_pregunta": 66,
+    "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Indica la presencia de un túnel",
+    "fk_preg_resp_pregunta": 67,
     "resp_correcta": false
   },
   {
@@ -1015,24 +1053,19 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": true
   },
   {
-    "resp_contenido": "Indica la presencia de un túnel",
+    "resp_contenido": "Prohíbe el paso a vehículos pesados",
     "fk_preg_resp_pregunta": 67,
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Prohíbe el paso a vehículos pesados",
-    "fk_preg_resp_pregunta": 67,
+    "resp_contenido": "Es una recomendación de velocidad mínima",
+    "fk_preg_resp_pregunta": 68,
     "resp_correcta": false
   },
   {
     "resp_contenido": "Obliga a circular al menos a la velocidad indicada",
     "fk_preg_resp_pregunta": 68,
     "resp_correcta": true
-  },
-  {
-    "resp_contenido": "Es una recomendación de velocidad mínima",
-    "fk_preg_resp_pregunta": 68,
-    "resp_correcta": false
   },
   {
     "resp_contenido": "Prohíbe circular a la velocidad indicada",
@@ -1069,12 +1102,6 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "fk_preg_resp_pregunta": 70,
     "resp_correcta": false
   },
-
-   {
-    "resp_contenido": "Cuando se sufre una avería o accidente que obliga a detener el vehículo",
-    "fk_preg_resp_pregunta": 71,
-    "resp_correcta": true
-  },
   {
     "resp_contenido": "Para avisar que se va a adelantar",
     "fk_preg_resp_pregunta": 71,
@@ -1084,6 +1111,11 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_contenido": "En cualquier situación de tráfico lento",
     "fk_preg_resp_pregunta": 71,
     "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Cuando se sufre una avería o accidente que obliga a detener el vehículo",
+    "fk_preg_resp_pregunta": 71,
+    "resp_correcta": true
   },
   {
     "resp_contenido": "No, está prohibido circular con matrículas ilegibles",
@@ -1101,18 +1133,23 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Llevarlo abrochado correctamente durante todo el trayecto",
-    "fk_preg_resp_pregunta": 73,
-    "resp_correcta": true
-  },
-  {
     "resp_contenido": "Colocárselo solo en vías interurbanas",
     "fk_preg_resp_pregunta": 73,
     "resp_correcta": false
   },
   {
+    "resp_contenido": "Llevarlo abrochado correctamente durante todo el trayecto",
+    "fk_preg_resp_pregunta": 73,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "Ponérselo solo si el conductor lo indica",
     "fk_preg_resp_pregunta": 73,
+    "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Sí, si el carril izquierdo está libre",
+    "fk_preg_resp_pregunta": 74,
     "resp_correcta": false
   },
   {
@@ -1121,13 +1158,13 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": true
   },
   {
-    "resp_contenido": "Sí, si el carril izquierdo está libre",
+    "resp_contenido": "Sí, si circula a velocidad adecuada",
     "fk_preg_resp_pregunta": 74,
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Sí, si circula a velocidad adecuada",
-    "fk_preg_resp_pregunta": 74,
+    "resp_contenido": "Adelantar a otro vehículo",
+    "fk_preg_resp_pregunta": 75,
     "resp_correcta": false
   },
   {
@@ -1136,19 +1173,9 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": true
   },
   {
-    "resp_contenido": "Adelantar a otro vehículo",
-    "fk_preg_resp_pregunta": 75,
-    "resp_correcta": false
-  },
-  {
     "resp_contenido": "Realizar una parada de emergencia",
     "fk_preg_resp_pregunta": 75,
     "resp_correcta": false
-  },
-  {
-    "resp_contenido": "Será de al menos 1,5 metros",
-    "fk_preg_resp_pregunta": 76,
-    "resp_correcta": true
   },
   {
     "resp_contenido": "Bastará con mantener un metro de separación",
@@ -1161,8 +1188,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "El de posición y, si procede, el de gálibo",
-    "fk_preg_resp_pregunta": 77,
+    "resp_contenido": "Será de al menos 1,5 metros",
+    "fk_preg_resp_pregunta": 76,
     "resp_correcta": true
   },
   {
@@ -1176,8 +1203,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "De la proximidad de un paso a nivel sin barreras",
-    "fk_preg_resp_pregunta": 78,
+    "resp_contenido": "El de posición y, si procede, el de gálibo",
+    "fk_preg_resp_pregunta": 77,
     "resp_correcta": true
   },
   {
@@ -1191,8 +1218,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Sí, cuando la vía esté cubierta de nieve y no se lleven neumáticos especiales",
-    "fk_preg_resp_pregunta": 79,
+    "resp_contenido": "De la proximidad de un paso a nivel sin barreras",
+    "fk_preg_resp_pregunta": 78,
     "resp_correcta": true
   },
   {
@@ -1206,8 +1233,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Disminución de la capacidad de atención y aumento de la euforia",
-    "fk_preg_resp_pregunta": 80,
+    "resp_contenido": "Sí, cuando la vía esté cubierta de nieve y no se lleven neumáticos especiales",
+    "fk_preg_resp_pregunta": 79,
     "resp_correcta": true
   },
   {
@@ -1216,15 +1243,14 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
+    "resp_contenido": "Disminución de la capacidad de atención y aumento de la euforia",
+    "fk_preg_resp_pregunta": 80,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "Mayor rapidez de reacción",
     "fk_preg_resp_pregunta": 80,
     "resp_correcta": false
-  },
-
-   {
-    "resp_contenido": "Que transporta una carga que sobresale por detrás",
-    "fk_preg_resp_pregunta": 81,
-    "resp_correcta": true
   },
   {
     "resp_contenido": "Que es un vehículo prioritario",
@@ -1232,14 +1258,14 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
+    "resp_contenido": "Que transporta una carga que sobresale por detrás",
+    "fk_preg_resp_pregunta": 81,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "Que transporta mercancías peligrosas",
     "fk_preg_resp_pregunta": 81,
     "resp_correcta": false
-  },
-  {
-    "resp_contenido": "Aumenta el riesgo de sufrir somnolencia al volante",
-    "fk_preg_resp_pregunta": 82,
-    "resp_correcta": true
   },
   {
     "resp_contenido": "No tiene repercusión en la conducción",
@@ -1252,8 +1278,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Velocidad excesiva y consumo de alcohol",
-    "fk_preg_resp_pregunta": 83,
+    "resp_contenido": "Aumenta el riesgo de sufrir somnolencia al volante",
+    "fk_preg_resp_pregunta": 82,
     "resp_correcta": true
   },
   {
@@ -1267,8 +1293,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Conducir con las ventanillas abiertas",
-    "fk_preg_resp_pregunta": 84,
+    "resp_contenido": "Velocidad excesiva y consumo de alcohol",
+    "fk_preg_resp_pregunta": 83,
     "resp_correcta": true
   },
   {
@@ -1282,8 +1308,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Porque los avances tecnológicos han mejorado la seguridad de los vehículos",
-    "fk_preg_resp_pregunta": 85,
+    "resp_contenido": "Conducir con las ventanillas abiertas",
+    "fk_preg_resp_pregunta": 84,
     "resp_correcta": true
   },
   {
@@ -1292,19 +1318,24 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
+    "resp_contenido": "Porque los avances tecnológicos han mejorado la seguridad de los vehículos",
+    "fk_preg_resp_pregunta": 85,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "Porque el conductor no influye en la seguridad",
     "fk_preg_resp_pregunta": 85,
+    "resp_correcta": false
+  },
+  {
+    "resp_contenido": "La pintura y la tapicería",
+    "fk_preg_resp_pregunta": 86,
     "resp_correcta": false
   },
   {
     "resp_contenido": "Los frenos, los neumáticos y el sistema de dirección",
     "fk_preg_resp_pregunta": 86,
     "resp_correcta": true
-  },
-  {
-    "resp_contenido": "La pintura y la tapicería",
-    "fk_preg_resp_pregunta": 86,
-    "resp_correcta": false
   },
   {
     "resp_contenido": "Los altavoces y el aire acondicionado",
@@ -1357,11 +1388,6 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Que es una zona de estacionamiento permitido",
-    "fk_preg_resp_pregunta": 90,
-    "resp_correcta": true
-  },
-  {
     "resp_contenido": "Que es una zona reservada a vehículos prioritarios",
     "fk_preg_resp_pregunta": 90,
     "resp_correcta": false
@@ -1371,10 +1397,9 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "fk_preg_resp_pregunta": 90,
     "resp_correcta": false
   },
-
-   {
-    "resp_contenido": "50 km/h",
-    "fk_preg_resp_pregunta": 91,
+  {
+    "resp_contenido": "Que es una zona de estacionamiento permitido",
+    "fk_preg_resp_pregunta": 90,
     "resp_correcta": true
   },
   {
@@ -1383,8 +1408,18 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
+    "resp_contenido": "50 km/h",
+    "fk_preg_resp_pregunta": 91,
+    "resp_correcta": true
+  },
+  {
     "resp_contenido": "60 km/h",
     "fk_preg_resp_pregunta": 91,
+    "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Al estacionar en línea",
+    "fk_preg_resp_pregunta": 92,
     "resp_correcta": false
   },
   {
@@ -1393,19 +1428,9 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": true
   },
   {
-    "resp_contenido": "Al estacionar en línea",
-    "fk_preg_resp_pregunta": 92,
-    "resp_correcta": false
-  },
-  {
     "resp_contenido": "Cuando se circula por un túnel",
     "fk_preg_resp_pregunta": 92,
     "resp_correcta": false
-  },
-  {
-    "resp_contenido": "Pasar con precaución si la situación lo permite",
-    "fk_preg_resp_pregunta": 93,
-    "resp_correcta": true
   },
   {
     "resp_contenido": "Detenerse obligatoriamente",
@@ -1416,6 +1441,11 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_contenido": "Acelerar rápidamente",
     "fk_preg_resp_pregunta": 93,
     "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Pasar con precaución si la situación lo permite",
+    "fk_preg_resp_pregunta": 93,
+    "resp_correcta": true
   },
   {
     "resp_contenido": "Reducir la velocidad y estar preparado para detenerse",
@@ -1448,14 +1478,14 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
     "resp_correcta": false
   },
   {
-    "resp_contenido": "Niveles de aceite, presión de neumáticos y luces",
-    "fk_preg_resp_pregunta": 96,
-    "resp_correcta": true
-  },
-  {
     "resp_contenido": "Estado de la carrocería y cristales",
     "fk_preg_resp_pregunta": 96,
     "resp_correcta": false
+  },
+  {
+    "resp_contenido": "Niveles de aceite, presión de neumáticos y luces",
+    "fk_preg_resp_pregunta": 96,
+    "resp_correcta": true
   },
   {
     "resp_contenido": "La limpieza del interior del vehículo",
@@ -2508,6 +2538,8 @@ TRUNCATE TABLE drht_respuestas_resp RESTART IDENTITY CASCADE;
   {"fk_tsts_pgte_test": 8, "fk_preg_pgte_pregunta": 111},
   {"fk_tsts_pgte_test": 8, "fk_preg_pgte_pregunta": 112}
 ]
+/*TEST DEBUG*/
+
 
 /*LOGROS*/
 

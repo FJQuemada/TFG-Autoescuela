@@ -7,7 +7,7 @@ import { useEffect,useState } from "react";
 
 const Home = () => {
     const navigate = useNavigate();
-    const { rachaMaximaHistorica } = UseUser(); // Accede a la función loginUser desde el contexto
+    const { rachaMaximaHistorica,user } = UseUser(); // Accede a la función loginUser desde el contexto
     const [testSuspenso, setTestSuspenso] = useState(null); // Estado para almacenar el test suspendido
     const [loading, setLoading] = useState(true); // Estado para manejar la carga de datos
     const [ultimaMedalla, setUltimaMedalla] = useState(null); // Estado para almacenar la última medalla
@@ -42,13 +42,17 @@ const Home = () => {
     <MainLayout>
             <div className="">
                 <div className="w-full h-full flex justify-center">
-                    <div className="flex w-5/12 h-[65vh] max-[600px]:h-full max-[600px]:flex-col max-[600px]:w-10/12 max-[600px]:items-center mt-15 ">
-                        <div className="flex flex-col w-4/6 max-[600px]:w-5/6 h-full">
-                            <div className="h-[58%] max-[600px]:py-20 bg-linear-to-bl from-blue-300 to-purple-300 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                <h2 className="font-semibold">Último test/continua test</h2>
+                    <div className="flex w-5/12 h-[65vh] max-[950px]:h-full max-[950px]:flex-col max-[950px]:w-10/12 max-[950px]:items-center mt-15 ">
+                        <div className="flex flex-col w-4/6 max-[950px]:w-5/6 h-full">
+                            <div className=" h-[58%] max-[950px]:py-20 bg-linear-to-bl from-blue-300 to-purple-300 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center flex-col items-center rounded-2xl"
+                                onClick={() => {
+                                    navigate('/tests');
+                                }}>
+                                <h2 className="font-semibold text-2xl text-center">Bienvenido, {user.nombre}</h2>
+                                <p>¿Qué vas a intentar?</p>
                             </div>
                             <div className="flex h-[42%] space-x-4">
-                                <div className="flex-1 max-[600px]:py-20 bg-linear-to-bl from-cyan-400 to-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl"
+                                <div className="flex-1 max-[950px]:py-20 bg-linear-to-bl from-cyan-400 to-green-400 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl"
                                     onClick={() => {
                                         navigate('/stats');
                                     }}>
@@ -56,7 +60,7 @@ const Home = () => {
                                     <div className="flex flex-col items-center">
                                         <h2 className="text-center font-semibold">Última medalla obtenida</h2>
                                         <p className="text-center text-sm">{ultimaMedalla.fk_logr_lgus_logro__logr_nombre}</p>
-                                        <p className="text-sm text-gray-500 italic">{ultimaMedalla.fk_logr_lgus_logro__logr_descripcion}</p>
+                                        <p className="text-sm text-center text-gray-500 italic p-3">{ultimaMedalla.fk_logr_lgus_logro__logr_descripcion}</p>
                                     </div>:
                                     <p className="p-5 text-center font-semibold">No has obtenido ninguna medalla aún</p>
                                     }
@@ -65,10 +69,10 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col w-[40%] max-[600px]:w-[80%] h-full">
+                        <div className="flex flex-col w-[40%] max-[950px]:w-[80%] h-full">
                             {loading ?
                             <div className="h-[58%] bg-gray-200 m-5 flex justify-center items-center rounded-2xl">
-                                <p className="p-5">Cargando...</p>
+                                <p className="p-5 dark:text-white">Cargando...</p>
                                 
                                 </div> 
                                     :   testSuspenso ?
@@ -76,12 +80,12 @@ const Home = () => {
                                 onClick={() => {
                                     navigate(`/test/${testSuspenso.fk_tsts_teus_test}`);
                                 }}>
-                                <p className="p-5 font-semibold">
+                                <p className="p-5 font-semibold text-center">
                                     ¡Tienes un test suspendido con {testSuspenso.teus_fallos} fallos! Pulsa aquí para intentalo de nuevo
                                 </p>
                             </div> :
                             <div className="h-[58%] bg-cyan-200 hover:cursor-pointer hover:scale-104 m-5 duration-400 flex justify-center items-center rounded-2xl">
-                                <p className="p-5 font-semibold">
+                                <p className="p-5 font-semibold text-center">
                                     No tienes ningún test suspenso, ¡genial!
                                 </p>
                             </div>}
@@ -92,7 +96,7 @@ const Home = () => {
                                 }}>
                                 <h2 className="text-center font-semibold">Preguntas encadenadas</h2>
                                 <p className="text-sm text-gray-800 p-5 text-center">Contesta preguntas aleatorias de todos los tests.</p>
-                                <p className=""> Tu racha máxima es de : {<span className="font-bold">{rachaMaximaHistorica}</span>}</p>
+                                <p className="text-center"> Tu racha máxima es de : {<span className="font-bold">{rachaMaximaHistorica}</span>}</p>
                             </div>        
                         </div> 
                         

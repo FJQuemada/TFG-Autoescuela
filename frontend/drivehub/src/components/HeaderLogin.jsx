@@ -5,14 +5,14 @@ import Linkedin from '../assets/linkedin.svg'
 const Header = () =>{
     
     return(
-        <div className="flex justify-between align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] ">
+        <div className="flex justify-between align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] dark:from-[#b697df] dark:to-[#1e1f24] ">
             <header className="ml-20">
                 <img src="src\assets\DriveHub_logo.png" alt="drive_logo" className="w-70 h-20" />
             </header>
-            <nav className="flex justify-end align-middle space-x-10 w-2/6 mr-20 text-xl font-bold">
+            <nav className="flex justify-end align-middle space-x-10 w-2/6 mr-20 text-xl font-bold dark:text-gray-100">
                 <a href="#beneficios">Beneficios</a>
                 <a href="#foro">Foro</a>
-                <div className="flex space-x-3">
+                <div className="flex space-x-3 ">
                     <img src={Linkedin} alt="Linkedin" className='size-7' />
                     <img src={Linkedin} alt="Linkedin" className='size-7' />
                     <img src={Linkedin} alt="Linkedin" className='size-7' />

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registroUsuario } from '../services/api';
 import { useNavigate,Link } from 'react-router-dom';
-import MainLayout from '../layouts/MainLayout';
+
 
 
 const Registro = () => {
@@ -78,15 +78,15 @@ const Registro = () => {
     };
 
     return (
-        <div className="flex flex-col items-center text-base">
+        <div className="flex flex-col items-center text-base dark:bg-[#1e1f24] h-screen">
             {/* Mostramos los errores debajo de cada campo */}
-            <div className="flex justify-between align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] ">
-            <header className="ml-20">
-                <img src="src\assets\DriveHub_logo.png" alt="drive_logo" className="w-70 h-20" />
-            </header>
+            <div className="flex justify-between align-middle items-center w-full h-25 bg-gradient-to-b from-[#b697df] to-[#f0f0f0] dark:from-[#b697df] dark:to-[#1e1f24] ">
+                <header className="ml-20 flex cursor-pointer" title='Volver al login' onClick={() => navigate("/")}>
+                    <img src="src\assets\DriveHub_logo.png" alt="drive_logo" className="w-70 h-20"/>
+                </header>
             </div>
             <form className="flex flex-col items-center mt-10" onSubmit={(e) => handleSumbit(e)} noValidate>
-                <h1 className="text-4xl mt-10 mx-auto">Registro</h1>
+                <h1 className="text-4xl mt-10 mx-auto dark:text-white">Registro</h1>
                 <div className="m-4 relative">
                     <input
                         type="text"
@@ -101,7 +101,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_nombre ? 'border-red-500' : null} border-b-2 ${usuario ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
+                        className={`${errors.usus_nombre ? 'border-red-500' : null} border-b-2 ${usuario ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80 md:w-100 dark:text-white`}
                         title="Rellene este campo"
                     />
                     {errors.usus_nombre && (
@@ -123,7 +123,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_email ? 'border-red-500' : null} border-b-2 ${email ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
+                        className={`${errors.usus_email ? 'border-red-500' : null} border-b-2 ${email ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline  px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80 md:w-100 dark:text-white`}
                         title="Rellene este campo"
                     />
                     
@@ -149,7 +149,7 @@ const Registro = () => {
                             setErrors(newErrors);
                         } 
                         } 
-                        className={`${errors.usus_password ? 'border-red-500' : null} border-b-2 ${password ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
+                        className={`${errors.usus_password ? 'border-red-500' : null} border-b-2 ${password ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80 md:w-100 dark:text-white`}
                         title="Rellene este campo"
                     />
                     {errors.usus_password && (
@@ -169,7 +169,7 @@ const Registro = () => {
                             setErrorPassword(null);
                         } 
                         } 
-                        className={`${errorPassword ? 'border-red-500' : null} border-b-2 ${passwordRepeat ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-100`}
+                        className={`${errorPassword ? 'border-red-500' : null} border-b-2 ${passwordRepeat ? 'border-b-2 border-[#3EB489]' : 'border-b-2 border-gray-300'} no-underline px-3 py-2 focus:outline-none focus:border-[#3EB489] w-80 md:w-100 dark:text-white`}
                         title="Rellene este campo"
                     />
                     {errorPassword && (
@@ -177,12 +177,12 @@ const Registro = () => {
                     )}
                 </div>
 
-                <button type="submit" className='bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold py-2 px-4 roundedm-4'>
+                <button type="submit" className='bg-blue-500 hover:bg-blue-700 cursor-pointer text-white font-bold py-2 px-4 rounded m-4'>
                     Dar de alta
                 </button>
-                <p className="text-sm  mt-2">
+                <p className="text-sm  mt-2 dark:text-white">
                     ¿Ya tienes cuenta?{' '}
-                    <Link to="/" className="text-blue-600 hover:underline">
+                    <Link to="/" className="text-blue-600 hover:underline dark:text-blue-400">
                         Inicia sesión aquí
                     </Link>
                 </p>

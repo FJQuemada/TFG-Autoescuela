@@ -46,15 +46,15 @@ const Resultados = () => {
       // Buscamos la corrección correspondiente a la pregunta actual, aunque todas las preguntas van en orden, es mejor buscarla por si acaso
       let corregida = correccion.resultado_final.find((correccionElement) => correccionElement.pregunta_id === preguntaElement.pregunta.fk_preg_pgte_pregunta__pk_preg_id)
       return(
-        <div key={corregida.pregunta_id} className='w-full flex justify-center items-center'>
-          <div className='w-1/2 p-2'>
+        <div key={corregida.pregunta_id} className='w-full flex justify-center items-center max-[768px]:flex-col-reverse'>
+          <div className='w-1/2 p-2 max-[768px]:w-full'>
             {corregida.correcta ? (
               <div className='items-center mt-3'>
-                <h2 className='bg-green-200 p-3 rounded-2xl'><span className="text-green-500">✔️</span>{index + 1} {corregida.pregunta_enunciado}</h2>
+                <h2 className='bg-green-200 p-3 rounded-2xl dark:text-gray-800'><span className="text-green-500">✔️</span>{index + 1} {corregida.pregunta_enunciado}</h2>
               </div>
             ) : (
               <div className='items-center mt-3'>
-                <h2 className='bg-red-200 p-3 rounded-2xl'><span className="text-red-500">❌</span>{index + 1} {corregida.pregunta_enunciado}</h2>
+                <h2 className='bg-red-200 p-3 rounded-2xl dark:text-gray-800'><span className="text-red-500">❌</span>{index + 1} {corregida.pregunta_enunciado}</h2>
               </div>
             )}
             
@@ -76,7 +76,7 @@ const Resultados = () => {
               }else{
                 backgroundColor = '';
               }
-              return <p key={respuesta.pk_resp_id} className={`${backgroundColor} rounded-md p-1 text-`}>{etiquetar(index)}<span className='p-2'>{respuesta.resp_contenido}</span></p>
+              return <p key={respuesta.pk_resp_id} className={`${backgroundColor} rounded-md p-1 mt-1`}>{etiquetar(index)}<span className='p-2'>{respuesta.resp_contenido}</span></p>
             })}
           </div>
           <div className='p-2'>
@@ -101,16 +101,16 @@ const Resultados = () => {
   return (
     <MainLayout>
       
-      <div className="w-2/3 mx-auto mt-10 p-5 flex flex-col justify-around bg-white rounded-lg shadow-md">
+      <div className="w-2/3 mx-auto mt-10 p-5 flex flex-col justify-around bg-white rounded-lg shadow-md dark:bg-[#30323a] dark:text-white">
         {correccion ? (
           <div className='flex flex-col justify-center items-center align-middle'>
-            <h1 className="text-2xl font-bold">Resultado de la corrección</h1>
+            <h1 className="text-2xl font-bold  max-[768px]:text-center">Resultado de la corrección</h1>
             <p>Has acertado {correccion.preguntas_acertadas + " de " + correccion.preguntas_totales}</p>
             <p>Fallos: {correccion.preguntas_totales - correccion.preguntas_acertadas}</p>
             {(correccion.preguntas_totales - correccion.preguntas_acertadas) <= 3 ? (
-              <p className="text-green-700 font-semibold">¡Felicidades! Has aprobado el test.</p>
+              <p className="text-green-700 font-semibold  max-[768px]:text-center">¡Felicidades! Has aprobado el test.</p>
             ) : (
-              <p className="text-red-700 font-semibold">Lo siento, has suspendido el test.</p>
+              <p className="text-red-700 font-semibold  max-[768px]:text-center">Lo siento, has suspendido el test.</p>
             )}
             {displaySolucion(preguntas,correccion)}
           </div>

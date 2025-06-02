@@ -113,8 +113,8 @@ const Test = () => {
         // Ponemos A,B y C a las respuestas
         return(
           <div key={respuesta.pk_resp_id} className="w-fit p-2 rounded-md m-1 cursor-pointer" onClick={() => setRespuestaSeleccionada(respuesta.pk_resp_id)}>
-            <p className="font-semibold">{etiquetar(index)} 
-                <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300":"bg-gray-300"} w-fit p-2 rounded-md m-1 cursor-pointer`} >
+            <p className="font-semibold dark:text-white">{etiquetar(index)} 
+                <span className={` ${estaSeleccionada(respuesta.pk_resp_id) ? "bg-amber-300 dark:bg-amber-500/70":"bg-gray-300 dark:bg-gray-700"} w-fit p-2 rounded-md m-1 cursor-pointer`} >
                   {respuesta.resp_contenido}
                 </span>
             </p>
@@ -126,21 +126,21 @@ const Test = () => {
   const respuestasCorregidas = (preguntaCorregida,respuestas) =>{
     console.log("correccion");
     return(respuestas.map((respuesta,index) => {
-      let bgColor = "bg-gray-300";
+      let bgColor = "bg-gray-300 dark:bg-gray-700"; // Color por defecto
 
       if (preguntaCorregida.pk_resp_id === respuesta.pk_resp_id){
-        bgColor = "bg-green-300";
+        bgColor = "bg-green-300 dark:bg-green-500/70"; // Respuesta correcta
       }
 
       if (!preguntaCorregida.es_correcta && preguntaCorregida.respuesta_usuario === respuesta.pk_resp_id){
-        bgColor = "bg-red-200";
+        bgColor = "bg-red-200 dark:bg-red-500/70"; // Respuesta incorrecta del usuario
       }
       
 
       // Ponemos A,B y C a las respuestas
       return(
         <div key={respuesta.pk_resp_id} className="w-fit p-2 rounded-md m-1 cursor-pointer">
-          <p className="font-semibold">{etiquetar(index)} 
+          <p className="font-semibold dark:text-white">{etiquetar(index)} 
               <span className={`${bgColor} w-fit p-2 rounded-md m-1 cursor-pointer`} >
                 {respuesta.resp_contenido}
               </span>
@@ -166,10 +166,10 @@ const Test = () => {
             <div className="w-full h-full flex flex-col">
               <div className="w-full flex justify-around">
 
-                <img src={Placeholder} alt="Placeholder" className='w-1/4 m-5' />
+                <img src={pregunta.pregunta.preg_image} alt="Placeholder" className='max-w-[500px] h-[350px] m-5' />
 
                 <div className="w-4/12 flex flex-col justify-center m-5"> 
-                  <h1 className="text-2xl font-bold mb-4">
+                  <h1 className="text-2xl font-bold mb-4 dark:text-white">
                     {pregunta.pregunta.preg_enunciado}
                   </h1>
                   {preguntaCorregida ? respuestasCorregidas(preguntaCorregida,pregunta.respuestas) : respuestasDisplay(pregunta.respuestas)}
@@ -187,11 +187,11 @@ const Test = () => {
               </div>
             </div>
             <div className="w-full flex flex-col items-center mt-5">
-              <p className="text-center text-lg font-semibold mt-4">
+              <p className="text-center text-lg font-semibold mt-4 dark:text-white">
                 Racha de aciertos actuales: {rachaAciertos}
               </p>
               <div className="flex items-end justify-center align-middle mt-4">
-                <p className="text-lg font-semibold">
+                <p className="text-lg font-semibold dark:text-white">
                   Racha máxima histórica: {rachaMaximaHistorica} 
                 </p>
                 <svg fill="#bf3636" width={"30px"} height={"30px"} viewBox="0 0 36 36" version="1.1" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>flame-solid</title> <path d="M31.3,16.32c-1.19-2.09-7.94-14.15-7.94-14.15a1,1,0,0,0-1.75,0l-6,10.64-3-5.28a1,1,0,0,0-1.75,0S5.4,17.43,4.42,19.15A9.3,9.3,0,0,0,3,24.26c0,5.11,3.88,9.65,8.67,9.74H22.48C28.28,34,33,28.62,33,22.44A11.13,11.13,0,0,0,31.3,16.32ZM21.48,32H14.54A4.68,4.68,0,0,1,10,27.41a3.91,3.91,0,0,1,.75-2.34l3.35-5.21a.5.5,0,0,1,.84,0l1.78,2.77,0-.08c.63-1.11,4.23-7.48,4.23-7.48a.5.5,0,0,1,.87,0s3.6,6.38,4.23,7.48A5.83,5.83,0,0,1,27,25.76C27,32,22.1,32,21.48,32Z" className="clr-i-solid clr-i-solid-path-1"></path> <rect x="0" y="0" width="30" height="30" fillOpacity="0"></rect> </g></svg>
