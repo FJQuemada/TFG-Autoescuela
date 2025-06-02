@@ -55,8 +55,6 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),  # Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),      # Redoc UI (opcional)
     path('api/renovar_access_token/', views.renovar_access_token),  # Ruta para renovar el token
-    path('api/dificultades/', views.DificultadList.as_view()),           # Ruta para la vista de dificultades
-    path('api/usuarioprimi/', views.get_usuario_primi),
     path('api/inicio_sesion', views.inicio_sesion),
     path('api/tests_a_tope', views.tests_a_tope),
     path('api/preguntas_a_tope', views.preguntas_a_tope),
@@ -67,7 +65,7 @@ urlpatterns = [
     path('api/tests_page', views.get_tests),
     path('api/cerrar_sesion', views.cerrar_sesion),
     path('api/get_stats',views.get_stats),
-    path('api/pregunta_aleatoria', views.pregunta_aleatoria),
+    path('api/pregunta_aleatoria', views.pregunta_aleatoria, name='pregunta_aleatoria'),    #le pongo name para poder usar reverse en el test
     path('api/corregir_pregunta', views.corregir_pregunta),
     path('api/get_racha_maxima_historica', views.get_racha_maxima_historica),
     path('api/actualizar_racha_maxima_historica', views.actualizar_racha_maxima),

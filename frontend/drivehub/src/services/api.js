@@ -1,15 +1,6 @@
 import axios from 'axios';
 import { api, apiNoAuth } from './apiAuth'; // Importa la instancia de Axios que ya tiene configurado el interceptor
 
-// export const verUsuarioPrimi = async () => {
-//   try {
-//     const response = await api.get('usuarioprimi');
-//     console.log(response);
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-
 export const registroUsuario = async (usuario) => {
   try {
     const response = await apiNoAuth.post('usuarios/', usuario);
@@ -75,16 +66,6 @@ export const verTests = async() =>{
   }
  
 }
-
-// Función para obtener el usuario "primi"
-export const verUsuarioPrimi = async () => {
-  try {
-    const response = await api.get('usuarioprimi');
-    console.log('Usuario primi:', response.data);
-  } catch (error) {
-    console.error('Error al obtener el usuario primi:', error);
-  }
-};
 
 export const corregirTest = async (testId, respuestas) => {
   try {

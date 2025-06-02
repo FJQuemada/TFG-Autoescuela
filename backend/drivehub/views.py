@@ -113,54 +113,6 @@ def inicio_sesion(request):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# get_usuaior_primi pero con el decorador token_requerido
-@api_view(['GET'])
-@token_requerido
-def get_usuario_primi(request):
-    try:
-        usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
-        serializer = UsuariosSerializer(usuario_primi)
-        return Response(serializer.data)  # Devolver los datos del usuario
-    except DrhtUsuariosUsus.DoesNotExist:
-        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-
-
-# #Ejemplo para usar un serializer 
-# @api_view(['GET'])
-# def get_usuario_primi(request):
-#     try:
-#         # Paso 1: Obtener el token del encabezado Authorization
-#         auth_header = request.headers.get('Authorization')
-
-#         if not auth_header or not auth_header.startswith('Bearer '):
-#             return Response({'detail': 'Token no proporcionado'}, status=status.HTTP_401_UNAUTHORIZED)
-
-#         # Obtener el token
-#         token = auth_header.split(' ')[1]
-
-#         # Paso 2: Decodificar el token para obtener el payload
-#         try:
-#             payload = decodificar_token(token)
-#             if not payload:
-#                 return Response({'detail': 'Token inválido.'}, status=status.HTTP_401_UNAUTHORIZED)
-#             # Si la decodificación es exitosa, el token es válido, continuar con la vista
-#             #ESTO ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
-
-#             usuario_primi = DrhtUsuariosUsus.objects.get(pk_usus_id=1)
-#             serializer = UsuariosSerializer(usuario_primi)
-#             return Response(serializer.data)  # Devolver los datos del usuario
-#             #HASTA AQUI ES LO QUE HAY QUE ENVOLVER EN EL DECORADOR
-
-#         except jwt.ExpiredSignatureError:
-#             # El access token ha expirado, devolver 401 para que el frontend inicie la renovación
-#             return Response({'detail': 'Token ha expirado.'}, status=status.HTTP_401_UNAUTHORIZED)
-
-#     except DrhtUsuariosUsus.DoesNotExist:
-#         return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-
-#     except Exception as e:
-#         return Response({'detail': f'Error: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 #bulk de tests
 @api_view(['POST'])
 def tests_a_tope(request):
@@ -906,58 +858,6 @@ def get_tests(request):
     #es mejor usar el .items() para obtener el id y el valor del diccionario
     for test in tests_con_puntuacion:
         print('test', test)
-        
-            
-    
-    # #Instancia de serializer
-    # serializer_puntuaciones = TestUsuarioSerializer(puntuaciones,many=True)
-    
-    # tests_por_id = {}
-    # for test in tests_completos:
-    #     test_id = test['pk_tsts_id']
-    #     #obtener el primer test con menos fallos y del usuario
-    #     puntuacion_test = puntuaciones.filter(fk_tsts_teus_test_id=test_id).order_by('teus_fallos').first()
-    #     if puntuacion_test:
-    #         # Si existe una puntuación para el test, la añadimos al diccionario
-    #         tests_por_id[test_id] = {
-    #             'nombre': test['tsts_nombre'],
-    #             'activo': test['tsts_activo'],
-    #             'dificultad': test['fk_diff_tsts_dificultad__diff_nombre'],
-    #             'puntuacion': {
-    #                 'teus_aciertos': puntuacion_test.teus_aciertos,
-    #                 'teus_fallos': puntuacion_test.teus_fallos,
-    #                 'teus_tiempo': puntuacion_test.teus_tiempo,
-    #                 'teus_fecha': puntuacion_test.teus_fecha
-    #             }
-    #         }
-    # for test in tests_por_id:
-    #     print('test', tests_por_id[test]) 
-
-    # Crear un diccionario con las puntuaciones ordenadas por el usuario_id
-    # tests_por_id = {}
-    # for test in tests_completos:
-    #     test_id = test['pk_tsts_id']
-    #     tests_por_id[test_id] = {
-    #         'nombre': test['tsts_nombre'],
-    #         'activo': test['tsts_activo'],
-    #         'dificultad': test['fk_diff_tsts_dificultad__diff_nombre']
-    #     }
-    # print (tests_por_id)
-    
-    # # Crear un diccionario para almacenar las puntuaciones por test_id
-    # puntuaciones_por_test = {}
-    # for puntuacion in serializer_puntuaciones.data:
-    #     test_id = puntuacion['fk_tsts_teus_test']
-    #     if test_id not in puntuaciones_por_test:
-    #         puntuaciones_por_test[test_id] = []
-    #     puntuaciones_por_test[test_id].append(puntuacion)
-
-    # for punt in puntuaciones_por_test:
-    #     print('puntuaciones_por_test', puntuaciones_por_test[punt])
-    
-    
-    
-    
     
     return Response(tests_con_puntuacion,status= status.HTTP_200_OK)
     
@@ -1156,8 +1056,4 @@ def respuestas_post_foro(request, post_id):
     except Exception as e:
         return Response({'detail': f'Error interno: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-#Esto un ejemplo de que no todos los modelos necesitan ser un ModelViewSet, en este caso solo necesitamos un ListCreateAPIView
-class DificultadList(generics.ListCreateAPIView):
-    queryset = DrhtDificultadDiff.objects.all()
-    serializer_class = DificultadSerializer
 
