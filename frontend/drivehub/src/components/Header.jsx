@@ -18,7 +18,7 @@ const Header = () => {
         {/* Drawer móvil (solo visible en sm) */}
         <div className="flex md:hidden">
           <input type="checkbox" id="drawer-toggle" className="sr-only peer" />
-          <label htmlFor="drawer-toggle" className="z-30 absolute top-4 left-4 inline-block p-3 transition-all duration-500 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
+          <label htmlFor="drawer-toggle" className="z-30 absolute top-4 left-4 inline-block p-3 transition-all duration-300 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
             <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -32,7 +32,7 @@ const Header = () => {
             </svg>
           </label>
 
-          <div className="fixed top-0 left-0 z-20 w-64 h-full transition-all duration-500 transform -translate-x-full bg-white dark:bg-[#1e1f24] shadow-lg peer-checked:translate-x-0 flex flex-col p-6 gap-4 text-lg">
+          <div className="fixed top-0 left-0 z-20 w-64 h-full transition-all duration-300 transform -translate-x-full bg-white dark:bg-[#1e1f24] shadow-lg peer-checked:translate-x-0 flex flex-col p-6 gap-4 text-lg">
             <Link to="/home" className={`${page === '/home' ? 'font-bold underline' : ''}`} onClick={() => document.getElementById('drawer-toggle').checked = false}>Home</Link>
             <Link to="/tests" className={`${page === '/tests' ? 'font-bold underline' : ''}`} onClick={() => document.getElementById('drawer-toggle').checked = false}>Tests</Link>
             <Link to="/foro" className={`${page === '/foro' ? 'font-bold underline' : ''}`} onClick={() => document.getElementById('drawer-toggle').checked = false}>Foro</Link>

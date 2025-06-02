@@ -19,6 +19,8 @@ const Test = () => {
   const [indicePreguntaActual, setIndicePreguntaActual] = useState(0); // Estado para almacenar el índice de la pregunta actual
   const [respuestasSeleccionada, setRespuestasSeleccionada] = useState({}); //Estado para alamacenar las respuestas que vamos seleecionando
 
+  const [imagenAmpliada, setImagenAmpliada] = useState(false);
+
   useEffect(() => {
     // Esta función se ejecuta solo una vez cuando el componente se monta
     const fetchPreguntas = async () => {
@@ -152,7 +154,12 @@ const Test = () => {
           <div className="w-full h-full flex flex-col">
             <div className="w-full flex justify-around">
 
-              <img src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image} alt="Placeholder" className='max-w-[500px] h-[350px] m-5' />
+              <img
+                src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image}
+                alt="Imagen de la pregunta"
+                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in"
+                onClick={() => setImagenAmpliada(true)}
+              />
 
               <div className="w-4/12 flex flex-col justify-center "> 
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">
@@ -210,6 +217,18 @@ const Test = () => {
           </div>
         ) : (
           <p>No se encontraron preguntas.</p>
+        )}
+        {imagenAmpliada && (
+          <div
+            className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
+            onClick={() => setImagenAmpliada(false)}
+          >
+            <img
+              src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image}
+              alt="Imagen ampliada"
+              className="max-w-[90%] max-h-[90%] object-contain cursor-zoom-out"
+            />
+          </div>
         )}
     </MainLayout>
   );

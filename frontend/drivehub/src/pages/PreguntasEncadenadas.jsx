@@ -13,6 +13,7 @@ const Test = () => {
 
   const [pregunta, setPregunta] = useState(null); // Estado para almacenar las preguntas
   const [loading, setLoading] = useState(true); // Estado para controlar la carga
+  const [imagenAmpliada, setImagenAmpliada] = useState(false);
 
   const [respuestaSeleccionada, setRespuestaSeleccionada] = useState(null); //Estado para alamacenar las respuestas que vamos seleecionando
 
@@ -50,6 +51,7 @@ const Test = () => {
   const handleCorregirPregunta = async () => {
     if (respuestaSeleccionada === null) {
       console.log("Selecciona una respuesta antes de corregir");
+      alert("Selecciona una respuesta antes de corregir");
     } else {
       try {
         if (preguntaCorregida) {
@@ -163,18 +165,22 @@ const Test = () => {
     <MainLayout>
         {pregunta ? (
           <>
-            <div className="w-full h-full flex flex-col">
-              <div className="w-full flex justify-around">
+              <div className="w-full flex justify-around max-[768px]:flex-col max-[768px]:items-center">
 
-                <img src={pregunta.pregunta.preg_image} alt="Placeholder" className='max-w-[500px] h-[350px] m-5' />
+                <img
+                src={pregunta.pregunta.preg_image}
+                alt="Imagen de la pregunta"
+                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in"
+                onClick={() => setImagenAmpliada(true)}
+                />
 
-                <div className="w-4/12 flex flex-col justify-center m-5"> 
+                <div className="w-4/12 flex flex-col justify-center m-5 max-[768px]:w-8/12"> 
                   <h1 className="text-2xl font-bold mb-4 dark:text-white">
                     {pregunta.pregunta.preg_enunciado}
                   </h1>
                   {preguntaCorregida ? respuestasCorregidas(preguntaCorregida,pregunta.respuestas) : respuestasDisplay(pregunta.respuestas)}
                   
-                  <div className="flex justify-between mt-4 w-3/4">
+                  <div className="flex justify-between max-[768px]:justify-center mt-4 w-full">
                     <button 
                       className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow cursor-pointer" 
                       onClick={() => handleCorregirPregunta()}>
@@ -185,7 +191,6 @@ const Test = () => {
                 </div>
 
               </div>
-            </div>
             <div className="w-full flex flex-col items-center mt-5">
               <p className="text-center text-lg font-semibold mt-4 dark:text-white">
                 Racha de aciertos actuales: {rachaAciertos}
@@ -200,6 +205,18 @@ const Test = () => {
           </>
         ) : (
           <p>No se encontraron preguntas.</p>
+        )}
+        {imagenAmpliada && (
+          <div
+            className="fixed inset-0 bg-black/80 flex justify-center items-center z-50"
+            onClick={() => setImagenAmpliada(false)}
+          >
+            <img
+              src={pregunta.pregunta.preg_image}
+              alt="Imagen ampliada"
+              className="max-w-[90%] max-h-[90%] object-contain cursor-zoom-out"
+            />
+          </div>
         )}
     </MainLayout>
   );

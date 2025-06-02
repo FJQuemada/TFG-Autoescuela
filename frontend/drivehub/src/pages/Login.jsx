@@ -59,7 +59,7 @@ const Login = () => {
       <div className="flex flex-1 flex-col md:flex-row items-center justify-around w-full h-9/12 px-4 md:px-20">
         <div className="w-full md:w-[550px] flex flex-col text-center md:text-left">
           <h1 className="text-5xl md:text-7xl dark:text-gray-100">Bienvenido a DriveHub</h1>
-          <p className="mt-6 md:mt-10 text-base md:text-lg dark:text-gray-300">
+          <p className="mt-6 md:mt-10 text-base md:text-lg dark:text-gray-300 max-[768px]:px-12">
             Practica con tests. Conecta con una comunidad dedicada a obtener
             el permiso de conducción
           </p>
