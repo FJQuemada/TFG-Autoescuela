@@ -20,7 +20,7 @@ const HeaderLogin = () => {
         {/* Drawer para móvil */}
         <div className="flex md:hidden">
           <input type="checkbox" id="drawer-toggle" className="sr-only peer" />
-          <label htmlFor="drawer-toggle" className="z-30 absolute top-4 left-4 inline-block p-3 transition-all duration-300 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
+          <label htmlFor="drawer-toggle" className="z-30 fixed top-4 left-4 inline-block p-3 transition-all duration-300 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
             <svg viewBox="0 0 24 24" fill="none" width={24} height={24}>
               <path d="M4 18H10" stroke="#000000" strokeWidth="2" strokeLinecap="round" />
               <path d="M4 12L16 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" />

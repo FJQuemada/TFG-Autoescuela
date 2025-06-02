@@ -152,16 +152,16 @@ const Test = () => {
     <MainLayout>
         {preguntas ? (
           <div className="w-full h-full flex flex-col">
-            <div className="w-full flex justify-around">
+            <div className="w-full flex justify-around max-[768px]:flex-col max-[768px]:items-center">
 
               <img
                 src={preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_image}
                 alt="Imagen de la pregunta"
-                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in"
+                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in max-[768px]:max-w-[200px] max-[768px]:h-[150px] "
                 onClick={() => setImagenAmpliada(true)}
               />
 
-              <div className="w-4/12 flex flex-col justify-center "> 
+              <div className="w-4/12 flex flex-col justify-center max-[768px]:w-12/12 max-[768px]:items-center"> 
                 <h1 className="text-2xl font-bold mb-4 dark:text-white">
                   {preguntaActual.pregunta.fk_preg_pgte_pregunta__preg_enunciado}
                 </h1>
@@ -177,7 +177,7 @@ const Test = () => {
                     </div>
                   ))}
                 
-                <div className="flex justify-between mt-4 w-3/4">
+                <div className="flex justify-between mt-4 w-3/4 max-[768px]:items-center max-[768px]:space-x-3">
                   <button
                     onClick={irAPreguntaAnterior}
                     disabled={indicePreguntaActual === 0}

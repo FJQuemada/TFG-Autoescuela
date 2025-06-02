@@ -18,7 +18,7 @@ const Header = () => {
         {/* Drawer móvil (solo visible en sm) */}
         <div className="flex md:hidden">
           <input type="checkbox" id="drawer-toggle" className="sr-only peer" />
-          <label htmlFor="drawer-toggle" className="z-30 absolute top-4 left-4 inline-block p-3 transition-all duration-300 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
+          <label htmlFor="drawer-toggle" className="z-30 fixed top-4 left-4 inline-block p-3 transition-all duration-300 bg-purple-200 rounded-lg peer-checked:left-48 cursor-pointer">
             <svg
                 viewBox="0 0 24 24"
                 fill="none"

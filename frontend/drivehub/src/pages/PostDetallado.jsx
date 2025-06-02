@@ -59,10 +59,10 @@ const PostDetalle = () => {
 
   return (
     <MainLayout>
-      <div className="w-[768px] mx-auto p-6 rounded relative ">
+      <div className="max-w-3xl mx-auto p-6 rounded relative ">
         <div
           onClick={() => navigate('/foro')}
-          className="absolute left-[-20px] top-[15px] p-2 cursor-pointer"
+          className="absolute left-[-20px] top-[15px] p-2 cursor-pointer max-[768px]:left-[-10px] "
           title="Volver al foro"
         >
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-black dark:text-white">
@@ -109,7 +109,7 @@ const PostDetalle = () => {
             <p className='text-gray-900 dark:text-white'>No hay respuestas aún.</p>
           ) : (
             respuestas.map((resp) => (
-              <div key={resp.pk_refe_id} className="p-3 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition-shadow my-4 dark:bg-[#2e2f35]">
+              <div key={resp.pk_refe_id} className="p-6 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg transition-shadow dark:bg-[#2e2f35]">
                 <div className="flex justify-between text-sm mb-1">
                   <span className='text-gray-700 font-semibold dark:text-white'>👤{resp.fk_usus_refe_usuario__usus_nombre || 'Anónimo'}</span>
                   <span className='text-gray-500 dark:text-[#82959b]'>{new Date(resp.refe_fecha).toLocaleString()}</span>

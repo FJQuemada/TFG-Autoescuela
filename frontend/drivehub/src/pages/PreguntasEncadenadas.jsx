@@ -170,7 +170,7 @@ const Test = () => {
                 <img
                 src={pregunta.pregunta.preg_image}
                 alt="Imagen de la pregunta"
-                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in"
+                className="max-w-[500px] h-[350px] m-5 cursor-zoom-in max-[768px]:max-w-[200px] max-[768px]:h-[150px]"
                 onClick={() => setImagenAmpliada(true)}
                 />
 
